@@ -1,0 +1,83 @@
+@use './color' as c;
+@use './font' as f;
+
+* { 
+    box-sizing: border-box; 
+    margin: 0;
+    padding: 0;
+}
+
+body {
+  font-family: f.$font-poppines;
+  background-color: c.$color-white;
+  a {
+    text-decoration: none;
+    color: c.$color-blue;
+  }
+
+  a:hover {
+    color: c.$cta;
+  }
+
+  h1 {
+    font-family: f.$font-anton;
+    text-transform: uppercase;
+    font-size: 2.25rem;
+    color: c.$color-blue;
+  }
+
+  h2 {
+    font-family: f.$font-anton;
+    text-transform: uppercase;
+    font-size: 1.875rem;
+    color: c.$color-blue;
+  }
+  
+  h3 {
+    font-family: f.$font-anton;
+    text-transform: uppercase;
+    font-size: 1.25rem;
+    color: c.$color-blue;
+  }
+
+  h4 {
+    font-family: f.$font-poppines;
+    font-size: 0.8125rem;
+    color: c.$color-blue;
+    font-weight: 700;
+  }
+
+  p {
+    font-size: 0.75rem;
+    line-height: 1.5rem;
+    color: c.$color-blue;
+    line-height: 200%; 
+  }
+
+
+  @media (min-width: 600px) {
+
+  }
+
+  @media (min-width: 1024px) {
+    h1 {
+        font-size: 4rem;
+    }
+
+    h2 {
+        font-size: 3rem;
+    }
+
+    h3 {
+        font-size: 1.5rem;
+    }
+
+    h4 {
+        font-size: 1rem;
+    }
+
+    p {
+        font-size: 0.875rem;
+    }
+  }
+}
