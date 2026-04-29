@@ -52,8 +52,8 @@ import instagramIcon from '../assets/images/icons/instagram_glyph_white.webp'
 </template>
 
 <style scoped lang="scss">
-@use '../assets/_colors.scss' as c;
-@use '../assets/_fonts.scss' as f;
+@use '../assets/_color.scss' as c;
+@use '../assets/_font.scss' as f;
 .footer {
   background-color: c.$color-lblue;
   color: c.$color-white;
