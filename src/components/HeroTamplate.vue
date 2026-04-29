@@ -24,23 +24,13 @@ const props = defineProps({
       <h1 class="content_h1" v-html="props.title"></h1>
       <p class="content_p" v-html="props.text"></p>
 
-      <div class="hero__actions">
-        <a
-          v-if="props.buttonText"
-          :href="props.buttonLink || '#'"
-          class="btn"
-        >
-          {{ props.buttonText }}
-        </a>
-      </div>
     </div>
   </section>
 </template>
 
 <style lang="scss" scoped>
-@use '../assets/_colors.scss' as c;
-@use '../assets/_fonts.scss' as f;
-@use '../assets/_buttons.scss' as b;
+@use '../assets/_color.scss' as c;
+@use '../assets/_font.scss' as f;
 
 .hero_tamplate {
   position: relative;
@@ -97,7 +87,7 @@ const props = defineProps({
   justify-content: center;
   align-items: center;
   text-align: center;
-  color: c.$color-secondary;
+  color: c.$cta;
   padding: 0 3rem;
   z-index: 2;
 }
@@ -109,11 +99,6 @@ const props = defineProps({
 
 .hero__text {
   line-height: 2.2rem;
-}
-
-.btn {
-  @include b.button(b.$button-primary);
-  margin: 2rem;
 }
 
 @media (min-width: 1024px) {
