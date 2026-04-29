@@ -1,11 +1,11 @@
 <script>
-import HeroTamplate from '@/components/HeroTamplate.vue';
+import frivillig_hero from '../assets/images/hero/frivillig_hero.webp'
 </script>
 
 <template>
    <div class="about-hero">
     <HeroTamplate
-      :image="friendsImg"
+      :image="frivillig_hero"
       title="Bevægelse, fællesskab og oplevelser for alle"
       text="Odense Idrætspark skaber rammerne for idræt, bevægelse og fællesskab i hele byen. Her mødes borgere, foreninger og klubber for at dyrke motion, oplevelser og glæden ved at være aktiv – uanset alder og niveau."
       :gradient="true"
