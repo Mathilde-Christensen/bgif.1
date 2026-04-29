@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "firebase": "^12.12.1",
+    "sass": "^1.99.0",
     "vue": "^3.5.32"
   },
   "devDependencies": {
