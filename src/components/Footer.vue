@@ -54,11 +54,15 @@ import instagramIcon from '../assets/images/icons/instagram_glyph_white.webp'
 <style scoped lang="scss">
 @use '../assets/_color.scss' as c;
 @use '../assets/_font.scss' as f;
+
 .footer {
   background-color: c.$color-lblue;
   color: c.$color-white;
   padding: 2rem 1.5rem;
   border-radius: 2rem 2rem 0 0;
+  * {
+    color: c.$color-white;
+  }
 
   &__content {
     display: flex;
@@ -74,14 +78,11 @@ import instagramIcon from '../assets/images/icons/instagram_glyph_white.webp'
 
   &__heading {
     margin: 0;
-    font-size: 1rem;
-    font-weight: 700;
     text-transform: uppercase;
   }
 
   &__text {
     margin: 0;
-    font-size: 1rem;
     line-height: 1.4;
   }
 
