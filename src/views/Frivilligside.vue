@@ -7,8 +7,8 @@ import HeroTamplate from '../components/HeroTamplate.vue'
    <div class="about-hero">
     <HeroTamplate
       :image="frivilligHero"
-      title="Bevægelse, fællesskab og oplevelser for alle"
-      text="Odense Idrætspark skaber rammerne for idræt, bevægelse og fællesskab i hele byen. Her mødes borgere, foreninger og klubber for at dyrke motion, oplevelser og glæden ved at være aktiv – uanset alder og niveau."
+      title="SE HVOR DU KAN HJÆLPE"
+      text="Få overblik, vælg aktiviteter og engagér dig – helt uden besvær"
       :gradient="true"
     />
   </div>

@@ -43,6 +43,15 @@ const props = defineProps({
   align-items: center;
 }
 
+.content_h1 {
+  color: c.$cta;
+}
+
+.content_p {
+  color: c.$color-white;
+  font-weight: 600;
+}
+
 .hero_tamplate--gradient::before {
   content: "";
   position: absolute;
