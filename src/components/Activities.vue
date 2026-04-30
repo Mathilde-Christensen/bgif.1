@@ -94,104 +94,120 @@ function signUpActivity (activity) {
 
 <template>
   <section class="activities">
-    <div class="activities__inner">
-      <h2 class="activities__title">
-        Overblik over frivillige aktiviteter
-      </h2>
+        <div class="activities__inner">
+            <h2 class="activities__title">
+                Overblik over frivillige aktiviteter
+            </h2>
 
-      <div class="activities__list">
-        <article
-          v-for="activity in visibleActivities"
-          :key="activity.id"
-          class="activities__group"
-        >
-          <h3 class="activities__date">
-            {{ activity.dayTitle }}
-          </h3>
+            <div class="activities__list">
+                <article
+                    v-for="activity in visibleActivities"
+                    :key="activity.id"
+                    class="activities__group"
+                    >
+                    <h3 class="activities__date">
+                        {{ activity.dayTitle }}
+                    </h3>
 
-          <div class="activities__card">
-            <div class="activities__content">
-              <p class="activities__time">
-                Kl. {{ activity.start }} – {{ activity.end }}
-              </p>
+                    <div class="activities__card">
+                        <div class="activities__content">
+                            <h4 class="activities__activityTitle">
+                            {{ activity.title }}
+                            </h4>
 
-              <h4 class="activities__activityTitle">
-                {{ activity.title }}
-              </h4>
+                            <div class="activities__metaItem">
+                                <img
+                                    class="activities__metaIcon"
+                                    :src="clockIcon"
+                                    alt=""
+                                >
 
-              <p class="activities__location">
-                {{ activity.location }}
-              </p>
+                                <p class="activities__time">
+                                    Kl. {{ activity.start }} {{ activity.date.split('-').reverse().join('/') }}
+                                </p>
+                            </div>
+
+                            <div class="activities__metaItem">
+                                <img
+                                    class="activities__metaIcon"
+                                    :src="locationIcon"
+                                    alt=""
+                                >
+
+                                <p class="activities__location">
+                                    {{ activity.location }}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="activities__actions">
+                            <button
+                                type="button"
+                                class="activities__infoButton"
+                                aria-label="Læs mere om aktiviteten"
+                                @click="openInfoDialog(activity)"
+                                >
+                                <img
+                                    class="activities__infoIcon"
+                                    :src="informationIcon"
+                                    alt=""
+                                >
+                            </button>
+
+                            <button
+                                type="button"
+                                class="activities__signupButton"
+                                @click="signUpActivity(activity)"
+                                >
+                                Tilmeld
+                            </button>
+                        </div>
+                    </div>
+                </article>
             </div>
 
-            <div class="activities__actions">
-              <button
+            <button
+                v-if="visibleCount < activities.length"
                 type="button"
-                class="activities__infoButton"
-                aria-label="Læs mere om aktiviteten"
-                @click="openInfoDialog(activity)"
-              >
-                <img
-                  class="activities__infoIcon"
-                  :src="informationIcon"
-                  alt=""
-                >
-              </button>
+                class="activities__loadMore"
+                @click="loadMoreActivities"
+            >
+                Indlæs mere
+            </button>
+        </div>
 
-              <button
-                type="button"
-                class="activities__signupButton"
-                @click="signUpActivity(activity)"
-              >
-                Tilmeld
-              </button>
+        <dialog
+            v-if="selectedActivity"
+            open
+            class="activities__dialog"
+            >
+            <div class="activities__dialogContent">
+                <h3 class="activities__dialogTitle">
+                    {{ selectedActivity.title }}
+                </h3>
+
+                <p class="activities__dialogText">
+                    Kl. {{ selectedActivity.start }} – {{ selectedActivity.end }}
+                </p>
+
+                <p class="activities__dialogText">
+                    {{ selectedActivity.location }}
+                </p>
+
+                <p class="activities__dialogText">
+                    {{ selectedActivity.description }}
+                </p>
+
+                <button
+                    type="button"
+                    class="activities__dialogClose"
+                    @click="closeInfoDialog"
+                    >
+                    Luk
+                </button>
             </div>
-          </div>
-        </article>
-      </div>
-
-      <button
-        v-if="visibleCount < activities.length"
-        type="button"
-        class="activities__loadMore"
-        @click="loadMoreActivities"
-      >
-        Indlæs mere
-      </button>
-    </div>
-
-    <dialog
-      v-if="selectedActivity"
-      open
-      class="activities__dialog"
-    >
-      <div class="activities__dialogContent">
-        <h3 class="activities__dialogTitle">
-          {{ selectedActivity.title }}
-        </h3>
-
-        <p class="activities__dialogText">
-          Kl. {{ selectedActivity.start }} – {{ selectedActivity.end }}
-        </p>
-
-        <p class="activities__dialogText">
-          {{ selectedActivity.location }}
-        </p>
-
-        <p class="activities__dialogText">
-          {{ selectedActivity.description }}
-        </p>
-
-        <button
-          type="button"
-          class="activities__dialogClose"
-          @click="closeInfoDialog"
-        >
-          Luk
-        </button>
-      </div>
-    </dialog>
-  </section>
+        </dialog>
+    </section>
 </template>
 
 <style lang="scss" scoped>
@@ -241,7 +257,7 @@ function signUpActivity (activity) {
   align-items: center;
   gap: 24px;
   min-height: 82px;
-  padding: 16px 28px;
+  padding: 20px 32px;
   background-color: c.$color-white;
   border: 1px solid #cfcfcf;
   border-radius: 18px;
@@ -250,15 +266,9 @@ function signUpActivity (activity) {
 
 .activities__content {
   display: grid;
-  gap: 2px;
-}
-
-.activities__time {
-  margin: 0;
-  font-family: f.$font-anton;
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  color: c.$color-blue;
+  grid-template-columns: 1.2fr 1.2fr 1fr;
+  align-items: center;
+  gap: 40px;
 }
 
 .activities__activityTitle {
@@ -269,12 +279,26 @@ function signUpActivity (activity) {
   color: c.$color-blue;
 }
 
+.activities__metaItem {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.activities__metaIcon {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
+
+.activities__time,
 .activities__location {
   margin: 0;
   font-family: f.$font-anton;
-  font-size: 0.75rem;
+  font-size: clamp(1.1rem, 1.8vw, 1.6rem);
   text-transform: uppercase;
   color: c.$color-blue;
+  white-space: nowrap;
 }
 
 .activities__actions {
@@ -355,24 +379,18 @@ function signUpActivity (activity) {
   cursor: pointer;
 }
 
-@media (max-width: 700px) {
-  .activities {
-    padding-block: 45px;
-  }
-
+@media (max-width: 900px) {
   .activities__card {
-    grid-template-columns: 1fr;
-    gap: 18px;
-    padding: 18px;
-  }
+        grid-template-columns: 1fr;
+    }
+
+  .activities__content {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
 
   .activities__actions {
-    justify-content: space-between;
-    gap: 16px;
-  }
-
-  .activities__signupButton {
-    min-width: 130px;
-  }
+        justify-content: space-between;
+    }
 }
 </style>
