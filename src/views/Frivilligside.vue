@@ -45,19 +45,19 @@ import Activities from '../components/Activities.vue'
 @use '@/assets/_button.scss' as btn;
 
 .about-hero {
-  position: relative;
+  position: sticky;
+  top: 0;
+  height: 100vh;
   z-index: 0;
 }
 
 .hero {
-  position: sticky;
-  top: 0;
-  z-index: 0;
+  height: 100%;
 }
 
 .overflow_box {
   position: relative;
-  margin-top: -12vh;
+  margin-top: -25vh;
   background: c.$color-white;
   border-radius: 45px 45px 0 0;
   padding: 70px 24px 60px;
@@ -69,24 +69,14 @@ import Activities from '../components/Activities.vue'
 }
 
 @media (min-width: 768px) {
-  .about-hero {
-    height: 78vh;
-  }
-
   .overflow_box {
-    margin-top: 68vh;
     border-radius: 60px 60px 0 0;
-    padding: 100px 30px 60px;
   }
 }
 
 @media (min-width: 1200px) {
-  .about-hero {
-    height: 80vh;
-  }
-
-  .overflow_box {
-    margin-top: 70vh;
+    .overflow_box {
+    border-radius: 80px 80px 0 0;
   }
 }
 </style>

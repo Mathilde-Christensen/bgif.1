@@ -35,7 +35,7 @@ const props = defineProps({
 .hero_tamplate {
   position: relative;
   width: 100%;
-  height: 80vh;
+  height: 90vh;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -55,6 +55,7 @@ const props = defineProps({
 .hero_tamplate--gradient::before {
   content: "";
   position: absolute;
+  inset: 0; // 👈 DET HER MANGLER
   background: linear-gradient(
     180deg,
     rgba(0, 0, 0, 0.55) 0%,
