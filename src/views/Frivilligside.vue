@@ -5,7 +5,7 @@ import Activities from '../components/Activities.vue'
 </script>
 
 <template>
-   <div class="about-hero">
+  <div class="about-hero">
     <HeroTamplate
       :image="frivilligHero"
       title="SE HVOR DU KAN HJÆLPE"
@@ -13,6 +13,7 @@ import Activities from '../components/Activities.vue'
       :gradient="true"
     />
   </div>
+  <Activities />
 </template>
 
 <style scoped lang="scss">

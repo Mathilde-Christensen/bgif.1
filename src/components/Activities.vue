@@ -1,6 +1,8 @@
 <script setup>
 import { ref, computed } from 'vue'
 import informationIcon from '@/assets/images/icons/information.webp'
+import clockIcon from '@/assets/images/icons/clock.webp'
+import locationIcon from '@/assets/images/icons/locationpin.webp'
 
 const selectedActivity = ref(null)
 
@@ -193,8 +195,8 @@ function signUpActivity (activity) {
 </template>
 
 <style lang="scss" scoped>
-@use '@/assets/_colors.scss' as c;
-@use '@/assets/_fonts.scss' as f;
+@use '@/assets/_color.scss' as c;
+@use '@/assets/_font.scss' as f;
 @use '@/assets/_button.scss' as btn;
 
 .activities {
@@ -209,10 +211,10 @@ function signUpActivity (activity) {
 
 .activities__title {
   margin: 0 0 10px;
-  font-family: f.$font-secondary;
+  font-family: f.$font-anton;
   font-size: clamp(2rem, 4vw, 3.4rem);
   text-transform: uppercase;
-  color: c.$color-black;
+  color: c.$color-blue;
 }
 
 .activities__list {
@@ -227,7 +229,7 @@ function signUpActivity (activity) {
 
 .activities__date {
   margin: 0;
-  font-family: f.$font-secondary;
+  font-family: f.$font-anton;
   font-size: clamp(1.3rem, 2vw, 1.8rem);
   text-transform: uppercase;
   color: c.$color-blue;
@@ -253,15 +255,15 @@ function signUpActivity (activity) {
 
 .activities__time {
   margin: 0;
-  font-family: f.$font-primary;
+  font-family: f.$font-anton;
   font-size: 0.75rem;
   text-transform: uppercase;
-  color: c.$color-black;
+  color: c.$color-blue;
 }
 
 .activities__activityTitle {
   margin: 0;
-  font-family: f.$font-secondary;
+  font-family: f.$font-anton;
   font-size: clamp(1.25rem, 2vw, 1.8rem);
   text-transform: uppercase;
   color: c.$color-blue;
@@ -269,10 +271,10 @@ function signUpActivity (activity) {
 
 .activities__location {
   margin: 0;
-  font-family: f.$font-primary;
+  font-family: f.$font-anton;
   font-size: 0.75rem;
   text-transform: uppercase;
-  color: c.$color-black;
+  color: c.$color-blue;
 }
 
 .activities__actions {
@@ -307,10 +309,10 @@ function signUpActivity (activity) {
   margin-top: 30px;
   border: none;
   background: transparent;
-  font-family: f.$font-primary;
+  font-family: f.$font-anton;
   font-size: 1.2rem;
   text-decoration: underline;
-  color: c.$color-black;
+  color: c.$color-blue;
   cursor: pointer;
 }
 
@@ -331,7 +333,7 @@ function signUpActivity (activity) {
 
 .activities__dialogTitle {
   margin: 0;
-  font-family: f.$font-secondary;
+  font-family: f.$font-anton;
   font-size: 1.6rem;
   text-transform: uppercase;
   color: c.$color-blue;
@@ -339,7 +341,7 @@ function signUpActivity (activity) {
 
 .activities__dialogText {
   margin: 0;
-  color: c.$color-black;
+  color: c.$color-blue;
 }
 
 .activities__dialogClose {
@@ -347,8 +349,7 @@ function signUpActivity (activity) {
   padding: 10px 22px;
   border: none;
   border-radius: 999px;
-  background-color: c.$color-blue;
-  font-family: f.$font-secondary;
+  font-family: f.$font-anton;
   text-transform: uppercase;
   color: c.$color-white;
   cursor: pointer;
