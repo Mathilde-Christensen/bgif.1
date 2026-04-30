@@ -3,6 +3,7 @@ import { ref, computed } from 'vue'
 import informationIcon from '@/assets/images/icons/information.webp'
 import clockIcon from '@/assets/images/icons/clock.webp'
 import locationIcon from '@/assets/images/icons/locationpin.webp'
+import calendarIcon from '@/assets/images/icons/calendar.webp'
 
 const selectedActivity = ref(null)
 
@@ -182,28 +183,99 @@ function signUpActivity (activity) {
             class="activities__dialog"
             >
             <div class="activities__dialogContent">
-                <h3 class="activities__dialogTitle">
-                    {{ selectedActivity.title }}
-                </h3>
-
-                <p class="activities__dialogText">
-                    Kl. {{ selectedActivity.start }} – {{ selectedActivity.end }}
-                </p>
-
-                <p class="activities__dialogText">
-                    {{ selectedActivity.location }}
-                </p>
-
-                <p class="activities__dialogText">
-                    {{ selectedActivity.description }}
-                </p>
-
                 <button
                     type="button"
                     class="activities__dialogClose"
+                    aria-label="Luk informationsboksen"
                     @click="closeInfoDialog"
                     >
-                    Luk
+                    X
+                </button>
+
+                <h3 class="activities__dialogTitle">
+                {{ selectedActivity.title }}
+                </h3>
+
+                <div class="activities__dialogInfoList">
+                    <div class="activities__dialogInfoItem">
+                        <img
+                        class="activities__dialogIcon"
+                        :src="locationIcon"
+                        alt=""
+                        >
+
+                        <p class="activities__dialogMeta">
+                        {{ selectedActivity.location }}
+                        </p>
+                    </div>
+
+                    <div class="activities__dialogInfoItem">
+                        <img
+                        class="activities__dialogIcon"
+                        :src="clockIcon"
+                        alt=""
+                        >
+
+                        <p class="activities__dialogMeta">
+                        Kl. {{ selectedActivity.start }}
+                        </p>
+                    </div>
+
+                    <div class="activities__dialogInfoItem">
+                        <img
+                        class="activities__dialogIcon"
+                        :src="calendarIcon"
+                        alt=""
+                        >
+
+                        <p class="activities__dialogMeta">
+                        Dato {{ selectedActivity.date.split('-').reverse().join('.') }}
+                        </p>
+                    </div>
+
+                    <div class="activities__dialogInfoItem">
+                        <img
+                        class="activities__dialogIcon"
+                        :src="informationIcon"
+                        alt=""
+                        >
+
+                        <p class="activities__dialogMeta">
+                        {{ selectedActivity.task }}
+                        </p>
+                    </div>
+                </div>
+
+                <p class="activities__dialogDescription">
+                {{ selectedActivity.description }}
+                </p>
+
+                <div class="activities__signedUpBox">
+                    <div
+                        v-for="person in selectedActivity.signedUp"
+                        :key="person.name"
+                        class="activities__signedUpPerson"
+                    >
+                        <div class="activities__personImage"></div>
+
+                        <div>
+                        <p class="activities__personName">
+                            {{ person.name }}
+                        </p>
+
+                        <p class="activities__personTeam">
+                            {{ person.team }}
+                        </p>
+                        </div>
+                    </div>
+                </div>
+
+                <button
+                type="button"
+                class="activities__dialogSignup"
+                @click="signUpActivity(selectedActivity)"
+                >
+                Tilmeld
                 </button>
             </div>
         </dialog>
@@ -352,36 +424,125 @@ function signUpActivity (activity) {
 }
 
 .activities__dialog {
-  width: min(90%, 480px);
+  width: min(90%, 900px);
   padding: 0;
   border: none;
-  border-radius: 18px;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+  border-radius: 45px;
+  background-color: c.$color-white;
+  box-shadow: 0 16px 35px rgba(0, 0, 0, 0.3);
+}
+
+.activities__dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.85);
 }
 
 .activities__dialogContent {
+  position: relative;
   display: grid;
-  gap: 14px;
-  padding: 28px;
+  gap: 24px;
+  padding: 52px 72px;
   background-color: c.$color-white;
+  border-radius: 45px;
+}
+
+.activities__dialogClose {
+  position: absolute;
+  top: 34px;
+  right: 56px;
+  border: none;
+  background: transparent;
+  font-family: f.$font-anton;
+  font-size: 3rem;
+  color: c.$color-blue;
+  cursor: pointer;
 }
 
 .activities__dialogTitle {
   margin: 0;
   font-family: f.$font-anton;
-  font-size: 1.6rem;
+  font-size: 3rem;
   text-transform: uppercase;
   color: c.$color-blue;
 }
 
-.activities__dialogText {
+.activities__dialogInfoList {
+  display: grid;
+  gap: 14px;
+}
+
+.activities__dialogInfoItem {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+.activities__dialogIcon {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
+.activities__dialogMeta {
   margin: 0;
+  font-family: f.$font-anton;
+  font-size: 1.4rem;
+  line-height: 1.2;
+  text-transform: uppercase;
   color: c.$color-blue;
 }
 
-.activities__dialogClose {
+.activities__dialogDescription {
+  margin: 12px 0 0;
+  font-family: f.$font-poppines;
+  font-size: 1rem;
+  line-height: 2;
+  color: c.$color-blue;
+}
+
+.activities__signedUpBox {
+  display: grid;
+  gap: 20px;
+  max-height: 260px;
+  overflow-y: auto;
+  padding: 28px 40px;
+  border: 1px solid #dddddd;
+  border-radius: 22px;
+}
+
+.activities__signedUpPerson {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.activities__personImage {
+  width: 64px;
+  height: 64px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background-color: #d9d9d9;
+}
+
+.activities__personName {
+  margin: 0;
+  font-family: f.$font-poppines;
+  font-size: 1rem;
+  font-weight: 700;
+  color: c.$color-blue;
+}
+
+.activities__personTeam {
+  margin: 0;
+  font-family: f.$font-poppines;
+  font-size: 1rem;
+  line-height: 1.4;
+  color: c.$color-blue;
+}
+
+.activities__dialogSignup {
   @include btn.primaryButton;
-  justify-self: end;
+  justify-self: center;
+  min-width: 320px;
 }
 
 @media (max-width: 900px) {
@@ -404,5 +565,26 @@ function signUpActivity (activity) {
   .activities__actions {
     justify-content: space-between;
   }
+  .activities__dialogContent {
+  padding: 40px 28px;
+}
+
+.activities__dialogClose {
+  top: 22px;
+  right: 28px;
+  font-size: 2.4rem;
+}
+
+.activities__dialogTitle {
+  font-size: 2.2rem;
+}
+
+.activities__dialogMeta {
+  font-size: 1.1rem;
+}
+
+.activities__dialogSignup {
+  min-width: 220px;
+}
 }
 </style>
