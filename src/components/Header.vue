@@ -98,7 +98,7 @@ header {
   z-index: 1000;
 }
 
-/* ---------------- MOBIL LUKKET ---------------- */
+
 .header_mobil {
   position: relative;
   display: flex;
@@ -216,7 +216,6 @@ header {
   object-fit: contain;
 }
 
-/* ---------------- DESKTOP HEADER ---------------- */
 
 .header_nav {
   display: none;

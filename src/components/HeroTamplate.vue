@@ -86,6 +86,7 @@ const props = defineProps({
   height: 100%;
   object-fit: cover;
   z-index: 0;
+  position: fixed;
 }
 
 .hero__content {
