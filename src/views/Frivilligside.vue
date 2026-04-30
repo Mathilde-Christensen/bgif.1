@@ -2,6 +2,7 @@
 import frivilligHero from '../assets/images/hero/frivillig_hero.webp'
 import HeroTamplate from '../components/HeroTamplate.vue'
 import Tak from '../assets/images/tak_for_sidst/frivillig.mp4'
+import Activities from '../components/Activities.vue'
 </script>
 
 <template>
