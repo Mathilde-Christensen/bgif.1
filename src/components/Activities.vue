@@ -246,7 +246,7 @@ function signUpActivity (activity) {
 .activities__date {
   margin: 0;
   font-family: f.$font-anton;
-  font-size: clamp(1.3rem, 2vw, 1.8rem);
+  font-size: 1.5rem;
   text-transform: uppercase;
   color: c.$color-blue;
 }
@@ -256,8 +256,9 @@ function signUpActivity (activity) {
   grid-template-columns: 1fr auto;
   align-items: center;
   gap: 24px;
-  min-height: 82px;
-  padding: 20px 32px;
+  height: 90px;
+  padding: 0 32px;
+  overflow: hidden;
   background-color: c.$color-white;
   border: 1px solid #cfcfcf;
   border-radius: 18px;
@@ -266,36 +267,46 @@ function signUpActivity (activity) {
 
 .activities__content {
   display: grid;
-  grid-template-columns: 1.2fr 1.2fr 1fr;
+  grid-template-columns: minmax(150px, 0.8fr) minmax(210px, 1fr) minmax(260px, 1.3fr);
   align-items: center;
-  gap: 40px;
+  gap: 32px;
 }
 
 .activities__activityTitle {
   margin: 0;
+  max-width: 190px;
   font-family: f.$font-anton;
-  font-size: clamp(1.25rem, 2vw, 1.8rem);
+  font-size: 1.15rem;
+  line-height: 1.2;
   text-transform: uppercase;
   color: c.$color-blue;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .activities__metaItem {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 14px;
+  min-width: 0;
 }
 
 .activities__metaIcon {
-  width: 30px;
-  height: 30px;
+  width: 28px;
+  height: 28px;
   object-fit: contain;
+  flex-shrink: 0;
 }
 
 .activities__time,
 .activities__location {
   margin: 0;
   font-family: f.$font-anton;
-  font-size: clamp(1.1rem, 1.8vw, 1.6rem);
+  font-size: 1rem;
+  line-height: 1.2;
   text-transform: uppercase;
   color: c.$color-blue;
   white-space: nowrap;
@@ -304,7 +315,7 @@ function signUpActivity (activity) {
 .activities__actions {
   display: flex;
   align-items: center;
-  gap: 30px;
+  gap: 28px;
 }
 
 .activities__infoButton {
@@ -369,28 +380,29 @@ function signUpActivity (activity) {
 }
 
 .activities__dialogClose {
+  @include btn.primaryButton;
   justify-self: end;
-  padding: 10px 22px;
-  border: none;
-  border-radius: 999px;
-  font-family: f.$font-anton;
-  text-transform: uppercase;
-  color: c.$color-white;
-  cursor: pointer;
 }
 
 @media (max-width: 900px) {
   .activities__card {
-        grid-template-columns: 1fr;
-    }
+    grid-template-columns: 1fr;
+    height: auto;
+    min-height: 120px;
+    padding: 20px;
+  }
 
   .activities__content {
-        grid-template-columns: 1fr;
-        gap: 12px;
-    }
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .activities__activityTitle {
+    max-width: none;
+  }
 
   .activities__actions {
-        justify-content: space-between;
-    }
+    justify-content: space-between;
+  }
 }
 </style>
