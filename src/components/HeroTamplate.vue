@@ -35,7 +35,7 @@ const props = defineProps({
 .hero_tamplate {
   position: relative;
   width: 100%;
-  height: 75vh;
+  height: 80vh;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -86,7 +86,6 @@ const props = defineProps({
   height: 100%;
   object-fit: cover;
   z-index: 0;
-  position: fixed;
 }
 
 .hero__content {

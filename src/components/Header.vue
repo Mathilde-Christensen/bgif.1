@@ -91,7 +91,7 @@ const closeMenu = () => {
 @use '../assets/_font.scss' as f;
 
 header {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -229,6 +229,7 @@ header {
   .header_nav {
     display: block;
     padding: 38px 80px 0;
+    position: sticky;
   }
 
   .header_nav_ul {
