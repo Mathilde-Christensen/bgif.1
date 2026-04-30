@@ -55,14 +55,13 @@ const props = defineProps({
 .hero_tamplate--gradient::before {
   content: "";
   position: absolute;
-  inset: 0;
   background: linear-gradient(
     180deg,
     rgba(0, 0, 0, 0.55) 0%,
     rgba(0, 0, 0, 0.25) 40%,
     rgba(0, 0, 0, 0.65) 100%
   );
-  z-index: 1;       
+  z-index: 1;
   pointer-events: none;
 }
 
@@ -81,7 +80,6 @@ const props = defineProps({
 
 .hero__img {
   position: absolute;
-  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -91,6 +89,8 @@ const props = defineProps({
 .hero__content {
   position: absolute;
   inset: 0;
+  box-sizing: border-box;
+  max-width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -99,6 +99,10 @@ const props = defineProps({
   color: c.$cta;
   padding: 0 3rem;
   z-index: 2;
+}
+
+.hero_tamplate {
+  box-sizing: border-box;
 }
 
 .hero__title {

@@ -20,7 +20,7 @@ import Activities from '../components/Activities.vue'
 
     <div class="overflow_box">
         <div class="tak_content">
-            <video :src="Tak"></video>
+            <video class="tak_video" :src="Tak"></video>
 
             <div class="tak_text">
                 <h2>Tak for sidst</h2>
@@ -45,24 +45,27 @@ import Activities from '../components/Activities.vue'
 @use '@/assets/_button.scss' as btn;
 
 .about-hero {
-  position: fixed;
-  inset: 0;
-  width: 100%;
-  height: 75vh;
+  position: relative;
   z-index: 0;
 }
 
 .hero {
-  height: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 0;
 }
 
 .overflow_box {
   position: relative;
-  margin-top: 68vh;
+  margin-top: -12vh;
   background: c.$color-white;
   border-radius: 45px 45px 0 0;
   padding: 70px 24px 60px;
   z-index: 2;
+}
+
+.tak_video {
+    width: 50%;
 }
 
 @media (min-width: 768px) {
