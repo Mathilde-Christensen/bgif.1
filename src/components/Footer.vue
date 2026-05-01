@@ -56,77 +56,70 @@ import instagramIcon from '../assets/images/icons/instagram_glyph_white.webp'
 @use '../assets/_font.scss' as f;
 
 .footer {
-    background-color: c.$color-lblue;
+  background-color: c.$color-lblue;
+  color: c.$color-white;
+  padding: 2rem clamp(1.5rem, 8vw, 110px);
+  border-radius: 2rem 2rem 0 0;
+  z-index: 1000;
+
+  * {
     color: c.$color-white;
-    padding: 70px clamp(1.5rem, 8vw, 110px);
-    border-radius: 2rem 2rem 0 0;
-    z-index: 2;
-    * {
-        color: c.$color-white;
-    }
+  }
 
-    &__content {
-        display: flex;
-        flex-direction: column;
-        gap: 2rem;
-    }
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 0 32px;
+  }
 
-    &__section {
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
-    }
+  &__section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
 
-    &__heading {
-        margin: 0;
-        text-transform: uppercase;
-    }
+  &__heading {
+    margin: 0;
+    text-transform: uppercase;
+  }
 
-    &__text {
-        margin: 0;
-        line-height: 1.4;
-    }
+  &__text {
+    margin: 0;
+    line-height: 1.4;
+  }
 
-    &__link {
-        color: c.$color-white;
-        text-decoration: underline;
-    }
+  &__link {
+    text-decoration: underline;
+  }
 
-    &__socials {
-        display: flex;
-        gap: 1rem;
-        align-items: center;
-    }
+  &__socials {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
 
-    &__icon {
-        width: 2.5rem;
-        height: 2.5rem;
-        object-fit: contain;
-    }
-}
+  &__icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    object-fit: contain;
+  }
 
-/* Tablet */
-@media (min-width: 768px) {
-  .footer {
-    padding: 2.5rem 3rem;
-
-    &__content {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 2.5rem;
+  /* Tablet */
+  @media (min-width: 768px) {
+    .footer__content {
+      flex-direction: row;
+      justify-content: space-between;
+      flex-wrap: wrap;
     }
   }
-}
 
-/* Desktop */
-@media (min-width: 1024px) {
-    .footer {
-        padding: 3rem 5rem;
-
-        &__content {
-            grid-template-columns: repeat(4, 1fr);
-            align-items: start;
-        }
+  /* Desktop */
+  @media (min-width: 1024px) {
+    .footer__content {
+      flex-wrap: nowrap;
+      gap: 3rem;
     }
+  }
 }
 </style>
