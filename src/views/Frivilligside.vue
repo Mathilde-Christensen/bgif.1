@@ -22,14 +22,16 @@ import Activities from '../components/Activities.vue'
         <div class="tak_content">
             
             <div class="tak_video_box">
-                <video class="tak_video" :src="Tak"></video>
+                <video class="tak_video" :src="Tak" autoplay muted loop playsinline></video>
             </div>
 
             <div class="tak_text">
-                <h2>Tak for sidst</h2>
-                <p>I sidste uge var frivillige fra klubben med til koncert i Odense, hvor de stod for bar og oprydning.Det gav et overskud på 12.500 kr., som går til nyt udstyr og aktiviteter i klubben.
-                    Tak til alle der var med 💚
+                <h2 class="tak_text--title">Tak for sidst</h2>
+                <p>I sidste uge var frivillige fra klubben med til koncert i Odense, hvor de stod for bar og oprydning. <br>Det gav et overskud på 12.500 kr., som går til nyt udstyr og aktiviteter i klubben.
+                    
                 </p>
+
+                <p class="tak_text--bold">Tak til alle der var med 💚</p>
 
                 <button class="laes_mere_button">Lær mere</button>
             </div>
@@ -74,7 +76,21 @@ import Activities from '../components/Activities.vue'
 }
 
 .laes_mere_button {
+  @include btn.primaryButton;
+  justify-self: center;
+  min-width: 320px;
+}
 
+.tak_content {
+    padding: 10px clamp(1.5rem, 8vw, 110px);
+}
+
+.tak_text--bold {
+    padding: 10px 0px 40px 0px;
+}
+
+.tak_text--title {
+    padding: 0px 0px 20px 0px;
 }
 
 @media (min-width: 768px) {
@@ -82,23 +98,27 @@ import Activities from '../components/Activities.vue'
         border-radius: 60px 60px 0 0;
     }
 
-    .tak_content {
-        display: flex;
-        margin: 70px 100px;
-    }
-
-    .tak_video_box {
-        width: 50%;
-    }
-
-    .ak_text {
-        width: 50%;
-    }
 }
 
 @media (min-width: 1200px) {
     .overflow_box {
     border-radius: 80px 80px 0 0;
   }
+
+      .tak_content {
+        display: flex;
+    }
+
+    .tak_video_box {
+        width: 35%;
+    }
+
+    .tak_text {
+        width: 65%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding-left: 60px;
+    }
 }
 </style>
