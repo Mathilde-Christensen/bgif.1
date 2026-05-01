@@ -1,36 +1,97 @@
 @use './_color.scss' as c;
 @use './_font.scss' as f;
 
-@mixin smallButton {
-  min-width: 150px;
-  padding: 14px 28px;
-  border: none;
-  border-radius: 999px;
-  background-color: c.$color-lblue;
-  font-family: f.$font-anton;
-  font-size: 1rem;
-  text-transform: uppercase;
-  color: c.$color-white;
+$button-small: (
+  bg: c.$color-lblue,
+  color: c.$color-white,
+  hover-bg: c.$cta,
+  radius: 999px,
+  border-width: 1px,
+
+  font: (
+    family: f.$font-anton,
+    size: 0.85rem,
+    weight: 400,
+    transform: uppercase
+  ),
+
+  size: (w: 130px, h: 40px),
+  size-t: (w: 150px, h: 43px, font-size: 0.95rem),
+  size-lg: (w: 160px, h: 46px, font-size: 1rem)
+) !default;
+
+$button-big: (
+  bg: c.$color-lblue,
+  color: c.$color-white,
+  hover-bg: c.$cta,
+  radius: 999px,
+  border-width: 1px,
+
+  font: (
+    family: f.$font-anton,
+    size: 1rem,
+    weight: 400,
+    transform: uppercase
+  ),
+
+  size: (w: 220px, h: 48px),
+  size-t: (w: 280px, h: 56px, font-size: 1.1rem),
+  size-lg: (w: 320px, h: 64px, font-size: 1.2rem)
+) !default;
+
+@mixin button($cfg) {
+  $bg: map-get($cfg, bg);
+  $color: map-get($cfg, color);
+  $hover-bg: map-get($cfg, hover-bg);
+  $radius: map-get($cfg, radius);
+  $border-width: map-get($cfg, border-width);
+  $font: map-get($cfg, font);
+  $size: map-get($cfg, size);
+  $size-t: map-get($cfg, size-t);
+  $size-lg: map-get($cfg, size-lg);
+
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
+  width: map-get($size, w);
+  height: map-get($size, h);
+
+  border: $border-width solid transparent;
+  border-radius: $radius;
+  background-color: $bg;
+
+  font-family: map-get($font, family);
+  font-size: map-get($font, size);
+  font-weight: map-get($font, weight);
+  text-transform: map-get($font, transform);
+  color: $color;
+
   cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
 
   &:hover {
-    background-color: c.$cta;
+    background-color: $hover-bg;
+    transform: translateY(-1px);
+  }
+
+  @media (min-width: 600px) {
+    width: map-get($size-t, w);
+    height: map-get($size-t, h);
+    font-size: map-get($size-t, font-size);
+  }
+
+  @media (min-width: 1024px) {
+    width: map-get($size-lg, w);
+    height: map-get($size-lg, h);
+    font-size: map-get($size-lg, font-size);
   }
 }
 
-@mixin bigButton {
-  min-width: 150px;
-  padding: 14px 28px;
-  border: none;
-  border-radius: 999px;
-  background-color: c.$color-lblue;
-  font-family: f.$font-anton;
-  font-size: 1rem;
-  text-transform: uppercase;
-  color: c.$color-white;
-  cursor: pointer;
+@mixin smallButton {
+  @include button($button-small);
+}
 
-  &:hover {
-    background-color: c.$cta;
-  }
+@mixin bigButton {
+  @include button($button-big);
 }
