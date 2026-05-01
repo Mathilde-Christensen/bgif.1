@@ -6,10 +6,11 @@ import CalendarLogo from '../assets/images/icons/calendarwhite.webp'
 import Chat from '../assets/images/icons/chatikonwhite.webp'
 import Profile from '../assets/images/icons/usericonwhite.webp'
 
-import { ref } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import { RouterLink } from 'vue-router'
 
 const isMenuOpen = ref(false)
+const isScrolled = ref(false)
 
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value
@@ -18,10 +19,22 @@ const toggleMenu = () => {
 const closeMenu = () => {
   isMenuOpen.value = false
 }
+
+const handleScroll = () => {
+  isScrolled.value = window.scrollY > 500
+}
+
+onMounted(() => {
+  window.addEventListener('scroll', handleScroll)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll)
+})
 </script>
 
 <template>
-  <header>
+  <header :class="{ scrolled: isScrolled }">
     <div class="header_mobil">
 
         <button
@@ -111,7 +124,7 @@ header {
 .mobil_logo_img {
   width: 55px;
   position: relative;
-  z-index: 1002;
+  z-index: 1;
 }
 
 .hamburger {
@@ -221,6 +234,25 @@ header {
   display: none;
 }
 
+header.scrolled .hamburger,
+header.scrolled .mobil_nav,
+header.scrolled .nav_box_ul {
+  background: rgba(119, 119, 119, 0.649);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+}
+
+.logo_img,
+.mobil_logo_img {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+header.scrolled .logo_img,
+header.scrolled .mobil_logo_img {
+  opacity: 0;
+  transform: translateY(-10px);
+  pointer-events: none;
+}
+
 @media (min-width: 600px) {
   .header_mobil {
     display: none;
@@ -229,7 +261,7 @@ header {
   .header_nav {
     display: block;
     padding: 38px 80px 0;
-    position: sticky;
+    z-index: 1000;
   }
 
   .header_nav_ul {
