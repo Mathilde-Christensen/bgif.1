@@ -37,12 +37,12 @@ import instagramIcon from '../assets/images/icons/instagram_glyph_white.webp'
         <h3 class="footer__heading">Følg med</h3>
 
         <div class="footer__socials">
-          <a class="footer__social-link" href="#" aria-label="Facebook">
-            <img class="footer__icon" :src="facebookIcon" alt="Facebook ikon">
+          <a href="https://www.facebook.com/bolbrogifdk/?locale=da_DK" target="_blank" rel="noopener">
+            <img src="../assets/images/icons/facebook_logo_secondary.webp" alt="Facebook" class="footer__icon" />
           </a>
 
-          <a class="footer__social-link" href="#" aria-label="Instagram">
-            <img class="footer__icon" :src="instagramIcon" alt="Instagram ikon">
+          <a href="https://www.instagram.com/explore/locations/116632698406902/bolbro-gif/" target="_blank" rel="noopener">
+            <img src="../assets/images/icons/instagram_glyph_white.webp" alt="Instagram" class="footer__icon" />
           </a>
         </div>
       </section>
