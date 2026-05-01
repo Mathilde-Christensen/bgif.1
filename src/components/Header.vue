@@ -76,10 +76,10 @@ const closeMenu = () => {
         <ul class="header_nav_ul">
             <li><RouterLink to="/"><img class="logo_img" :src="Logo" alt="Bolbro logo" /></RouterLink></li>
                 <ul class="nav_box_ul">
-                    <li><RouterLink to="/"><img :src="Home" alt="Home ikon">Hjem</RouterLink></li>
-                    <li><RouterLink to="/calendar"><img :src="CalendarLogo" alt="Calendar ikon">Kalender</RouterLink></li>
-                    <li><RouterLink to="/chat"><img :src="Chat" alt="Chat ikon">Chat</RouterLink></li>
-                    <li><RouterLink to="/profil"><img :src="Profile" alt="Profile ikon">Profil</RouterLink></li>
+                    <li class="nav_box_li"><RouterLink to="/"><img :src="Home" alt="Home ikon">Hjem</RouterLink></li>
+                    <li class="nav_box_li"><RouterLink to="/calendar"><img :src="CalendarLogo" alt="Calendar ikon">Kalender</RouterLink></li>
+                    <li class="nav_box_li"><RouterLink to="/chat"><img :src="Chat" alt="Chat ikon">Chat</RouterLink></li>
+                    <li class="nav_box_li"><RouterLink to="/profil"><img :src="Profile" alt="Profile ikon">Profil</RouterLink></li>
                 </ul>
         </ul>
     </nav>
@@ -244,6 +244,40 @@ header {
   .logo_img {
     width: 55px;
   }
+
+    .nav_box_li {
+    width: 55px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    }
+
+    .nav_box_li a {
+    width: 55px;
+    height: 45px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.2s ease;
+    }
+
+    .nav_box_li img {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+    transition: transform 0.2s ease;
+    transform-origin: center;
+    }
+
+    .nav_box_li:hover img {
+    transform: scale(1.3);
+    }
+
+    .nav_box_li:hover a {
+    opacity: 0.9;
+    }
 
   .nav_box_ul {
     list-style: none;

@@ -76,7 +76,7 @@ import Activities from '../components/Activities.vue'
 }
 
 .laes_mere_button {
-  @include btn.primaryButton;
+  @include btn.bigButton;
   justify-self: center;
   min-width: 320px;
 }
