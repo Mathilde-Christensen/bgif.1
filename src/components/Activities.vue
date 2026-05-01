@@ -408,7 +408,7 @@ function signUpActivity (activity) {
 }
 
 .activities__signupButton {
-  @include btn.primaryButton;
+  @include btn.smallButton;
 }
 
 .activities__loadMore {
@@ -540,7 +540,7 @@ function signUpActivity (activity) {
 }
 
 .activities__dialogSignup {
-  @include btn.primaryButton;
+  @include btn.smallButton;
   justify-self: center;
   min-width: 320px;
 }

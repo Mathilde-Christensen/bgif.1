@@ -1,7 +1,24 @@
 @use './_color.scss' as c;
 @use './_font.scss' as f;
 
-@mixin primaryButton {
+@mixin smallButton {
+  min-width: 150px;
+  padding: 14px 28px;
+  border: none;
+  border-radius: 999px;
+  background-color: c.$color-lblue;
+  font-family: f.$font-anton;
+  font-size: 1rem;
+  text-transform: uppercase;
+  color: c.$color-white;
+  cursor: pointer;
+
+  &:hover {
+    background-color: c.$cta;
+  }
+}
+
+@mixin bigButton {
   min-width: 150px;
   padding: 14px 28px;
   border: none;
