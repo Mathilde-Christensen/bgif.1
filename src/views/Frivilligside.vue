@@ -20,7 +20,10 @@ import Activities from '../components/Activities.vue'
 
     <div class="overflow_box">
         <div class="tak_content">
-            <video class="tak_video" :src="Tak"></video>
+            
+            <div class="tak_video_box">
+                <video class="tak_video" :src="Tak"></video>
+            </div>
 
             <div class="tak_text">
                 <h2>Tak for sidst</h2>
@@ -28,7 +31,7 @@ import Activities from '../components/Activities.vue'
                     Tak til alle der var med 💚
                 </p>
 
-                <button>Lær mere</button>
+                <button class="laes_mere_button">Lær mere</button>
             </div>
         </div>
 
@@ -64,14 +67,33 @@ import Activities from '../components/Activities.vue'
   z-index: 2;
 }
 
+
 .tak_video {
-    width: 50%;
+    width: 100%;
+    border-radius: 40px;
+}
+
+.laes_mere_button {
+
 }
 
 @media (min-width: 768px) {
-  .overflow_box {
-    border-radius: 60px 60px 0 0;
-  }
+    .overflow_box {
+        border-radius: 60px 60px 0 0;
+    }
+
+    .tak_content {
+        display: flex;
+        margin: 70px 100px;
+    }
+
+    .tak_video_box {
+        width: 50%;
+    }
+
+    .ak_text {
+        width: 50%;
+    }
 }
 
 @media (min-width: 1200px) {
