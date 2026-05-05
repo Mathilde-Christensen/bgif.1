@@ -3,6 +3,7 @@ import frivilligHero from '../assets/images/hero/frivillig_hero.webp'
 import HeroTamplate from '../components/HeroTamplate.vue'
 import Tak from '../assets/images/tak_for_sidst/frivillig.mp4'
 import Activities from '../components/Activities.vue'
+import Faq from '../components/Faq.vue'
 
 </script>
 
@@ -36,6 +37,8 @@ import Activities from '../components/Activities.vue'
                 <button class="laes_mere_button">Lær mere</button>
             </div>
         </div>
+        
+        <Faq />
 
         <Activities />
 
@@ -65,7 +68,6 @@ import Activities from '../components/Activities.vue'
   margin-top: -25vh;
   background: c.$color-white;
   border-radius: 45px 45px 0 0;
-  padding: 70px 24px 60px;
   z-index: 2;
 }
 
