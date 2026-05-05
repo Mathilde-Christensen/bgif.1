@@ -31,28 +31,31 @@ const faqs = [
   {
     question: 'Hvor meget tid skal jeg bruge som frivillig?',
     answer:
-      'Du bestemmer selv, hvor meget tid du vil bruge. Nogle aktiviteter tager få timer, mens andre kan være tilbagevendende.'
+      'Du bestemmer selv, hvor meget tid du vil lægge. Mange aktiviteter er enkeltstående eller fleksible, så du kan vælge det, der passer ind i din hverdag. Du kan både tage enkelte vagter eller engagere dig mere fast – alt efter hvad du har tid og lyst til.'
   },
   {
     question: 'Hvordan får jeg overblik over aktiviteter og mine tilmeldinger?',
     answer:
-      'Du kan se dine aktiviteter og tilmeldinger i kalenderen eller på din profil.'
+      'På din profil kan du se et samlet overblik over alle de aktiviteter, du er tilmeldt. I kalenderen kan du samtidig se kommende events og filtrere dem efter interesse. På den måde har du altid ét sted, hvor du kan holde styr på det hele.'
   },
   {
     question: 'Hvad hvis jeg ikke kender nogen i forvejen?',
     answer:
-      'Det er helt okay. Mange kommer alene, og du bliver taget godt imod.'
+      'Du er langt fra den eneste – mange starter uden at kende nogen. Som frivillig bliver du hurtigt en del af fællesskabet, fordi du samarbejder med andre om konkrete opgaver. Det er en god måde at lære nye mennesker at kende på i en tryg og uformel ramme.'
   },
   {
     question: 'Hvad får jeg ud af at være frivillig?',
     answer:
-      'Du bliver en del af et fællesskab, får nye oplevelser og hjælper klubben.'
+      'Som frivillig bliver du en aktiv del af fællesskabet og er med til at gøre en forskel i klubben. Samtidig får du nye erfaringer, kompetencer og relationer, som du kan tage med videre – både socialt og på dit CV.'
   }
 ]
 </script>
 
 <template>
   <section class="faq" ref="faqRef">
+
+    <h2 class="faq__title">VIL DU GIVE EN HÅND MED?</h2>
+
     <div
       v-for="(item, index) in faqs"
       :key="index"
