@@ -39,7 +39,7 @@ import Faq from '../components/Faq.vue'
         </div>
         
         <Faq />
-
+        
         <Activities />
 
     </div>
@@ -68,6 +68,7 @@ import Faq from '../components/Faq.vue'
   margin-top: -25vh;
   background: c.$color-white;
   border-radius: 45px 45px 0 0;
+  padding: 70px 0px 60px;
   z-index: 2;
 }
 
