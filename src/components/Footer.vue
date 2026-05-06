@@ -60,7 +60,7 @@ import instagramIcon from '../assets/images/icons/instagram_glyph_white.webp'
   color: c.$color-white;
   padding: 2rem clamp(1.5rem, 8vw, 110px);
   border-radius: 2rem 2rem 0 0;
-  z-index: 1000;
+  z-index: 5;
 
   * {
     color: c.$color-white;

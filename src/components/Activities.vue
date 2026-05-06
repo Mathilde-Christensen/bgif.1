@@ -60,7 +60,7 @@ const activities = ref([
     title: 'Heartland Festival dag 1',
     location: 'Egeskov Slot, Egeskov Gade 22 5772 Kværndrup',
     task: 'Festivalhjælp',
-    description: 'Frivilligopgaver på festivalområdet.',
+    description: 'Som frivillig på Heartland Festival hjælper du med forskellige opgaver på festivalområdet. Det kan blandt andet være at guide gæster, hjælpe ved områder på pladsen eller løse praktiske opgaver sammen med andre frivillige. Du behøver ikke erfaring på forhånd, og du bliver introduceret til opgaverne ved start. Vagten varer ca. 4 timer og foregår i et socialt og energisk miljø.',
     signedUp: signedUpPeople
   },
   {
@@ -72,7 +72,7 @@ const activities = ref([
     title: 'Heartland Festival dag 2',
     location: 'Egeskov Slot, Egeskov Gade 22 5772 Kværndrup',
     task: 'Festivalhjælp',
-    description: 'Frivilligopgaver på festivalområdet.',
+    description: 'Som frivillig på Heartland Festival hjælper du med forskellige opgaver på festivalområdet. Det kan blandt andet være at guide gæster, hjælpe ved områder på pladsen eller løse praktiske opgaver sammen med andre frivillige. Du behøver ikke erfaring på forhånd, og du bliver introduceret til opgaverne ved start. Vagten varer ca. 4 timer og foregår i et socialt og energisk miljø.',
     signedUp: signedUpPeople
   },
   {
@@ -84,7 +84,7 @@ const activities = ref([
     title: 'Heartland Festival dag 3',
     location: 'Egeskov Slot, Egeskov Gade 22 5772 Kværndrup',
     task: 'Festivalhjælp',
-    description: 'Frivilligopgaver på festivalområdet.',
+    description: 'Som frivillig på Heartland Festival hjælper du med forskellige opgaver på festivalområdet. Det kan blandt andet være at guide gæster, hjælpe ved områder på pladsen eller løse praktiske opgaver sammen med andre frivillige. Du behøver ikke erfaring på forhånd, og du bliver introduceret til opgaverne ved start. Vagten varer ca. 4 timer og foregår i et socialt og energisk miljø.',
     signedUp: signedUpPeople
   },
   {
@@ -96,7 +96,7 @@ const activities = ref([
     title: 'Unity (amerikansk fodbold)',
     location: 'Bolbro Parken, Falen 95 5000 Odense C',
     task: 'Afvikling af arrangement',
-    description: 'Hjælp med afvikling af arrangementet.',
+    description: 'Til Unity-arrangementet hjælper frivillige med afvikling af eventet og praktiske opgaver før og under kampen. Det kan være hjælp til opsætning, gæster, salg eller lettere koordinering omkring området. Du bliver en del af et mindre frivilligteam, hvor samarbejde og fællesskab er i fokus. Vagten varer ca. 2,5 time.',
     signedUp: signedUpPeople
   },
   {
@@ -108,7 +108,7 @@ const activities = ref([
     title: 'Loppemarked',
     location: 'Bolbro Hallen, Friggasvej 14 5200 Odense V',
     task: 'Boder og praktiske opgaver',
-    description: 'Hjælp med boder, gæster og praktiske opgaver.',
+    description: 'Til loppemarkedet hjælper du med praktiske opgaver såsom opsætning af boder, vejledning af gæster samt hjælp til afvikling i løbet af dagen. Opgaverne er simple og fordeles mellem de frivillige på dagen. Der vil være tid til pauser og mulighed for at være social med de andre frivillige. Vagten varer ca. 4 timer.',
     signedUp: signedUpPeople
   }
 ])
@@ -213,107 +213,116 @@ function signUpActivity (activity) {
         Indlæs mere
       </button>
     </div>
-
-    <dialog
-      v-if="selectedActivity"
-      open
-      class="activities__dialog"
-    >
-      <div class="activities__dialogContent">
-        <button
-          type="button"
-          class="activities__dialogClose"
-          aria-label="Luk informationsboksen"
-          @click="closeInfoDialog"
-        >
-          X
-        </button>
-
-        <h3 class="activities__dialogTitle">
-          {{ selectedActivity.title }}
-        </h3>
-
-        <div class="activities__dialogInfoList">
-          <div class="activities__dialogInfoItem">
-            <img
-              class="activities__dialogIcon"
-              :src="locationIcon"
-              alt=""
-            >
-
-            <p class="activities__dialogMeta">
-              {{ selectedActivity.location }}
-            </p>
-          </div>
-
-          <div class="activities__dialogInfoItem">
-            <img
-              class="activities__dialogIcon"
-              :src="clockIcon"
-              alt=""
-            >
-
-            <p class="activities__dialogMeta">
-              Kl. {{ selectedActivity.start }}
-            </p>
-          </div>
-
-          <div class="activities__dialogInfoItem">
-            <img
-              class="activities__dialogIcon"
-              :src="calendarIcon"
-              alt=""
-            >
-
-            <p class="activities__dialogMeta">
-              Dato {{ selectedActivity.date.split('-').reverse().join('.') }}
-            </p>
-          </div>
-
-          <div class="activities__dialogInfoItem">
-            <img
-              class="activities__dialogIcon"
-              :src="informationIcon"
-              alt=""
-            >
-
-            <p class="activities__dialogMeta">
-              {{ selectedActivity.task }}
-            </p>
-          </div>
-        </div>
-
-        <p class="activities__dialogDescription">
-          {{ selectedActivity.description }}
-        </p>
-
-        <div class="activities__signedUpBox">
-          <div
-            v-for="person in selectedActivity.signedUp"
-            :key="person.name"
-            class="activities__signedUpPerson"
+    <Teleport to="body">
+      <dialog
+        v-if="selectedActivity"
+        open
+        class="activities__dialog"
+      >
+        <div class="activities__dialogContent">
+          <button
+            type="button"
+            class="activities__dialogClose"
+            aria-label="Luk informationsboksen"
+            @click="closeInfoDialog"
           >
-            <img
-              class="activities__personImage"
-              :src="person.image"
-              :alt="person.name"
-            >
+            X
+          </button>
 
-            <div>
-              <p class="activities__personName">
-                {{ person.name }}
-              </p>
+          <h3 class="activities__dialogTitle">
+            {{ selectedActivity.title }}
+          </h3>
 
-              <p class="activities__personTeam">
-                {{ person.team }}
+          <div class="activities__dialogInfoList">
+
+            <div class="activities__dialogInfoItem">
+              <img
+                class="activities__dialogIcon"
+                :src="locationIcon"
+                alt=""
+              >
+
+              <p class="activities__dialogMeta">
+                {{ selectedActivity.location }}
               </p>
             </div>
+
+            <div class="activities__dialogInfoItem">
+              <img
+                class="activities__dialogIcon"
+                :src="clockIcon"
+                alt=""
+              >
+
+              <p class="activities__dialogMeta">
+                Kl. {{ selectedActivity.start }}
+              </p>
+            </div>
+
+            <div class="activities__dialogInfoItem">
+              <img
+                class="activities__dialogIcon"
+                :src="calendarIcon"
+                alt=""
+              >
+
+              <p class="activities__dialogMeta">
+                Dato {{ selectedActivity.date.split('-').reverse().join('.') }}
+              </p>
+            </div>
+
+            <div class="activities__dialogInfoItem">
+              <img
+                class="activities__dialogIcon"
+                :src="informationIcon"
+                alt=""
+              >
+
+              <p class="activities__dialogMeta">
+                {{ selectedActivity.task }}
+              </p>
+            </div>
+
+            </div>
+
+            <p class="activities__dialogDescription">
+            {{ selectedActivity.description }}
+            </p>
+
+          <h4 class="activities__signedUpTitle">
+            Tilmeldte
+          </h4>
+
+          <div class="activities__signedUpBox">
+            <div
+              v-for="person in selectedActivity.signedUp"
+              :key="person.name"
+              class="activities__signedUpPerson"
+            >
+              <img
+                class="activities__personImage"
+                :src="person.image"
+                :alt="person.name"
+              >
+
+              <div>
+                <p class="activities__personName">
+                  {{ person.name }}
+                </p>
+
+                <p class="activities__personTeam">
+                  {{ person.team }}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="activities__dialogButtonWrapper">
+            <BookBtn :id="String(selectedActivity.id)" />
           </div>
         </div>
-
-      <BookBtn :id="String(selectedActivity.id)" />
-      </div>
-    </dialog>
+      </dialog>
+    </Teleport>
   </section>
 </template>
 
@@ -458,32 +467,34 @@ function signUpActivity (activity) {
   cursor: pointer;
 }
 
+/* Modal */
 .activities__dialog {
   position: fixed;
   inset: 50% auto auto 50%;
   transform: translate(-50%, -50%);
-  width: min(90%, 900px);
+  width: min(86%, 760px);
   max-height: 90vh;
   padding: 0;
   border: none;
   border-radius: 45px;
   background-color: c.$color-white;
   box-shadow: 0 16px 35px rgba(0, 0, 0, 0.3);
-  z-index: 9999;
+  z-index: 1001;
   overflow: hidden;
 }
 
 .activities__dialogContent {
   position: relative;
   display: grid;
-  gap: 18px;
-  padding: 36px 64px;
+  gap: 16px;
+  padding: 36px 56px 34px;
   background-color: c.$color-white;
   border-radius: 45px;
 }
 
 .activities__dialogTitle {
   margin: 0;
+  padding-right: 50px;
   font-family: f.$font-anton;
   font-size: 2.2rem;
   text-transform: uppercase;
@@ -500,8 +511,19 @@ function signUpActivity (activity) {
   font-size: 1.7rem;
   color: c.$color-blue;
   cursor: pointer;
-  z-index: 2;
-  pointer-events: auto;
+  z-index: 1001;
+}
+
+.activities__dialogInfoList {
+  display: grid;
+  gap: 12px;
+}
+
+.activities__dialogInfoItem {
+  display: grid;
+  grid-template-columns: 36px 1fr;
+  align-items: center;
+  gap: 14px;
 }
 
 .activities__dialogIcon {
@@ -514,27 +536,59 @@ function signUpActivity (activity) {
   margin: 0;
   font-family: f.$font-anton;
   font-size: 1rem;
-  line-height: 1.2;
+  line-height: 1.25;
   text-transform: uppercase;
   color: c.$color-blue;
 }
 
 .activities__dialogDescription {
-  margin: 4px 0 0;
+  margin: 10px 0 0;
   font-family: f.$font-poppines;
   font-size: 0.95rem;
-  line-height: 1.6;
+  line-height: 1.55;
+  text-transform: none;
+  color: c.$color-blue;
+}
+
+.activities__dialogButtonWrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.activities__signedUpTitle {
+  margin: 4px 0 -4px;
+  font-family: f.$font-anton;
+  font-size: 1rem;
+  line-height: 1.25;
+  text-transform: uppercase;
   color: c.$color-blue;
 }
 
 .activities__signedUpBox {
   display: grid;
   gap: 18px;
-  height: 210px;
-  overflow-y: auto;
+  height: 200px;
+  overflow-y: scroll;
   padding: 22px 40px;
   border: 1px solid #dddddd;
   border-radius: 22px;
+  scrollbar-width: auto;
+  scrollbar-color: c.$color-blue #eeeeee;
+}
+
+.activities__signedUpBox::-webkit-scrollbar {
+  width: 12px;
+}
+
+.activities__signedUpBox::-webkit-scrollbar-track {
+  background: #eeeeee;
+  border-radius: 20px;
+}
+
+.activities__signedUpBox::-webkit-scrollbar-thumb {
+  background-color: c.$color-blue;
+  border-radius: 20px;
+  border: 3px solid #eeeeee;
 }
 
 .activities__signedUpPerson {
@@ -594,6 +648,10 @@ function signUpActivity (activity) {
     justify-content: space-between;
   }
 
+  .activities__dialog {
+    width: min(92%, 680px);
+  }
+
   .activities__dialogContent {
     padding: 40px 28px;
   }
@@ -606,6 +664,10 @@ function signUpActivity (activity) {
 
   .activities__dialogTitle {
     font-size: 2.2rem;
+  }
+
+  .activities__dialogInfoItem {
+    grid-template-columns: 34px 1fr;
   }
 
   .activities__dialogMeta {
