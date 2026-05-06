@@ -11,6 +11,8 @@ import girlImage from '@/assets/images/members/girl.webp'
 import dadImage from '@/assets/images/members/dad.webp'
 import previousMemberImage from '@/assets/images/members/previousmember.webp'
 
+import BookBtn from '@/components/BookBtn.vue'
+
 const selectedActivity = ref(null)
 
 const signedUpPeople = [
@@ -196,13 +198,7 @@ function signUpActivity (activity) {
                 >
               </button>
 
-              <button
-                type="button"
-                class="activities__signupButton"
-                @click="signUpActivity(activity)"
-              >
-                Tilmeld
-              </button>
+              <BookBtn :id="String(activity.id)" />
             </div>
           </div>
         </article>
@@ -315,13 +311,7 @@ function signUpActivity (activity) {
           </div>
         </div>
 
-        <button
-          type="button"
-          class="activities__dialogSignup"
-          @click="signUpActivity(selectedActivity)"
-        >
-          Tilmeld
-        </button>
+      <BookBtn :id="String(selectedActivity.id)" />
       </div>
     </dialog>
   </section>

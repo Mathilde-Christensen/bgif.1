@@ -82,7 +82,7 @@ async function toggleOnServer() {
     :disabled="loading"
     :class="{ active: status === 1 }"
   >
-    {{ status === 1 ? 'AFMELD' : 'TILMELD' }}
+    {{ status === 1 ? 'TILMELDT' : 'TILMELD' }}
   </button>
 
   <!-- Bekræftelses-popup -->
@@ -95,14 +95,8 @@ async function toggleOnServer() {
         Bekræft din {{ pendingAction === 'join' ? 'tilmelding' : 'afmelding' }}
       </h2>
 
-      <p class="modal__text" v-if="pendingAction === 'join'">
-        Skulle du blive forhindret, så husk at afmelde dig <strong>senest 12 timer før</strong>,
-        så en anden kan tilmelde holdet.
-      </p>
-      <p class="modal__text" v-else>
-        Ved afmeldelse af aktivitet risikerer du, at din plads går videre til en på
-        evt. venteliste og dermed mister du din plads.
-      </p>
+      <p class="modal__text" v-if="pendingAction === 'join'">Skulle du blive forhindret, så husk at afmelde dig hos den ansvarlige for eventet.</p>
+      <p class="modal__text" v-else>Vil du melde fra? Kontakt den ansvarlige for aktiviteten.</p>
 
       <div class="modal__actions">
         <button class="btn btn--outline" @click="closeConfirm" :disabled="loading">
@@ -120,19 +114,18 @@ async function toggleOnServer() {
 </template>
 
 <style lang="scss" scoped>
-@use '../assets/_buttons.scss' as btn;
-@use '../assets/_fonts.scss' as f;
-@use '../assets/_colors.scss' as c;
+@use '@/assets/_color.scss' as c;
+@use '@/assets/_font.scss' as f;
+@use '@/assets/_button.scss' as btn;
 
 button {
-  @include btn.button(btn.$button-primary);
-  font-family: f.$font-primary;
+  @include btn.button(btn.$button-small);
   border: 0;
   cursor: pointer;
 }
 
 button.active {
-  background: c.$color-primary;
+  background: c.$color-blue;
 }
 
 button:disabled {
@@ -154,7 +147,7 @@ button:disabled {
 .modal {
   width: min(640px, 92vw);
   height: 300px;
-  background: c.$color-secondary;
+  background: c.$color-white;
   border-radius: 14px;
   z-index: 1000;
   pointer-events: auto; 
@@ -169,8 +162,6 @@ button:disabled {
 }
 
 .modal__title {
-  font-family: f.$font-secondary;
-  color: c.$color-primary;
   font-weight: 600;
   font-size: clamp(24px, 3.2vw, 40px);
   line-height: 1.1;
@@ -182,7 +173,6 @@ button:disabled {
 }
 
 .modal__text {
-  color: c.$color-primary;
   font-size: 16px;
   line-height: 1.6;
   margin: 0 0 20px;
@@ -200,30 +190,25 @@ button:disabled {
 }
 
 .btn {
-  @include btn.button(btn.$button-primary);
+  @include btn.button(btn.$button-small);
   font-weight: 900;
 }
 
 .btn--outline {
   background: transparent;
-  color: c.$cta;
-  border: 3px solid c.$cta;
+  color: c.$color-lblue;
+  border: 3px solid c.$color-lblue;
 }
 
 .btn--outline:hover {
-  color: c.$color-tertiary;
-  border-color: c.$color-tertiary;
+  color: c.$cta;
+  border-color: c.$cta;
   background-color: transparent;
 }
 
-.btn--solid {
-  background: c.$cta; /* din orange farve */
-  border: 0;
-  color: c.$color-secondary;
-}
 
 .error {
   margin-top: 10px;
-  color: c.$color-secondary;
+  color: c.$color-lblue;
 }
 </style>
