@@ -15,6 +15,23 @@ import BookBtn from '@/components/BookBtn.vue'
 
 const selectedActivity = ref(null)
 
+const props = defineProps({
+  title: {
+    type: String,
+    default: "Overblik over frivillige aktiviteter",
+  },
+
+  buttonText: {
+    type: String,
+    default: "Tilmeld",
+  },
+
+  isJoined: {
+    type: Boolean,
+    default: false,
+  },
+});
+
 const signedUpPeople = [
   {
     name: 'Mads Nielsen',
@@ -139,9 +156,7 @@ function signUpActivity (activity) {
 <template>
   <section class="activities">
     <div class="activities__inner">
-      <h2 class="activities__title">
-        Overblik over frivillige aktiviteter
-      </h2>
+      <h2 class="activities__title">{{ title }}</h2>
 
       <div class="activities__list">
         <article
@@ -198,20 +213,15 @@ function signUpActivity (activity) {
                 >
               </button>
 
-              <BookBtn :id="String(activity.id)" />
+              <BookBtn
+                :id="String(activity.id)"
+                :button-text="buttonText"
+                :is-joined="isJoined"
+              />
             </div>
           </div>
         </article>
       </div>
-
-      <button
-        v-if="visibleCount < activities.length"
-        type="button"
-        class="activities__loadMore"
-        @click="loadMoreActivities"
-      >
-        Indlæs mere
-      </button>
     </div>
     <Teleport to="body">
       <dialog
@@ -333,7 +343,6 @@ function signUpActivity (activity) {
 
 .activities {
   padding: 70px clamp(1.5rem, 8vw, 110px);
-  background-color: c.$color-white;
 }
 
 .activities__inner {
@@ -415,6 +424,7 @@ function signUpActivity (activity) {
   height: 28px;
   object-fit: contain;
   flex-shrink: 0;
+  transform: scale(1.3);
 }
 
 .activities__time,
