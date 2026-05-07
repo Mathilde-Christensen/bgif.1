@@ -27,6 +27,10 @@ const getScrollLimit = () => {
     return 140
   }
 
+  if (route.path === '/calendar') {
+    return 440
+  }
+
   return 500
 }
 

@@ -135,6 +135,10 @@ import ProfileHero from "@/assets/images/hero/profilehero.webp";
   padding: 0;
 }
 
+section.activities.profile__activities {
+  padding: 0 clamp(1.5rem, 8vw, 110px);
+}
+
 .profile__activities :deep(.activities__title) {
   color: #222222;
   font-size: 34px;

@@ -229,7 +229,7 @@ button {
 }
 
 button.active {
-  background: c.$color-blue;
+  background: c.$color-lblue;
 }
 
 button:disabled {
