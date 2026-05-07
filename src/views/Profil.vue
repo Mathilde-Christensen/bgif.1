@@ -1,15 +1,16 @@
 <script setup>
 import Activities from "@/components/Activities.vue";
+import HeroTamplate from "@/components/HeroTamplate.vue";
 </script>
 
 <template>
-  <section class="profile__hero">
-    <img
-      class="profile__heroImage"
-      src="@/assets/images/hero/profilehero.webp"
-      alt="Herobillede af glade medlemmer, der lader deres hænder møde til et kampråb."
-    />
-  </section>
+ <HeroTamplate
+    class="profile__hero"
+    image="/src/assets/images/hero/profilehero.webp"
+    :gradient="true"
+    height="450px"
+    image-position="center 0%"
+  />
 
   <div class="overflow_box">
     <section class="profile__content">
@@ -63,10 +64,11 @@ import Activities from "@/components/Activities.vue";
 .profile__hero {
   position: sticky;
   top: 0;
-  width: 100%;
-  height: 450px;
-  overflow: hidden;
   z-index: 1;
+}
+
+.profile__hero :deep(.hero__img) {
+  object-position: center 5%;
 }
 
 .profile__heroImage {
@@ -79,11 +81,11 @@ import Activities from "@/components/Activities.vue";
 
 .overflow_box {
   position: relative;
+  z-index: 2;
   margin-top: -25vh;
   background: c.$color-white;
   border-radius: 45px 45px 0 0;
   padding: 70px 0 60px;
-  z-index: 2;
 }
 
 .profile__content {

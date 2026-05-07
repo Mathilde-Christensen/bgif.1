@@ -7,10 +7,12 @@ import Chat from '../assets/images/icons/chatikonwhite.webp'
 import Profile from '../assets/images/icons/usericonwhite.webp'
 
 import { ref, onMounted, onUnmounted } from 'vue'
-import { RouterLink } from 'vue-router'
+import { RouterLink, useRoute } from 'vue-router'
 
 const isMenuOpen = ref(false)
 const isScrolled = ref(false)
+
+const route = useRoute()
 
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value
@@ -21,7 +23,13 @@ const closeMenu = () => {
 }
 
 const handleScroll = () => {
-  isScrolled.value = window.scrollY > 500
+
+const scrollLimit =
+  route.path === '/profil'
+    ? 190
+    : 500
+
+isScrolled.value = window.scrollY > scrollLimit
 }
 
 onMounted(() => {
