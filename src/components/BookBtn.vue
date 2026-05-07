@@ -4,8 +4,18 @@ import { ref, onMounted } from 'vue'
 const BASE = import.meta.env.VITE_FIREBASE_DATABASE_URL?.replace(/\/$/, '')
 
 const props = defineProps({
-  id: { type: String, required: true }
-})
+  id: { type: String, required: true },
+
+  buttonText: {
+    type: String,
+    default: "",
+  },
+
+  isJoined: {
+    type: Boolean,
+    default: false,
+  },
+});
 
 const status = ref(0)
 const loading = ref(false)
@@ -131,9 +141,9 @@ async function toggleOnServer() {
   <button
     @click="openConfirm"
     :disabled="loading"
-    :class="{ active: status === 1 }"
+    :class="{ active: status === 1 || isJoined }"
   >
-    {{ status === 1 ? 'TILMELDT' : 'TILMELD' }}
+    {{ buttonText || (status === 1 ? 'TILMELDT' : 'TILMELD') }}
   </button>
 
   <div v-if="showConfirm" class="modal-backdrop">

@@ -3,6 +3,7 @@
 
 <template>
   <main>
-    <h1>Chat</h1>
+    <h1>Kalender</h1>
   </main>
+  <Activities />
 </template>
