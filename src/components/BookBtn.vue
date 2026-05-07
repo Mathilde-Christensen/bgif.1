@@ -5,17 +5,15 @@ const BASE = import.meta.env.VITE_FIREBASE_DATABASE_URL?.replace(/\/$/, '')
 
 const props = defineProps({
   id: { type: String, required: true },
-
   buttonText: {
     type: String,
-    default: "",
+    default: '',
   },
-
   isJoined: {
     type: Boolean,
     default: false,
   },
-});
+})
 
 const status = ref(0)
 const loading = ref(false)
@@ -26,7 +24,6 @@ const pendingAction = ref(null)
 
 const showContactForm = ref(false)
 const message = ref('')
-const messageSuccess = ref('')
 const messageError = ref('')
 
 const PATH = `${BASE}/booking/${encodeURIComponent(props.id)}.json`
@@ -75,7 +72,6 @@ function openContactForm() {
 function closeContactForm() {
   showContactForm.value = false
   message.value = ''
-  messageSuccess.value = ''
   messageError.value = ''
 }
 
@@ -87,23 +83,34 @@ async function sendMessage() {
 
   loading.value = true
   messageError.value = ''
-  messageSuccess.value = ''
 
   try {
-    const res = await fetch(`${BASE}/messages.json`, {
+    const messageRes = await fetch(`${BASE}/messages.json`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         activityId: props.id,
         message: message.value,
-        createdAt: new Date().toISOString()
-      })
+        createdAt: new Date().toISOString(),
+      }),
     })
 
-    if (!res.ok) throw new Error(`POST ${res.status} ${res.statusText}`)
+    if (!messageRes.ok) {
+      throw new Error(`POST ${messageRes.status} ${messageRes.statusText}`)
+    }
 
-    messageSuccess.value = 'Din besked er sendt.'
-    message.value = ''
+    const bookingRes = await fetch(PATH, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(0),
+    })
+
+    if (!bookingRes.ok) {
+      throw new Error(`PUT ${bookingRes.status} ${bookingRes.statusText}`)
+    }
+
+    status.value = 0
+    closeContactForm()
   } catch (e) {
     console.error('[BookButton][MESSAGE] failed:', e)
     messageError.value = 'Beskeden kunne ikke sendes.'
@@ -122,7 +129,7 @@ async function toggleOnServer() {
     const res = await fetch(PATH, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(next)
+      body: JSON.stringify(next),
     })
 
     if (!res.ok) throw new Error(`PUT ${res.status} ${res.statusText}`)
