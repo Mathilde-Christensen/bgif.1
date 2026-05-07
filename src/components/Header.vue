@@ -45,69 +45,69 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <header :class="{ scrolled: isScrolled }">
-    <div class="header_mobil">
+    <header :class="{ scrolled: isScrolled }">
+        <div class="header_mobil">
 
-        <button
-            class="hamburger"
-            @click.stop="toggleMenu"
-            :aria-expanded="isMenuOpen"
-            aria-label="Åbn menu"
-        >
-            <span v-if="!isMenuOpen">
-            <img class="hamburger__img_mobil" :src="Burger" alt="burgermenu">
-            </span>
+            <button
+                class="hamburger"
+                @click.stop="toggleMenu"
+                :aria-expanded="isMenuOpen"
+                aria-label="Åbn menu"
+            >
+                <span v-if="!isMenuOpen">
+                    <img class="hamburger__img_mobil" :src="Burger" alt="burgermenu">
+                </span>
 
-            <span v-else class="hamburger__close">×</span>
-        </button>
+                <span v-else class="hamburger__close">×</span>
+            </button>
 
-        <nav class="mobil_nav" :class="{ open: isMenuOpen }">
-            <ul class="mobil_nav_ul">
-            <li>
-                <RouterLink to="/" @click="closeMenu">
-                <img :src="Home" alt="Home ikon">
-                Hjem
-                </RouterLink>
-            </li>
+            <nav class="mobil_nav" :class="{ open: isMenuOpen }">
+                <ul class="mobil_nav_ul">
+                <li>
+                    <RouterLink to="/" @click="closeMenu">
+                    <img :src="Home" alt="Home ikon">
+                    Hjem
+                    </RouterLink>
+                </li>
 
-            <li>
-                <RouterLink to="/calendar" @click="closeMenu">
-                <img :src="CalendarLogo" alt="Calendar ikon">
-                Kalender
-                </RouterLink>
-            </li>
+                <li>
+                    <RouterLink to="/calendar" @click="closeMenu">
+                    <img :src="CalendarLogo" alt="Calendar ikon">
+                    Kalender
+                    </RouterLink>
+                </li>
 
-            <li>
-                <RouterLink to="/chat" @click="closeMenu">
-                <img :src="Chat" alt="Chat ikon">
-                Chat
-                </RouterLink>
-            </li>
+                <li>
+                    <RouterLink to="/chat" @click="closeMenu">
+                    <img :src="Chat" alt="Chat ikon">
+                    Chat
+                    </RouterLink>
+                </li>
 
-            <li>
-                <RouterLink to="/profil" @click="closeMenu">
-                <img :src="Profile" alt="Profile ikon">
-                Profil
-                </RouterLink>
-            </li>
+                <li>
+                    <RouterLink to="/profil" @click="closeMenu">
+                    <img :src="Profile" alt="Profile ikon">
+                    Profil
+                    </RouterLink>
+                </li>
+                </ul>
+            </nav>
+        
+
+        </div>
+
+        <nav class="header_nav">
+            <ul class="header_nav_ul">
+                <li><RouterLink to="/"><img class="logo_img" :src="Logo" alt="Bolbro logo" /></RouterLink></li>
+                    <ul class="nav_box_ul">
+                        <li class="nav_box_li"><RouterLink to="/"><img :src="Home" alt="Home ikon">Hjem</RouterLink></li>
+                        <li class="nav_box_li"><RouterLink to="/calendar"><img :src="CalendarLogo" alt="Calendar ikon">Kalender</RouterLink></li>
+                        <li class="nav_box_li"><RouterLink to="/chat"><img :src="Chat" alt="Chat ikon">Chat</RouterLink></li>
+                        <li class="nav_box_li"><RouterLink to="/profil"><img :src="Profile" alt="Profile ikon">Profil</RouterLink></li>
+                    </ul>
             </ul>
         </nav>
-       
-
-    </div>
-
-    <nav class="header_nav">
-        <ul class="header_nav_ul">
-            <li><RouterLink to="/"><img class="logo_img" :src="Logo" alt="Bolbro logo" /></RouterLink></li>
-                <ul class="nav_box_ul">
-                    <li class="nav_box_li"><RouterLink to="/"><img :src="Home" alt="Home ikon">Hjem</RouterLink></li>
-                    <li class="nav_box_li"><RouterLink to="/calendar"><img :src="CalendarLogo" alt="Calendar ikon">Kalender</RouterLink></li>
-                    <li class="nav_box_li"><RouterLink to="/chat"><img :src="Chat" alt="Chat ikon">Chat</RouterLink></li>
-                    <li class="nav_box_li"><RouterLink to="/profil"><img :src="Profile" alt="Profile ikon">Profil</RouterLink></li>
-                </ul>
-        </ul>
-    </nav>
-  </header>
+    </header>
 </template>
 
 <style lang="scss" scoped>
