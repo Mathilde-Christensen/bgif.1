@@ -5,20 +5,43 @@ const props = defineProps({
   buttonText: String,
   buttonLink: String,
   image: String,
-  // nyt prop der styrer om vi viser gradient
+
   gradient: {
     type: Boolean,
     default: false
+  },
+
+  height: {
+    type: String,
+    default: "90vh"
+  },
+
+  imagePosition: {
+    type: String,
+    default: "center center"
+  },
+
+  overlayOpacity: {
+    type: Number,
+    default: 0.45
   }
 })
+
 </script>
 
 <template>
   <section
     class="hero_tamplate"
     :class="{ 'hero_tamplate--gradient': props.gradient }"
+    :style="{ height: props.height }"
   >
-    <img class="hero__img" v-if="props.image" :src="props.image" alt="" />
+    <img
+      class="hero__img"
+      v-if="props.image"
+      :src="props.image"
+      :style="{ objectPosition: props.imagePosition }"
+      alt=""
+    />
 
     <div class="hero__content">
       <h1 class="content_h1" v-html="props.title"></h1>
@@ -55,15 +78,16 @@ const props = defineProps({
 .hero_tamplate--gradient::before {
   content: "";
   position: absolute;
-  inset: 0; 
-  background: linear-gradient(
-    180deg,
-    rgba(0, 0, 0, 0.55) 0%,
-    rgba(0, 0, 0, 0.25) 40%,
-    rgba(0, 0, 0, 0.65) 100%
-  );
+  inset: 0;
   z-index: 1;
   pointer-events: none;
+
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.75) 0%,
+    rgba(0, 0, 0, 0.35) 45%,
+    rgba(0, 0, 0, 0.75) 100%
+  );
 }
 
 .content_h2 { font-variation-settings: "wght" 400; }
