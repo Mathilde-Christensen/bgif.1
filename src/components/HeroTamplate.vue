@@ -1,52 +1,60 @@
 <script setup>
 const props = defineProps({
-  title: String,
-  text: String,
-  buttonText: String,
-  buttonLink: String,
-  image: String,
-
+  title: {
+    type: String,
+    default: "",
+  },
+  text: {
+    type: String,
+    default: "",
+  },
+  image: {
+    type: String,
+    required: true,
+  },
   gradient: {
     type: Boolean,
-    default: false
+    default: false,
   },
-
   height: {
     type: String,
-    default: "90vh"
+    default: "90vh",
   },
-
   imagePosition: {
     type: String,
-    default: "center center"
+    default: "center center",
   },
-
-  overlayOpacity: {
-    type: Number,
-    default: 0.45
-  }
-})
-
+});
 </script>
 
 <template>
   <section
-    class="hero_tamplate"
-    :class="{ 'hero_tamplate--gradient': props.gradient }"
-    :style="{ height: props.height }"
+    class="hero-tamplate"
+    :class="{ 'hero-tamplate--gradient': gradient }"
+    :style="{ height: height }"
   >
     <img
-      class="hero__img"
-      v-if="props.image"
-      :src="props.image"
-      :style="{ objectPosition: props.imagePosition }"
+      class="hero-tamplate__image"
+      :src="image"
+      :style="{ objectPosition: imagePosition }"
       alt=""
-    />
+    >
 
-    <div class="hero__content">
-      <h1 class="content_h1" v-html="props.title"></h1>
-      <p class="content_p" v-html="props.text"></p>
+    <div
+      v-if="title || text"
+      class="hero-tamplate__content"
+    >
+      <h1
+        v-if="title"
+        class="hero-tamplate__title"
+        v-html="title"
+      ></h1>
 
+      <p
+        v-if="text"
+        class="hero-tamplate__text"
+        v-html="text"
+      ></p>
     </div>
   </section>
 </template>
@@ -55,33 +63,19 @@ const props = defineProps({
 @use '../assets/_color.scss' as c;
 @use '../assets/_font.scss' as f;
 
-.hero_tamplate {
+.hero-tamplate {
   position: relative;
   width: 100%;
-  height: 90vh;
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  box-sizing: border-box;
 }
 
-.content_h1 {
-  color: c.$cta;
-}
-
-.content_p {
-  color: c.$color-white;
-  font-weight: 600;
-}
-
-.hero_tamplate--gradient::before {
+.hero-tamplate--gradient::before {
   content: "";
   position: absolute;
   inset: 0;
   z-index: 1;
   pointer-events: none;
-
   background: linear-gradient(
     180deg,
     rgba(0, 0, 0, 0.75) 0%,
@@ -90,59 +84,36 @@ const props = defineProps({
   );
 }
 
-.content_h2 { font-variation-settings: "wght" 400; }
-.content_h2 :deep(span) { font-variation-settings: "wght" 800; }
-.content_p {
-  font-variation-settings: "wght" 400;
-  font-size: 1rem;
-  line-height: 1.5rem;
-
-  @media (min-width: 1024px) {
-    line-height: 2.2rem;
-  }
-}
-.content_p :deep(span) { font-variation-settings: "wght" 800; }
-
-.hero__img {
+.hero-tamplate__image {
   position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
+  display: block;
   object-fit: cover;
   z-index: 0;
 }
 
-.hero__content {
-  position: absolute;
-  inset: 0;
-  box-sizing: border-box;
-  max-width: 100%;
+.hero-tamplate__content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  text-align: center;
   color: c.$cta;
+  text-align: center;
   padding: 0 3rem;
-  z-index: 2;
 }
 
-.hero_tamplate {
-  box-sizing: border-box;
+.hero-tamplate__title {
+  color: c.$cta;
+  text-transform: uppercase;
 }
 
-.hero__title {
-  font-size: clamp(1.6rem, 4vw, 3rem);
-  margin-bottom: 1rem;
-}
-
-.hero__text {
-  line-height: 2.2rem;
-}
-
-@media (min-width: 1024px) {
-  .hero__content {
-    max-width: 800px;
-    margin-inline: auto;
-  }
+.hero-tamplate__text {
+  color: c.$color-white;
+  font-weight: 600;
 }
 </style>
