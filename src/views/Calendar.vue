@@ -40,7 +40,7 @@ import CalendarHero from "@/assets/images/hero/profilehero.webp";
   position: relative;
   z-index: 2;
   margin-top: -70px;
-  padding: 30px 0 80px;
+  padding: 60px 0 80px;
   border-radius: 45px 45px 0 0;
   background-color: c.$color-white;
 }
@@ -58,7 +58,7 @@ import CalendarHero from "@/assets/images/hero/profilehero.webp";
 
   .calendar__content {
     margin-top: -90px;
-    padding: 35px 0 90px;
+    padding: 70px 0 90px;
     border-radius: 55px 55px 0 0;
   }
 
@@ -75,7 +75,7 @@ import CalendarHero from "@/assets/images/hero/profilehero.webp";
 
   .calendar__content {
     margin-top: -120px;
-    padding: 40px 0 100px;
+    padding: 80px 0 100px;
     border-radius: 65px 65px 0 0;
   }
 
