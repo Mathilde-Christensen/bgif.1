@@ -1,11 +1,26 @@
 <script setup>
-import HeroTamplate from '@/components/HeroTamplate.vue';
+import { ref } from 'vue'
+
+import HeroTamplate from '@/components/HeroTamplate.vue'
 import Faelleskab from '../assets/images/hero/Faelleskab_hero.webp'
 import UdOverBanen from '../assets/images/UdOverBanen.webp'
-import Citat from '@/components/Citat.vue';
-import CitatImg from '../assets/images/citat_img.webp';
-import Medlem from '../assets/images/Medlem.webp';
+import Citat from '@/components/Citat.vue'
+import CitatImg from '../assets/images/citat_img.webp'
+import Medlem from '../assets/images/Medlem.webp'
 
+const showTrialModal = ref(false)
+
+function openTrialModal() {
+  showTrialModal.value = true
+}
+
+function closeTrialModal() {
+  showTrialModal.value = false
+}
+
+function sendTrialForm() {
+  showTrialModal.value = false
+}
 </script>
 
 <template>
@@ -95,7 +110,9 @@ import Medlem from '../assets/images/Medlem.webp';
                     Her kan du møde nye mennesker og blive en del af en hverdag med aktiviteter, grin og gode oplevelser. Uanset om du er ny, øvet eller bare nysgerrig, er der plads til dig. Kom forbi for at opleve stemningen og mærk, om det er noget for dig
                 </p>
 
-                <button class="laes_mere_button">Book en prøvetræning</button>
+                <button type="button" class="laes_mere_button" @click="openTrialModal">
+                    Book en prøvetræning
+                </button>
             </div>
         </div>
 
@@ -133,6 +150,38 @@ import Medlem from '../assets/images/Medlem.webp';
 
         </div>
 
+    </div>
+
+    <div v-if="showTrialModal" class="trial_modal_backdrop" @click.self="closeTrialModal">
+        <div class="trial_modal">
+            <button class="trial_modal_close" @click="closeTrialModal">X</button>
+
+            <input class="trial_input" type="text" placeholder="Navn">
+            <input class="trial_input" type="number" placeholder="Alder">
+
+            <select class="trial_input">
+            <option value="">Sport</option>
+            <option>Fodbold</option>
+            <option>Håndbold</option>
+            <option>Badminton</option>
+            <option>Gymnastik</option>
+            </select>
+
+            <select class="trial_input">
+            <option value="">Niveau</option>
+            <option>Begynder</option>
+            <option>Let øvet</option>
+            <option>Øvet</option>
+            </select>
+
+            <input class="trial_input" type="tel" placeholder="Mobilnummer">
+
+            <textarea class="trial_textarea" placeholder="Besked?"></textarea>
+
+            <button class="trial_send" @click="sendTrialForm">
+                Send
+            </button>
+        </div>
     </div>
 
 
@@ -231,6 +280,94 @@ import Medlem from '../assets/images/Medlem.webp';
   justify-self: center;
   min-width: 320px;
   margin: 20px 0px 0px 0px;
+}
+
+.trial_modal_close {
+  background: transparent;
+  border: none;
+  font-family: f.$font-anton;
+  font-size: 1.7rem;
+  line-height: 1;
+  color: c.$color-black;
+  cursor: pointer;
+  transition: transform 0.2s ease, color 0.2s ease;
+  display: flex;
+  justify-content: right;
+}
+
+.trial_modal_close:hover {
+  color: c.$cta;
+}
+
+.trial_modal_backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+}
+
+.trial_modal {
+  position: relative;
+  width: min(88vw, 520px);
+  max-height: 88vh;
+  overflow-y: auto;
+  background: c.$color-white;
+  border-radius: clamp(28px, 5vw, 55px);
+  padding: clamp(28px, 5vw, 48px);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.trial_input,
+.trial_textarea {
+  width: 100%;
+  border: 2px solid c.$color-lblue;
+  border-radius: 22px;
+  padding: 12px 20px;
+  font: inherit;
+  color: c.$color-black;
+  background: c.$color-white;
+}
+
+.trial_input::placeholder,
+.trial_textarea::placeholder {
+  color: c.$color-black;
+  opacity: 1;
+}
+
+.trial_input:focus,
+.trial_textarea:focus {
+  outline: none;
+  border: 4px solid c.$cta;
+}
+
+.trial_textarea {
+  min-height: 120px;
+  resize: none;
+}
+
+select.trial_input {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, c.$color-blue 50%),
+    linear-gradient(135deg, c.$color-blue 50%, transparent 50%);
+  background-position:
+    calc(100% - 22px) 50%,
+    calc(100% - 14px) 50%;
+  background-size: 8px 8px, 8px 8px;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+.trial_send {
+  @include btn.button(btn.$button-small);
+  align-self: center;
+  border: 0;
+  margin-top: 8px;
 }
 
 @media (min-width: 768px) {
