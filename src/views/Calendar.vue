@@ -6,15 +6,18 @@ import CalendarHero from "@/assets/images/hero/profilehero.webp";
 
 <template>
   <main class="calendar">
-    <HeroTamplate
-      class="calendar__hero"
-      :image="CalendarHero"
-      :gradient="true"
-      height="80vh"
-      image-position="center center"
-      title="Kalender"
-      text="Find frivillige aktiviteter og meld dig til de arrangementer, der passer dig."
-    />
+    
+    <div class="about-hero">
+        <HeroTamplate
+        class="calendar__hero"
+        :image="CalendarHero"
+        :gradient="true"
+        height="80vh"
+        image-position="center center"
+        title="Kalender"
+        text="Find frivillige aktiviteter og meld dig til de arrangementer, der passer dig."
+        />
+    </div>
 
     <section class="calendar__content">
       <Activities />
@@ -27,13 +30,29 @@ import CalendarHero from "@/assets/images/hero/profilehero.webp";
 @use "@/assets/_font.scss" as f;
 @use "@/assets/_button.scss" as btn;
 
-.calendar {
-  min-height: 100vh;
-  background-color: c.$color-white;
+.about-hero {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  z-index: 0;
 }
 
 .calendar__hero {
-  min-height: 520px;
+  height: 100%;
+}
+
+.calendar__content {
+  position: relative;
+  z-index: 2;
+  margin-top: -25vh;
+  padding: 60px 0 80px;
+  border-radius: 45px;
+  background-color: c.$color-white;
+  overflow: hidden;
+}
+
+.calendar__hero {
+  height: 100%;
 }
 
 .calendar__content {
@@ -57,9 +76,9 @@ import CalendarHero from "@/assets/images/hero/profilehero.webp";
   }
 
   .calendar__content {
-    margin-top: -90px;
+    margin-top: -25vh;
     padding: 70px 0 90px;
-    border-radius: 55px 55px 0 0;
+    border-radius: 55px;
   }
 
   .calendar__content :deep(.activities) {
@@ -74,9 +93,9 @@ import CalendarHero from "@/assets/images/hero/profilehero.webp";
   }
 
   .calendar__content {
-    margin-top: -120px;
+    margin-top: -30vh;
     padding: 80px 0 100px;
-    border-radius: 65px 65px 0 0;
+    border-radius: 65px;
   }
 
   .calendar__content :deep(.activities) {
