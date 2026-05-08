@@ -378,10 +378,6 @@ function closeInfoDialog() {
               </div>
             </div>
           </div>
-
-          <div class="activities__dialogButtonWrapper">
-            <BookBtn :id="String(selectedActivity.id)" />
-          </div>
         </div>
       </dialog>
     </Teleport>
@@ -615,10 +611,6 @@ function closeInfoDialog() {
   text-transform: none;
 }
 
-.activities__dialogButtonWrapper {
-  display: flex;
-  justify-content: center;
-}
 
 .activities__signedUpTitle {
   margin: 4px 0 -4px;
