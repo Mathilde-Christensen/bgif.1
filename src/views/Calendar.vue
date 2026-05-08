@@ -58,7 +58,7 @@ import CalendarHero from "@/assets/images/hero/profilehero.webp";
 .calendar__content {
   position: relative;
   z-index: 2;
-  margin-top: -70px;
+  margin-top: -250px;
   padding: 60px 0 80px;
   border-radius: 45px 45px 0 0;
   background-color: c.$color-white;
