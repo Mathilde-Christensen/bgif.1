@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 
 import HeroTamplate from '@/components/HeroTamplate.vue'
-import Faelleskab from '../assets/images/hero/Faelleskab_hero.webp'
+import Faellesskab from '../assets/images/hero/Faelleskab_hero.webp'
 import UdOverBanen from '../assets/images/UdOverBanen.webp'
 import Citat from '@/components/Citat.vue'
 import CitatImg from '../assets/images/citat_img.webp'

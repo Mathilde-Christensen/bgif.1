@@ -3,7 +3,7 @@ import Frivilligside from '@/views/Frivilligside.vue'
 import Calendar from '@/views/Calendar.vue'
 import Profil from '@/views/Profil.vue'
 import Chat from '@/views/Chat.vue'
-import Faelleskab from '@/views/Faelleskab.vue'
+import Faellesskab from '@/views/Faellesskab.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -29,9 +29,9 @@ const router = createRouter({
       component: Chat,
     },
     {
-      path: '/faelleskab',
-      name: 'faelleskab',
-      component: Faelleskab,
+      path: '/faellesskab',
+      name: 'faellesskab',
+      component: Faellesskab,
     },
   ],
 })
