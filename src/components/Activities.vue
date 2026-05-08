@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 
 import informationIcon from '@/assets/images/icons/information.webp'
 import clockIcon from '@/assets/images/icons/clock.webp'
@@ -13,46 +13,44 @@ import previousMemberImage from '@/assets/images/members/previousmember.webp'
 
 import BookBtn from '@/components/BookBtn.vue'
 
-const selectedActivity = ref(null)
+const BASE = import.meta.env.VITE_FIREBASE_DATABASE_URL?.replace(/\/$/, '')
 
 const props = defineProps({
   title: {
     type: String,
-    default: "Overblik over frivillige aktiviteter",
+    default: 'Overblik over frivillige aktiviteter',
   },
-
-  buttonText: {
-    type: String,
-    default: "Tilmeld",
-  },
-
-  isJoined: {
+  onlyJoined: {
     type: Boolean,
     default: false,
   },
-});
+})
+
+const selectedActivity = ref(null)
+const bookings = ref({})
+const visibleCount = ref(6)
 
 const signedUpPeople = [
   {
     name: 'Mads Nielsen',
     team: 'Badminton senior',
-    image: boyImage
+    image: boyImage,
   },
   {
     name: 'Sofie Hansen',
     team: 'Håndbold damesenior',
-    image: girlImage
+    image: girlImage,
   },
   {
     name: 'Emil Larsen',
     team: 'Familie til medlem',
-    image: dadImage
+    image: dadImage,
   },
   {
     name: 'Freja Andersen',
     team: 'Tidligere medlem',
-    image: previousMemberImage
-  }
+    image: previousMemberImage,
+  },
 ]
 
 const activities = ref([
@@ -66,7 +64,7 @@ const activities = ref([
     location: 'Falen 95 Odense C',
     task: 'Opstilling og klargøring',
     description: 'Endnu engang afholder vi koncert i Bolbro GIF for at samle ind til klubben – og vi har brug for din hjælp! For at få det hele til at spille, mangler vi frivillige til forskellige opgaver både før, under og efter koncerten. Det kan være alt fra opsætning og nedtagning til bar, indgang eller praktisk hjælp i løbet af dagen.',
-    signedUp: signedUpPeople
+    signedUp: signedUpPeople,
   },
   {
     id: 2,
@@ -78,7 +76,7 @@ const activities = ref([
     location: 'Egeskov Slot, Egeskov Gade 22 5772 Kværndrup',
     task: 'Festivalhjælp',
     description: 'Som frivillig på Heartland Festival hjælper du med forskellige opgaver på festivalområdet. Det kan blandt andet være at guide gæster, hjælpe ved områder på pladsen eller løse praktiske opgaver sammen med andre frivillige. Du behøver ikke erfaring på forhånd, og du bliver introduceret til opgaverne ved start. Vagten varer ca. 4 timer og foregår i et socialt og energisk miljø.',
-    signedUp: signedUpPeople
+    signedUp: signedUpPeople,
   },
   {
     id: 3,
@@ -90,7 +88,7 @@ const activities = ref([
     location: 'Egeskov Slot, Egeskov Gade 22 5772 Kværndrup',
     task: 'Festivalhjælp',
     description: 'Som frivillig på Heartland Festival hjælper du med forskellige opgaver på festivalområdet. Det kan blandt andet være at guide gæster, hjælpe ved områder på pladsen eller løse praktiske opgaver sammen med andre frivillige. Du behøver ikke erfaring på forhånd, og du bliver introduceret til opgaverne ved start. Vagten varer ca. 4 timer og foregår i et socialt og energisk miljø.',
-    signedUp: signedUpPeople
+    signedUp: signedUpPeople,
   },
   {
     id: 4,
@@ -102,7 +100,7 @@ const activities = ref([
     location: 'Egeskov Slot, Egeskov Gade 22 5772 Kværndrup',
     task: 'Festivalhjælp',
     description: 'Som frivillig på Heartland Festival hjælper du med forskellige opgaver på festivalområdet. Det kan blandt andet være at guide gæster, hjælpe ved områder på pladsen eller løse praktiske opgaver sammen med andre frivillige. Du behøver ikke erfaring på forhånd, og du bliver introduceret til opgaverne ved start. Vagten varer ca. 4 timer og foregår i et socialt og energisk miljø.',
-    signedUp: signedUpPeople
+    signedUp: signedUpPeople,
   },
   {
     id: 5,
@@ -114,7 +112,7 @@ const activities = ref([
     location: 'Bolbro Parken, Falen 95 5000 Odense C',
     task: 'Afvikling af arrangement',
     description: 'Til Unity-arrangementet hjælper frivillige med afvikling af eventet og praktiske opgaver før og under kampen. Det kan være hjælp til opsætning, gæster, salg eller lettere koordinering omkring området. Du bliver en del af et mindre frivilligteam, hvor samarbejde og fællesskab er i fokus. Vagten varer ca. 2,5 time.',
-    signedUp: signedUpPeople
+    signedUp: signedUpPeople,
   },
   {
     id: 6,
@@ -126,39 +124,89 @@ const activities = ref([
     location: 'Bolbro Hallen, Friggasvej 14 5200 Odense V',
     task: 'Boder og praktiske opgaver',
     description: 'Til loppemarkedet hjælper du med praktiske opgaver såsom opsætning af boder, vejledning af gæster samt hjælp til afvikling i løbet af dagen. Opgaverne er simple og fordeles mellem de frivillige på dagen. Der vil være tid til pauser og mulighed for at være social med de andre frivillige. Vagten varer ca. 4 timer.',
-    signedUp: signedUpPeople
-  }
+    signedUp: signedUpPeople,
+  },
 ])
 
-const visibleCount = ref(6)
+const joinedActivities = computed(() => {
+  return activities.value.filter((activity) => {
+    return bookings.value[String(activity.id)] === 1
+  })
+})
 
-const visibleActivities = computed(() =>
-  activities.value.slice(0, visibleCount.value)
-)
+const visibleActivities = computed(() => {
+  const list = props.onlyJoined
+    ? joinedActivities.value
+    : activities.value
 
-function loadMoreActivities () {
+  return list.slice(0, visibleCount.value)
+})
+
+const hasVisibleActivities = computed(() => {
+  return visibleActivities.value.length > 0
+})
+
+const canLoadMore = computed(() => {
+  if (props.onlyJoined) {
+    return joinedActivities.value.length > visibleCount.value
+  }
+
+  return activities.value.length > visibleCount.value
+})
+
+onMounted(() => {
+  loadBookings()
+})
+
+async function loadBookings() {
+  if (!BASE) return
+
+  try {
+    const res = await fetch(`${BASE}/booking.json`)
+
+    if (!res.ok) {
+      throw new Error(`GET ${res.status} ${res.statusText}`)
+    }
+
+    const data = await res.json()
+
+    bookings.value = data || {}
+  } catch (error) {
+    console.error('[Activities][GET booking] failed:', error)
+  }
+}
+
+function loadMoreActivities() {
   visibleCount.value += 3
 }
 
-function openInfoDialog (activity) {
+function openInfoDialog(activity) {
   selectedActivity.value = activity
 }
 
-function closeInfoDialog () {
+function closeInfoDialog() {
   selectedActivity.value = null
-}
-
-function signUpActivity (activity) {
-  console.log('Tilmeldt aktivitet:', activity.title)
 }
 </script>
 
 <template>
   <section class="activities">
     <div class="activities__inner">
-      <h2 class="activities__title">{{ title }}</h2>
+      <h2 class="activities__title">
+        {{ title }}
+      </h2>
 
-      <div class="activities__list">
+      <p
+        v-if="props.onlyJoined && !hasVisibleActivities"
+        class="activities__emptyText"
+      >
+        Du er ikke tilmeldt nogle aktiviteter endnu.
+      </p>
+
+      <div
+        v-else
+        class="activities__list"
+      >
         <article
           v-for="activity in visibleActivities"
           :key="activity.id"
@@ -213,16 +261,22 @@ function signUpActivity (activity) {
                 >
               </button>
 
-              <BookBtn
-                :id="String(activity.id)"
-                :button-text="buttonText"
-                :is-joined="isJoined"
-              />
+              <BookBtn :id="String(activity.id)" />
             </div>
           </div>
         </article>
+
+        <button
+          v-if="canLoadMore"
+          type="button"
+          class="activities__loadMore"
+          @click="loadMoreActivities"
+        >
+          Vis flere
+        </button>
       </div>
     </div>
+
     <Teleport to="body">
       <dialog
         v-if="selectedActivity"
@@ -244,7 +298,6 @@ function signUpActivity (activity) {
           </h3>
 
           <div class="activities__dialogInfoList">
-
             <div class="activities__dialogInfoItem">
               <img
                 class="activities__dialogIcon"
@@ -292,12 +345,11 @@ function signUpActivity (activity) {
                 {{ selectedActivity.task }}
               </p>
             </div>
+          </div>
 
-            </div>
-
-            <p class="activities__dialogDescription">
+          <p class="activities__dialogDescription">
             {{ selectedActivity.description }}
-            </p>
+          </p>
 
           <h4 class="activities__signedUpTitle">
             Tilmeldte
@@ -424,14 +476,14 @@ function signUpActivity (activity) {
   transform: scale(1.3);
 }
 
-.activities__time,
-.activities__location {
-  margin: 0;
-  font-family: f.$font-anton;
-  font-size: 1rem;
-  line-height: 1.2;
-  text-transform: uppercase;
+.activities__time {
   white-space: nowrap;
+}
+
+.activities__location {
+  white-space: normal;
+  overflow-wrap: break-word;
+  max-width: 420px;
 }
 
 .activities__actions {
@@ -646,8 +698,14 @@ function signUpActivity (activity) {
   }
 
   .activities__content {
-    grid-template-columns: 1fr;
-    gap: 12px;
+    display: grid;
+    grid-template-columns:
+      minmax(150px, 0.8fr)
+      minmax(210px, 1fr)
+      minmax(320px, 1.5fr);
+
+    align-items: center;
+    gap: 32px;
   }
 
   .activities__activityTitle {
