@@ -56,7 +56,6 @@ import ProfileHero from "@/assets/images/hero/profilehero.webp";
 @use '@/assets/_font.scss' as f;
 @use '@/assets/_button.scss' as btn;
 
-
 .profile {
   min-height: 100vh;
   background-color: c.$color-white;
@@ -73,58 +72,69 @@ import ProfileHero from "@/assets/images/hero/profilehero.webp";
   position: relative;
   z-index: 2;
   margin-top: -18vh;
-  padding: 55px 0 45px;
+  padding: 80px 0 45px;
   background: c.$color-white;
   border-radius: 32px 32px 0 0;
-  overflow-x: hidden;
+  overflow: visible;
 }
 
 .profile__content {
   position: relative;
-  margin-top: -30px;
   padding: 0 0 80px;
   border-radius: 32px 32px 0 0;
-  overflow-x: hidden;
 }
 
 .profile__user {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-  transform: translateY(-65px);
+  display: grid;
+  justify-items: center;
   text-align: center;
+  transform: translateY(-180px);
+  margin-bottom: -150px;
+
+  grid-template-areas:
+    "title"
+    "image"
+    "details";
+}
+
+.profile__title {
+  grid-area: title;
+
+  margin: 0;
+  color: c.$cta;
+  font-family: f.$font-anton;
+  font-size: clamp(2.8rem, 9vw, 4rem);
+  text-transform: uppercase;
 }
 
 .profile__image {
+  grid-area: image;
   width: 145px;
   height: 145px;
   border-radius: 50%;
   object-fit: cover;
-  object-position: center 10%;
+  object-position: center top;
+  transform: translateY(5px);
 }
 
 .profile__info {
-  transform: translateY(0);
-}
-
-.profile__title {
-  margin: 0;
-  color: c.$cta;
+  display: contents;
 }
 
 .profile__details {
-  margin-top: 20px;
+  grid-area: details;
+
+  margin-top: 25px;
 }
 
 .profile__text {
-  margin: 5px 0;
+  margin: 8px 0;
 }
 
 .profile__calendar-box {
   width: 94%;
   max-width: 100%;
-  margin: -25px auto 0;
+  margin: 45px auto 0;
   padding: 28px 18px;
   border-radius: 28px;
   background-color: #f6f6f6;
@@ -187,37 +197,45 @@ section.activities.profile__activities {
 
 @media (min-width: 700px) {
   .overflow_box {
-    margin-top: -22vh;
-    padding: 65px 0 55px;
+    margin-top: -20vh;
+    padding: 90px 0 55px;
     border-radius: 40px 40px 0 0;
   }
 
-  .profile__content {
-    margin-top: -40px;
-  }
-
   .profile__user {
+    display: flex;
     flex-direction: row;
     justify-content: center;
-    align-items: flex-start;
-    gap: 35px;
-    transform: translateY(-75px);
+    align-items: center;
+    gap: 45px;
     text-align: left;
   }
 
   .profile__image {
     width: 170px;
     height: 170px;
-    transform: translateY(10px);
+    transform: translateY(10);
   }
 
   .profile__info {
-    transform: translateY(-25px);
+    display: grid;
+  }
+
+  .profile__details {
+    margin-top: 0;
+  }
+
+  .profile__title {
+    transform: translateY(-40px);
+  }
+
+  .profile__text {
+    transform: translateY(50px);
   }
 
   .profile__calendar-box {
     width: 92%;
-    margin-top: -35px;
+    margin-top: 55px;
     padding: 32px 24px;
     border-radius: 35px;
   }
@@ -233,13 +251,12 @@ section.activities.profile__activities {
 
 @media (min-width: 1300px) {
   .overflow_box {
-    margin-top: -25vh;
-    padding: 70px 0 60px;
+    margin-top: -12vh;
+    padding: 95px 0 60px;
     border-radius: 45px 45px 0 0;
   }
 
   .profile__content {
-    margin-top: -45px;
     border-radius: 45px 45px 0 0;
   }
 
@@ -250,10 +267,6 @@ section.activities.profile__activities {
   .profile__image {
     width: 190px;
     height: 190px;
-  }
-
-  .profile__info {
-    transform: translateY(-35px);
   }
 
   .profile__calendar-box {
