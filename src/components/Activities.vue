@@ -72,7 +72,8 @@ const activities = ref([
     dayTitle: 'Torsdag 18/6',
     start: '10.00',
     end: '14.00',
-    title: 'Heartland Festival dag 1',
+    title: 'Heartland Festival',
+    subtitle: 'dag 1',
     location: 'Egeskov Slot, Egeskov Gade 22 5772 Kværndrup',
     task: 'Festivalhjælp',
     description: 'Som frivillig på Heartland Festival hjælper du med forskellige opgaver på festivalområdet. Det kan blandt andet være at guide gæster, hjælpe ved områder på pladsen eller løse praktiske opgaver sammen med andre frivillige. Du behøver ikke erfaring på forhånd, og du bliver introduceret til opgaverne ved start. Vagten varer ca. 4 timer og foregår i et socialt og energisk miljø.',
@@ -84,7 +85,8 @@ const activities = ref([
     dayTitle: 'Fredag 19/6',
     start: '10.00',
     end: '14.00',
-    title: 'Heartland Festival dag 2',
+    title: 'Heartland Festival',
+    subtitle: 'dag 2',
     location: 'Egeskov Slot, Egeskov Gade 22 5772 Kværndrup',
     task: 'Festivalhjælp',
     description: 'Som frivillig på Heartland Festival hjælper du med forskellige opgaver på festivalområdet. Det kan blandt andet være at guide gæster, hjælpe ved områder på pladsen eller løse praktiske opgaver sammen med andre frivillige. Du behøver ikke erfaring på forhånd, og du bliver introduceret til opgaverne ved start. Vagten varer ca. 4 timer og foregår i et socialt og energisk miljø.',
@@ -96,7 +98,8 @@ const activities = ref([
     dayTitle: 'Lørdag 20/6',
     start: '10.00',
     end: '14.00',
-    title: 'Heartland Festival dag 3',
+    title: 'Heartland Festival',
+    subtitle: 'dag 3',
     location: 'Egeskov Slot, Egeskov Gade 22 5772 Kværndrup',
     task: 'Festivalhjælp',
     description: 'Som frivillig på Heartland Festival hjælper du med forskellige opgaver på festivalområdet. Det kan blandt andet være at guide gæster, hjælpe ved områder på pladsen eller løse praktiske opgaver sammen med andre frivillige. Du behøver ikke erfaring på forhånd, og du bliver introduceret til opgaverne ved start. Vagten varer ca. 4 timer og foregår i et socialt og energisk miljø.',
@@ -220,6 +223,13 @@ function closeInfoDialog() {
             <div class="activities__content">
               <h4 class="activities__activityTitle">
                 {{ activity.title }}
+
+                <span
+                  v-if="activity.subtitle"
+                  class="activities__activitySubtitle"
+                >
+                  {{ activity.subtitle }}
+                </span>
               </h4>
 
               <div class="activities__metaItem">
@@ -356,28 +366,32 @@ function closeInfoDialog() {
           </h4>
 
           <div class="activities__signedUpBox">
-            <div
-              v-for="person in selectedActivity.signedUp"
-              :key="person.name"
-              class="activities__signedUpPerson"
+          <div
+            v-for="person in selectedActivity.signedUp"
+            :key="person.name"
+            class="activities__signedUpPerson"
+          >
+            <img
+              class="activities__personImage"
+              :src="person.image"
+              :alt="person.name"
             >
-              <img
-                class="activities__personImage"
-                :src="person.image"
-                :alt="person.name"
-              >
 
-              <div>
-                <p class="activities__personName">
-                  {{ person.name }}
-                </p>
+            <div>
+              <p class="activities__personName">
+                {{ person.name }}
+              </p>
 
-                <p class="activities__personTeam">
-                  {{ person.team }}
-                </p>
-              </div>
+              <p class="activities__personTeam">
+                {{ person.team }}
+              </p>
             </div>
           </div>
+        </div>
+
+        <div class="activities__dialogActions">
+          <BookBtn :id="String(selectedActivity.id)" />
+        </div>
         </div>
       </dialog>
     </Teleport>
@@ -390,7 +404,7 @@ function closeInfoDialog() {
 @use '@/assets/_button.scss' as btn;
 
 .activities {
-  padding: 70px clamp(1.5rem, 8vw, 110px);
+  padding: 50px clamp(1.25rem, 6vw, 110px);
 }
 
 .activities__inner {
@@ -403,6 +417,10 @@ function closeInfoDialog() {
   font-family: f.$font-anton;
   font-size: clamp(2rem, 4vw, 3.4rem);
   text-transform: uppercase;
+}
+
+.activities__emptyText {
+  margin: 0;
 }
 
 .activities__list {
@@ -422,14 +440,11 @@ function closeInfoDialog() {
   text-transform: uppercase;
 }
 
+/* Mobile first kort */
 .activities__card {
   display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: center;
   gap: 24px;
-  height: 90px;
-  padding: 0 32px;
-  overflow: hidden;
+  padding: 24px 20px;
   background-color: c.$color-white;
   border: 1px solid #cfcfcf;
   border-radius: 18px;
@@ -438,28 +453,24 @@ function closeInfoDialog() {
 
 .activities__content {
   display: grid;
-  grid-template-columns: minmax(150px, 0.8fr) minmax(210px, 1fr) minmax(260px, 1.3fr);
-  align-items: center;
-  gap: 32px;
+  gap: 18px;
 }
 
 .activities__activityTitle {
   margin: 0;
-  max-width: 190px;
   font-family: f.$font-anton;
-  font-size: 1.15rem;
+  font-size: 1.25rem;
   line-height: 1.2;
   text-transform: uppercase;
+}
 
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+.activities__activitySubtitle {
+  display: block;
 }
 
 .activities__metaItem {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 14px;
   min-width: 0;
 }
@@ -469,118 +480,32 @@ function closeInfoDialog() {
   height: 28px;
   object-fit: contain;
   flex-shrink: 0;
-  transform: scale(1.3);
+  transform: scale(1.2);
 }
 
-.activities__time {
-  white-space: nowrap;
-}
-
+.activities__time,
 .activities__location {
-  white-space: normal;
-  overflow-wrap: break-word;
-  max-width: 420px;
+  margin: 0;
+  overflow-wrap: anywhere;
 }
 
 .activities__actions {
   display: flex;
+  justify-content: center;
   align-items: center;
   gap: 28px;
+  margin-top: auto;
 }
 
 .activities__infoButton {
   display: grid;
   place-items: center;
-  width: 34px;
-  height: 34px;
+  width: 38px;
+  height: 38px;
   padding: 0;
   border: none;
   background: transparent;
   cursor: pointer;
-}
-
-.activities__infoIcon {
-  width: 30px;
-  height: 30px;
-  object-fit: contain;
-}
-
-.activities__signupButton {
-  @include btn.smallButton;
-}
-
-.activities__loadMore {
-  justify-self: center;
-  margin-top: 30px;
-  border: none;
-  background: transparent;
-  font-family: f.$font-anton;
-  font-size: 1.2rem;
-  text-decoration: underline;
-  cursor: pointer;
-}
-
-/* Modal */
-.activities__dialog {
-  position: fixed;
-  inset: 50% auto auto 50%;
-  transform: translate(-50%, -50%);
-  width: min(86%, 760px);
-  max-height: 90vh;
-  padding: 0;
-  border: none;
-  border-radius: 45px;
-  background-color: c.$color-white;
-  box-shadow: 0 16px 35px rgba(0, 0, 0, 0.3);
-  z-index: 1001;
-  overflow: hidden;
-}
-
-.activities__dialogContent {
-  position: relative;
-  display: grid;
-  gap: 16px;
-  padding: 36px 56px 34px;
-  background-color: c.$color-white;
-  border-radius: 45px;
-}
-
-.activities__dialogTitle {
-  margin: 0;
-  padding-right: 50px;
-  font-family: f.$font-anton;
-  font-size: 2.2rem;
-  text-transform: uppercase;
-}
-
-.activities__dialogClose {
-  position: absolute;
-  top: 24px;
-  right: 48px;
-  border: none;
-  background: transparent;
-  font-family: f.$font-anton;
-  font-size: 1.7rem;
-  cursor: pointer;
-  z-index: 1001;
-}
-
-.activities__dialogInfoList {
-  display: grid;
-  gap: 12px;
-}
-
-.activities__dialogInfoItem {
-  display: grid;
-  grid-template-columns: 36px 1fr;
-  align-items: center;
-  gap: 14px;
-}
-
-.activities__dialogIcon {
-  width: 30px;
-  height: 30px;
-  object-fit: contain;
 }
 
 .activities__infoIcon {
@@ -595,22 +520,102 @@ function closeInfoDialog() {
   transform: scale(1.3);
 }
 
-.activities__dialogMeta {
-  margin: 0;
+.activities__loadMore {
+  justify-self: center;
+  margin-top: 30px;
+  border: none;
+  background: transparent;
   font-family: f.$font-anton;
-  font-size: 1rem;
-  line-height: 1.25;
+  font-size: 1.2rem;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* Dialog mobile first */
+.activities__dialog {
+  position: fixed;
+  inset: 50% auto auto 50%;
+  transform: translate(-50%, -50%);
+  width: min(92vw, 760px);
+  max-height: 88dvh;
+  padding: 0;
+  border: none;
+  border-radius: 28px;
+  background-color: c.$color-white;
+  box-shadow: 0 16px 35px rgba(0, 0, 0, 0.3);
+  z-index: 1001;
+  overflow: hidden;
+}
+
+.activities__dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.45);
+}
+
+.activities__dialogContent {
+  position: relative;
+  display: grid;
+  gap: 16px;
+  max-height: 88dvh;
+  padding: 34px 22px 28px;
+  overflow-y: auto;
+  background-color: c.$color-white;
+}
+
+.activities__dialogTitle {
+  margin: 0;
+  padding-right: 42px;
+  font-family: f.$font-anton;
+  font-size: clamp(1.7rem, 7vw, 2.4rem);
+  line-height: 1.1;
   text-transform: uppercase;
 }
 
+.activities__dialogClose {
+  position: absolute;
+  top: 22px;
+  right: 24px;
+  border: none;
+  background: transparent;
+  font-family: f.$font-anton;
+  font-size: 1.6rem;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.activities__dialogInfoList {
+  display: grid;
+  gap: 12px;
+}
+
+.activities__dialogInfoItem {
+  display: grid;
+  grid-template-columns: 32px 1fr;
+  align-items: start;
+  gap: 12px;
+}
+
+.activities__dialogIcon {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+
+.activities__dialogMeta {
+  margin: 0;
+  font-family: f.$font-anton;
+  font-size: 0.95rem;
+  line-height: 1.3;
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}
+
 .activities__dialogDescription {
-  margin: 10px 0 0;
+  margin: 8px 0 0;
   font-family: f.$font-poppines;
   font-size: 0.95rem;
   line-height: 1.55;
   text-transform: none;
 }
-
 
 .activities__signedUpTitle {
   margin: 4px 0 -4px;
@@ -623,9 +628,9 @@ function closeInfoDialog() {
 .activities__signedUpBox {
   display: grid;
   gap: 18px;
-  height: 200px;
-  overflow-y: scroll;
-  padding: 22px 40px;
+  max-height: 180px;
+  overflow-y: auto;
+  padding: 18px;
   border: 1px solid #dddddd;
   border-radius: 22px;
   scrollbar-width: auto;
@@ -650,12 +655,12 @@ function closeInfoDialog() {
 .activities__signedUpPerson {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 18px;
 }
 
 .activities__personImage {
-  width: 64px;
-  height: 64px;
+  width: 56px;
+  height: 56px;
   flex-shrink: 0;
   border-radius: 50%;
   object-fit: cover;
@@ -671,71 +676,104 @@ function closeInfoDialog() {
 .activities__personTeam {
   margin: 0;
   font-family: f.$font-poppines;
-  font-size: 1rem;
+  font-size: 0.95rem;
   line-height: 1.4;
 }
 
-.activities__dialogSignup {
-  @include btn.bigButton;
-  justify-self: center;
-  min-width: 320px;
+.activities__dialogActions {
+  display: flex;
+  justify-content: center;
+  padding-top: 4px;
 }
 
-@media (max-width: 900px) {
+/* Tablet */
+@media (min-width: 700px) {
+  .activities {
+    padding-top: 70px;
+  }
+
   .activities__card {
-    grid-template-columns: 1fr;
-    height: auto;
-    min-height: 120px;
-    padding: 20px;
+    padding: 28px 32px;
   }
 
   .activities__content {
-    display: grid;
+    gap: 20px;
+  }
+
+  .activities__actions {
+    justify-content: center;
+  }
+
+  .activities__dialog {
+    width: min(88vw, 720px);
+    border-radius: 38px;
+  }
+
+  .activities__dialogContent {
+    padding: 42px 42px 34px;
+  }
+
+  .activities__signedUpBox {
+    max-height: 200px;
+    padding: 22px 34px;
+  }
+
+  .activities__personImage {
+    width: 64px;
+    height: 64px;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1050px) {
+  .activities__card {
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 32px;
+    padding: 22px 32px;
+  }
+
+  .activities__content {
     grid-template-columns:
       minmax(150px, 0.8fr)
       minmax(210px, 1fr)
-      minmax(320px, 1.5fr);
-
+      minmax(260px, 1.3fr);
     align-items: center;
     gap: 32px;
   }
 
   .activities__activityTitle {
-    max-width: none;
+    max-width: 190px;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .activities__time {
+    white-space: nowrap;
+  }
+
+  .activities__location {
+    max-width: 420px;
   }
 
   .activities__actions {
-    justify-content: space-between;
+    justify-content: flex-end;
   }
 
   .activities__dialog {
-    width: min(92%, 680px);
+    width: min(86vw, 760px);
+    border-radius: 45px;
   }
 
   .activities__dialogContent {
-    padding: 40px 28px;
+    padding: 36px 56px 34px;
   }
 
   .activities__dialogClose {
-    top: 22px;
-    right: 28px;
-    font-size: 1.7rem;
-  }
-
-  .activities__dialogTitle {
-    font-size: 2.2rem;
-  }
-
-  .activities__dialogInfoItem {
-    grid-template-columns: 34px 1fr;
-  }
-
-  .activities__dialogMeta {
-    font-size: 1rem;
-  }
-
-  .activities__dialogSignup {
-    min-width: 220px;
+    right: 48px;
   }
 }
 </style>
