@@ -7,6 +7,8 @@ import UdOverBanen from '../assets/images/UdOverBanen.webp'
 import Citat from '@/components/Citat.vue'
 import CitatImg from '../assets/images/citat_img.webp'
 import Medlem from '../assets/images/Medlem.webp'
+import ActivitiesOverview from '@/components/ActivitiesOverview.vue'
+import Instagram from '@/components/Instagram.vue'
 
 const showTrialModal = ref(false)
 
@@ -50,39 +52,8 @@ function sendTrialForm() {
             </div>
         </div>
 
-        <div class="Aktiviteter">
-            <h2 class="Aktiviteter--title">AKTIVITETER I KLUBBEN</h2>
-            <p>Få et overblik over de forskellige aktiviteter og arrangementer i klubben. Klik dig ind og oplev billeder og stemning fra hver enkelt aktivitet.</p>
+        <ActivitiesOverview />
 
-            
-            <div class="activities_overview">
-                <div class="activities_overview_box"> 
-                    <RouterLink to="/" @click="closeMenu">
-                        KONCERTER
-                    </RouterLink>
-                </div>
-
-                <div class="activities_overview_box"> 
-                    <RouterLink to="/" @click="closeMenu">
-                        LOPPEMARKED
-                    </RouterLink>
-                </div>
-
-                <div class="activities_overview_box"> 
-                    <RouterLink to="/" @click="closeMenu">
-                        HEARTLAND FESTIVAL
-                    </RouterLink>
-                </div>
-
-                <div class="activities_overview_box"> 
-                    <RouterLink to="/" @click="closeMenu">
-                        STÆVNER
-                    </RouterLink>
-                </div>
-
-            </div>
-
-        </div>
 
     </div>
 
@@ -115,40 +86,8 @@ function sendTrialForm() {
                 </button>
             </div>
         </div>
-
-        <div class="Aktiviteter">
-            <h2 class="Aktiviteter--title">AKTIVITETER I KLUBBEN</h2>
-            <p>Få et overblik over de forskellige aktiviteter og arrangementer i klubben. Klik dig ind og oplev billeder og stemning fra hver enkelt aktivitet.</p>
-
-            
-            <div class="activities_overview">
-                <div class="activities_overview_box"> 
-                    <RouterLink to="/" @click="closeMenu">
-                        KONCERTER
-                    </RouterLink>
-                </div>
-
-                <div class="activities_overview_box"> 
-                    <RouterLink to="/" @click="closeMenu">
-                        LOPPEMARKED
-                    </RouterLink>
-                </div>
-
-                <div class="activities_overview_box"> 
-                    <RouterLink to="/" @click="closeMenu">
-                        HEARTLAND FESTIVAL
-                    </RouterLink>
-                </div>
-
-                <div class="activities_overview_box"> 
-                    <RouterLink to="/" @click="closeMenu">
-                        STÆVNER
-                    </RouterLink>
-                </div>
-
-            </div>
-
-        </div>
+        
+        <Instagram />
 
     </div>
 
@@ -238,41 +177,6 @@ function sendTrialForm() {
 
 .tak_text--title {
     padding: 0px 0px 20px 0px;
-}
-
-.Aktiviteter {
-    padding: 10px clamp(1.5rem, 8vw, 110px); 
-}
-
-.Aktiviteter--title {
-    padding: 70px 0px 0px 0px;
-}
-
-.activities_overview_box {
-    border-radius: 2.5rem;
-    background: #0258C2;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 15.9375rem;
-    height: 15.9375rem;
-    padding: 10px 0px 10px 0px;
-    margin: 0px 10px 0px 10px;
-    text-align: center;
-    border-radius: 2.5rem;
-    background: c.$color-lblue;
-    margin: 10px 0px 10px 0px;
-}
-
-.activities_overview :hover {
-    background-color: c.$cta;
-}
-
-.activities_overview a {
-    font-family: f.$font-anton;
-    text-transform: uppercase;
-    font-size: 1.25rem;
-    color: c.$color-white;
 }
 
 .laes_mere_button {
@@ -373,13 +277,6 @@ select.trial_input {
 @media (min-width: 768px) {
     .overflow_box {
         border-radius: 60px;
-    }
-
-    .activities_overview {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        padding: 20px 0px 10px 0px;
     }
 
 }
