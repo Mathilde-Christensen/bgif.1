@@ -95,7 +95,7 @@ import Medlem from '../assets/images/Medlem.webp';
                     Her kan du møde nye mennesker og blive en del af en hverdag med aktiviteter, grin og gode oplevelser. Uanset om du er ny, øvet eller bare nysgerrig, er der plads til dig. Kom forbi for at opleve stemningen og mærk, om det er noget for dig
                 </p>
 
-                <button>Book en prøvetræning</button>
+                <button class="laes_mere_button">Book en prøvetræning</button>
             </div>
         </div>
 
@@ -224,6 +224,13 @@ import Medlem from '../assets/images/Medlem.webp';
     text-transform: uppercase;
     font-size: 1.25rem;
     color: c.$color-white;
+}
+
+.laes_mere_button {
+  @include btn.bigButton;
+  justify-self: center;
+  min-width: 320px;
+  margin: 20px 0px 0px 0px;
 }
 
 @media (min-width: 768px) {

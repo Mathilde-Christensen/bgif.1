@@ -355,7 +355,6 @@ function signUpActivity (activity) {
   font-family: f.$font-anton;
   font-size: clamp(2rem, 4vw, 3.4rem);
   text-transform: uppercase;
-  color: c.$color-blue;
 }
 
 .activities__list {
@@ -373,7 +372,6 @@ function signUpActivity (activity) {
   font-family: f.$font-anton;
   font-size: 1.5rem;
   text-transform: uppercase;
-  color: c.$color-blue;
 }
 
 .activities__card {
@@ -404,7 +402,6 @@ function signUpActivity (activity) {
   font-size: 1.15rem;
   line-height: 1.2;
   text-transform: uppercase;
-  color: c.$color-blue;
 
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -434,7 +431,6 @@ function signUpActivity (activity) {
   font-size: 1rem;
   line-height: 1.2;
   text-transform: uppercase;
-  color: c.$color-blue;
   white-space: nowrap;
 }
 
@@ -473,7 +469,6 @@ function signUpActivity (activity) {
   font-family: f.$font-anton;
   font-size: 1.2rem;
   text-decoration: underline;
-  color: c.$color-blue;
   cursor: pointer;
 }
 
@@ -508,7 +503,6 @@ function signUpActivity (activity) {
   font-family: f.$font-anton;
   font-size: 2.2rem;
   text-transform: uppercase;
-  color: c.$color-blue;
 }
 
 .activities__dialogClose {
@@ -519,7 +513,6 @@ function signUpActivity (activity) {
   background: transparent;
   font-family: f.$font-anton;
   font-size: 1.7rem;
-  color: c.$color-blue;
   cursor: pointer;
   z-index: 1001;
 }
@@ -560,7 +553,6 @@ function signUpActivity (activity) {
   font-size: 1rem;
   line-height: 1.25;
   text-transform: uppercase;
-  color: c.$color-blue;
 }
 
 .activities__dialogDescription {
@@ -569,7 +561,6 @@ function signUpActivity (activity) {
   font-size: 0.95rem;
   line-height: 1.55;
   text-transform: none;
-  color: c.$color-blue;
 }
 
 .activities__dialogButtonWrapper {
@@ -583,7 +574,6 @@ function signUpActivity (activity) {
   font-size: 1rem;
   line-height: 1.25;
   text-transform: uppercase;
-  color: c.$color-blue;
 }
 
 .activities__signedUpBox {
@@ -595,7 +585,7 @@ function signUpActivity (activity) {
   border: 1px solid #dddddd;
   border-radius: 22px;
   scrollbar-width: auto;
-  scrollbar-color: c.$color-blue #eeeeee;
+  scrollbar-color: c.$color-black #eeeeee;
 }
 
 .activities__signedUpBox::-webkit-scrollbar {
@@ -632,7 +622,6 @@ function signUpActivity (activity) {
   font-family: f.$font-poppines;
   font-size: 1rem;
   font-weight: 700;
-  color: c.$color-blue;
 }
 
 .activities__personTeam {
@@ -640,7 +629,6 @@ function signUpActivity (activity) {
   font-family: f.$font-poppines;
   font-size: 1rem;
   line-height: 1.4;
-  color: c.$color-blue;
 }
 
 .activities__dialogSignup {
