@@ -3,6 +3,8 @@ import HeroTamplate from '@/components/HeroTamplate.vue';
 import Faelleskab from '../assets/images/hero/Faelleskab_hero.webp'
 import UdOverBanen from '../assets/images/UdOverBanen.webp'
 import Citat from '@/components/Citat.vue';
+import CitatImg from '../assets/images/citat_img.webp';
+import Medlem from '../assets/images/Medlem.webp';
 
 </script>
 
@@ -72,7 +74,7 @@ import Citat from '@/components/Citat.vue';
     <div class="about-citat">
         <div class="Citat">
         <Citat
-            :image="Faelleskab"
+            :image="CitatImg"
             title="“ FOLK ER GODE TIL AT TRÆKKE HINANDEN MED IND I"
             titlecta="FÆLLESSKABET ”"
             :gradient="true"
@@ -84,14 +86,16 @@ import Citat from '@/components/Citat.vue';
         <div class="tak_content">
             
             <div class="UdOverBanen_img_box">
-                <img class="UdOverBanen_img" :src="UdOverBanen" alt="Mennesker i klubben">
+                <img class="UdOverBanen_img" :src="Medlem" alt="Mennesker i klubben">
             </div>
 
             <div class="tak_text">
-                <h2 class="tak_text--title">ET FÆLLESSKAB DER RÆKKER UD OVER BANEN</h2>
+                <h2 class="tak_text--title">BLIV EN DEL AF BOLBRO GIF</h2>
                 <p>
-                    I Bolbro GIF handler det om meget mere end selve sporten. Vi støtter hinanden til kampe og skaber et stærkt sammenhold, der rækker ud over banen. Gennem fælles arrangementer som koncerter, loppemarkeder og andre events samler vi ind til klubben og styrker fællesskabet. Til sommer og vinter mødes vi på tværs af hold, lærer hinanden at kende og bliver en del af et fællesskab, hvor alle er velkomne.   
+                    Her kan du møde nye mennesker og blive en del af en hverdag med aktiviteter, grin og gode oplevelser. Uanset om du er ny, øvet eller bare nysgerrig, er der plads til dig. Kom forbi for at opleve stemningen og mærk, om det er noget for dig
                 </p>
+
+                <button>Book en prøvetræning</button>
             </div>
         </div>
 
