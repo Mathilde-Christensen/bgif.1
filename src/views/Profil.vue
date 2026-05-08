@@ -42,8 +42,7 @@ import ProfileHero from "@/assets/images/hero/profilehero.webp";
       <section class="profile__calendar-box">
         <Activities
           title="Min kalender"
-          button-text="Tilmeldt"
-          :is-joined="true"
+          :only-joined="true"
           class="profile__activities"
         />
       </section>
@@ -83,7 +82,6 @@ import ProfileHero from "@/assets/images/hero/profilehero.webp";
   margin-top: -45px;
   padding: 0 0 80px;
   border-radius: 45px 45px 0 0;
-  background: c.$color-white;
 }
 
 .profile__user {
@@ -99,8 +97,8 @@ import ProfileHero from "@/assets/images/hero/profilehero.webp";
   height: 190px;
   border-radius: 50%;
   object-fit: cover;
-  object-position: center 25%;
-  transform: translateY(-20px);
+  object-position: center 10%;
+  transform: translateY(10px);
 }
 
 .profile__info {
@@ -110,7 +108,6 @@ import ProfileHero from "@/assets/images/hero/profilehero.webp";
 .profile__title {
   margin: 0;
   color: c.$cta;
-  text-transform: uppercase;
 }
 
 .profile__details {
@@ -130,10 +127,6 @@ import ProfileHero from "@/assets/images/hero/profilehero.webp";
 }
 
 /* Styling af Activities inde fra Profil.vue */
-.profile__activities :deep(.activities) {
-  background-color: transparent;
-  padding: 0;
-}
 
 section.activities.profile__activities {
   padding: 0 clamp(1.5rem, 8vw, 110px);
@@ -143,22 +136,5 @@ section.activities.profile__activities {
   color: #222222;
   font-size: 34px;
   text-transform: uppercase;
-}
-
-.profile__activities :deep(.activities__card) {
-  width: 100%;
-  min-height: 95px;
-  display: grid;
-  grid-template-columns: 1fr 1.2fr 2.2fr auto auto;
-}
-
-.profile__activities :deep(.activities__location) {
-  white-space: normal;
-  overflow-wrap: break-word;
-}
-
-.profile__activities :deep(.activities__button--joined) {
-  background-color: #000f9f;
-  color: c.$color-white;
 }
 </style>
