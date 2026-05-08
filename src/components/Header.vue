@@ -22,17 +22,24 @@ const closeMenu = () => {
   isMenuOpen.value = false
 }
 
+const getScrollLimit = () => {
+  if (route.path === '/profil') {
+    return 140
+  }
+
+  if (route.path === '/calendar') {
+    return 440
+  }
+
+  return 500
+}
+
 const handleScroll = () => {
-
-const scrollLimit =
-  route.path === '/profil'
-    ? 190
-    : 500
-
-isScrolled.value = window.scrollY > scrollLimit
+  isScrolled.value = window.scrollY > getScrollLimit()
 }
 
 onMounted(() => {
+  handleScroll()
   window.addEventListener('scroll', handleScroll)
 })
 

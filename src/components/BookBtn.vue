@@ -5,14 +5,6 @@ const BASE = import.meta.env.VITE_FIREBASE_DATABASE_URL?.replace(/\/$/, '')
 
 const props = defineProps({
   id: { type: String, required: true },
-  buttonText: {
-    type: String,
-    default: '',
-  },
-  isJoined: {
-    type: Boolean,
-    default: false,
-  },
 })
 
 const status = ref(0)
@@ -25,6 +17,7 @@ const pendingAction = ref(null)
 const showContactForm = ref(false)
 const message = ref('')
 const messageError = ref('')
+const messageSuccess = ref('')
 
 const PATH = `${BASE}/booking/${encodeURIComponent(props.id)}.json`
 
@@ -36,10 +29,17 @@ async function load() {
 
   try {
     const res = await fetch(PATH)
-    if (!res.ok) throw new Error(`GET ${res.status} ${res.statusText}`)
+
+    if (!res.ok) {
+      throw new Error(`GET ${res.status} ${res.statusText}`)
+    }
 
     const data = await res.json()
-    status.value = (data === 0 || data === 1) ? data : 0
+
+    status.value = (data === 0 || data === 1)
+      ? data
+      : 0
+
   } catch (e) {
     console.error('[BookButton][GET] failed:', e)
     error.value = 'Kunne ikke hente status.'
@@ -49,7 +49,10 @@ async function load() {
 }
 
 function openConfirm() {
-  pendingAction.value = status.value === 1 ? 'leave' : 'join'
+  pendingAction.value = status.value === 1
+    ? 'leave'
+    : 'join'
+
   showConfirm.value = true
 }
 
@@ -60,6 +63,7 @@ function closeConfirm() {
 
 async function confirmAction() {
   if (!pendingAction.value) return
+
   await toggleOnServer()
   closeConfirm()
 }
@@ -73,9 +77,11 @@ function closeContactForm() {
   showContactForm.value = false
   message.value = ''
   messageError.value = ''
+  messageSuccess.value = ''
 }
 
 async function sendMessage() {
+
   if (!message.value.trim()) {
     messageError.value = 'Skriv en besked først.'
     return
@@ -83,11 +89,16 @@ async function sendMessage() {
 
   loading.value = true
   messageError.value = ''
+  messageSuccess.value = ''
 
   try {
+
     const messageRes = await fetch(`${BASE}/messages.json`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+      },
+
       body: JSON.stringify({
         activityId: props.id,
         message: message.value,
@@ -101,7 +112,10 @@ async function sendMessage() {
 
     const bookingRes = await fetch(PATH, {
       method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+      },
+
       body: JSON.stringify(0),
     })
 
@@ -110,7 +124,12 @@ async function sendMessage() {
     }
 
     status.value = 0
-    closeContactForm()
+    messageSuccess.value = 'Beskeden blev sendt.'
+
+    setTimeout(() => {
+      closeContactForm()
+    }, 1200)
+
   } catch (e) {
     console.error('[BookButton][MESSAGE] failed:', e)
     messageError.value = 'Beskeden kunne ikke sendes.'
@@ -120,21 +139,32 @@ async function sendMessage() {
 }
 
 async function toggleOnServer() {
+
   loading.value = true
   error.value = ''
 
   try {
-    const next = status.value === 1 ? 0 : 1
+
+    const next = status.value === 1
+      ? 0
+      : 1
 
     const res = await fetch(PATH, {
       method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
+
+      headers: {
+        'Content-Type': 'application/json',
+      },
+
       body: JSON.stringify(next),
     })
 
-    if (!res.ok) throw new Error(`PUT ${res.status} ${res.statusText}`)
+    if (!res.ok) {
+      throw new Error(`PUT ${res.status} ${res.statusText}`)
+    }
 
     status.value = next
+
   } catch (e) {
     console.error('[BookButton][PUT] failed:', e)
     error.value = 'Kunne ikke gemme status.'
@@ -145,46 +175,84 @@ async function toggleOnServer() {
 </script>
 
 <template>
+
   <button
     @click="openConfirm"
     :disabled="loading"
-    :class="{ active: status === 1 || isJoined }"
+    :class="{ active: status === 1 }"
   >
-    {{ buttonText || (status === 1 ? 'TILMELDT' : 'TILMELD') }}
+    {{ status === 1 ? 'TILMELDT' : 'TILMELD' }}
   </button>
 
-  <div v-if="showConfirm" class="modal-backdrop">
-    <div class="modal" role="dialog" aria-modal="true">
+  <!-- Bekræft modal -->
+
+  <div
+    v-if="showConfirm"
+    class="modal-backdrop"
+  >
+
+    <div
+      class="modal"
+      role="dialog"
+      aria-modal="true"
+    >
+
       <h2 class="modal__title">
-        Bekræft din {{ pendingAction === 'join' ? 'tilmelding' : 'afmelding' }}
+        Bekræft din
+        {{ pendingAction === 'join' ? 'tilmelding' : 'afmelding' }}
       </h2>
 
-      <p class="modal__text" v-if="pendingAction === 'join'">
+      <p
+        v-if="pendingAction === 'join'"
+        class="modal__text"
+      >
         Skulle du blive forhindret, så husk at afmelde dig hos den ansvarlige for eventet.
       </p>
 
-      <p class="modal__text" v-else>
+      <p
+        v-else
+        class="modal__text"
+      >
         Vil du melde fra? Kontakt den ansvarlige for aktiviteten.
       </p>
 
       <div class="modal__actions">
-        <button class="btn btn--outline" @click="closeConfirm" :disabled="loading">
+
+        <button
+          class="btn btn--outline"
+          @click="closeConfirm"
+          :disabled="loading"
+        >
           ANNULLER
         </button>
 
         <button
           class="btn btn--solid"
-          @click="pendingAction === 'join' ? confirmAction() : openContactForm()"
+          @click="pendingAction === 'join'
+            ? confirmAction()
+            : openContactForm()"
           :disabled="loading"
         >
           {{ pendingAction === 'join' ? 'TILMELD' : 'KONTAKT' }}
         </button>
+
       </div>
     </div>
   </div>
 
-  <div v-if="showContactForm" class="modal-backdrop">
-    <div class="modal modal--contact" role="dialog" aria-modal="true">
+  <!-- Kontakt modal -->
+
+  <div
+    v-if="showContactForm"
+    class="modal-backdrop"
+  >
+
+    <div
+      class="modal modal--contact"
+      role="dialog"
+      aria-modal="true"
+    >
+
       <h2 class="modal__title">
         Kontakt ansvarlig
       </h2>
@@ -200,30 +268,60 @@ async function toggleOnServer() {
       ></textarea>
 
       <div class="modal__actions">
-        <button class="btn btn--outline" @click="closeContactForm" :disabled="loading">
+
+        <button
+          class="btn btn--outline"
+          @click="closeContactForm"
+          :disabled="loading"
+        >
           ANNULLER
         </button>
 
-        <button class="btn btn--solid" @click="sendMessage" :disabled="loading">
+        <button
+          class="btn btn--solid"
+          @click="sendMessage"
+          :disabled="loading"
+        >
           {{ loading ? 'SENDER...' : 'SEND' }}
         </button>
+
       </div>
 
-      <p v-if="messageSuccess" class="success">{{ messageSuccess }}</p>
-      <p v-if="messageError" class="error">{{ messageError }}</p>
+      <p
+        v-if="messageSuccess"
+        class="success"
+      >
+        {{ messageSuccess }}
+      </p>
+
+      <p
+        v-if="messageError"
+        class="error"
+      >
+        {{ messageError }}
+      </p>
+
     </div>
   </div>
 
-  <p v-if="error" class="error">{{ error }}</p>
+  <p
+    v-if="error"
+    class="error"
+  >
+    {{ error }}
+  </p>
+
 </template>
 
 <style lang="scss" scoped>
+
 @use '@/assets/_color.scss' as c;
 @use '@/assets/_font.scss' as f;
 @use '@/assets/_button.scss' as btn;
 
 button {
   @include btn.button(btn.$button-small);
+
   border: 0;
   cursor: pointer;
 }
@@ -241,22 +339,32 @@ button:disabled {
 .modal-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,.35);
+
+  background: rgba(0, 0, 0, .35);
+
   display: grid;
   place-items: center;
+
   z-index: 999;
 }
 
 .modal {
   width: min(640px, 92vw);
+
   min-height: 300px;
+
   background: c.$color-white;
+
   border-radius: 14px;
+
   z-index: 1000;
+
   box-shadow:
     0 20px 40px rgba(0,0,0,.25),
     0 2px 6px rgba(0,0,0,.15);
+
   padding: 50px;
+
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -268,30 +376,46 @@ button:disabled {
 
 .modal__title {
   font-weight: 600;
+
   font-size: clamp(24px, 3.2vw, 40px);
+
   line-height: 1.1;
+
   margin: 0 0 12px;
+
   text-align: center;
+
   color: c.$color-blue;
 }
 
 .modal__text {
   font-size: 16px;
+
   line-height: 1.6;
+
   margin: 0 0 20px;
+
   text-align: center;
+
   color: c.$color-blue;
 }
 
 .modal__textarea {
   width: 100%;
+
   min-height: 120px;
+
   resize: none;
+
   border: 2px solid c.$color-lblue;
+
   border-radius: 14px;
+
   padding: 16px;
+
   font-family: f.$font-poppines;
   font-size: 1rem;
+
   color: c.$color-blue;
 }
 
@@ -302,37 +426,50 @@ button:disabled {
 
 .modal__actions {
   display: flex;
+
   gap: 20px;
+
   justify-content: center;
+
   margin-top: 8px;
 }
 
 .btn {
   @include btn.button(btn.$button-small);
+
   font-weight: 900;
 }
 
 .btn--outline {
   background: transparent;
+
   color: c.$color-lblue;
+
   border: 3px solid c.$color-lblue;
 }
 
 .btn--outline:hover {
   color: c.$cta;
+
   border-color: c.$cta;
+
   background-color: transparent;
 }
 
 .error {
   margin-top: 10px;
+
   color: c.$color-lblue;
+
   text-align: center;
 }
 
 .success {
   margin-top: 10px;
+
   color: c.$color-blue;
+
   text-align: center;
 }
+
 </style>

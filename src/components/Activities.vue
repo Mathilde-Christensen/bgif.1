@@ -542,6 +542,18 @@ function signUpActivity (activity) {
   object-fit: contain;
 }
 
+.activities__infoIcon {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  transition: transform 0.2s ease;
+  transform-origin: center;
+}
+
+.activities__infoButton:hover .activities__infoIcon {
+  transform: scale(1.3);
+}
+
 .activities__dialogMeta {
   margin: 0;
   font-family: f.$font-anton;

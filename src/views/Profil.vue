@@ -1,12 +1,13 @@
 <script setup>
 import Activities from "@/components/Activities.vue";
 import HeroTamplate from "@/components/HeroTamplate.vue";
+import ProfileHero from "@/assets/images/hero/profilehero.webp";
 </script>
 
 <template>
- <HeroTamplate
+  <HeroTamplate
     class="profile__hero"
-    image="/src/assets/images/hero/profilehero.webp"
+    :image="ProfileHero"
     :gradient="true"
     height="450px"
     image-position="center 0%"
@@ -67,17 +68,6 @@ import HeroTamplate from "@/components/HeroTamplate.vue";
   z-index: 1;
 }
 
-.profile__hero :deep(.hero__img) {
-  object-position: center 5%;
-}
-
-.profile__heroImage {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 105%;
-  display: block;
-}
 
 .overflow_box {
   position: relative;
@@ -145,8 +135,11 @@ import HeroTamplate from "@/components/HeroTamplate.vue";
   padding: 0;
 }
 
+section.activities.profile__activities {
+  padding: 0 clamp(1.5rem, 8vw, 110px);
+}
+
 .profile__activities :deep(.activities__title) {
-  margin: 0 0 28px;
   color: #222222;
   font-size: 34px;
   text-transform: uppercase;
@@ -155,10 +148,8 @@ import HeroTamplate from "@/components/HeroTamplate.vue";
 .profile__activities :deep(.activities__card) {
   width: 100%;
   min-height: 95px;
-  padding: 24px 34px;
   display: grid;
   grid-template-columns: 1fr 1.2fr 2.2fr auto auto;
-  gap: 28px;
 }
 
 .profile__activities :deep(.activities__location) {
