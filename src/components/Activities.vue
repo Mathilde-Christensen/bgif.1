@@ -5,7 +5,6 @@ import informationIcon from '@/assets/images/icons/information.webp'
 import clockIcon from '@/assets/images/icons/clock.webp'
 import locationIcon from '@/assets/images/icons/locationpin.webp'
 import calendarIcon from '@/assets/images/icons/calendar.webp'
-
 import boyImage from '@/assets/images/members/boy.webp'
 import girlImage from '@/assets/images/members/girl.webp'
 import dadImage from '@/assets/images/members/dad.webp'

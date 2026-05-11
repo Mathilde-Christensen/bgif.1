@@ -38,11 +38,11 @@ import instagramIcon from '../assets/images/icons/instagram_glyph_white.webp'
 
         <div class="footer__socials">
           <a href="https://www.facebook.com/bolbrogifdk/?locale=da_DK" target="_blank" rel="noopener">
-            <img src="../assets/images/icons/facebook_logo_secondary.webp" alt="Facebook" class="footer__icon" />
+            <img :src="facebookIcon" alt="Facebook" class="footer__icon" />
           </a>
 
           <a href="https://www.instagram.com/bolbrohandball/" target="_blank" rel="noopener">
-            <img src="../assets/images/icons/instagram_glyph_white.webp" alt="Instagram" class="footer__icon" />
+            <img :src="instagramIcon" alt="Instagram" class="footer__icon" />
           </a>
         </div>
       </section>
