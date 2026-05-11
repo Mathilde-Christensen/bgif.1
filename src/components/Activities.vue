@@ -27,8 +27,11 @@ const props = defineProps({
 })
 
 const selectedActivity = ref(null)
+const activities = ref([])
 const bookings = ref({})
 const visibleCount = ref(6)
+const loading = ref(false)
+const error = ref('')
 
 const signedUpPeople = [
   {
@@ -52,84 +55,6 @@ const signedUpPeople = [
     image: previousMemberImage,
   },
 ]
-
-const activities = ref([
-  {
-    id: 1,
-    date: '2026-05-16',
-    dayTitle: 'Lørdag 16/5',
-    start: '14.30',
-    end: '20.00',
-    title: 'Koncert',
-    location: 'Falen 95 Odense C',
-    task: 'Opstilling og klargøring',
-    description: 'Endnu engang afholder vi koncert i Bolbro GIF for at samle ind til klubben – og vi har brug for din hjælp! For at få det hele til at spille, mangler vi frivillige til forskellige opgaver både før, under og efter koncerten. Det kan være alt fra opsætning og nedtagning til bar, indgang eller praktisk hjælp i løbet af dagen.',
-    signedUp: signedUpPeople,
-  },
-  {
-    id: 2,
-    date: '2026-06-18',
-    dayTitle: 'Torsdag 18/6',
-    start: '10.00',
-    end: '14.00',
-    title: 'Heartland Festival',
-    subtitle: 'dag 1',
-    location: 'Egeskov Slot, Egeskov Gade 22 5772 Kværndrup',
-    task: 'Festivalhjælp',
-    description: 'Som frivillig på Heartland Festival hjælper du med forskellige opgaver på festivalområdet. Det kan blandt andet være at guide gæster, hjælpe ved områder på pladsen eller løse praktiske opgaver sammen med andre frivillige. Du behøver ikke erfaring på forhånd, og du bliver introduceret til opgaverne ved start. Vagten varer ca. 4 timer og foregår i et socialt og energisk miljø.',
-    signedUp: signedUpPeople,
-  },
-  {
-    id: 3,
-    date: '2026-06-19',
-    dayTitle: 'Fredag 19/6',
-    start: '10.00',
-    end: '14.00',
-    title: 'Heartland Festival',
-    subtitle: 'dag 2',
-    location: 'Egeskov Slot, Egeskov Gade 22 5772 Kværndrup',
-    task: 'Festivalhjælp',
-    description: 'Som frivillig på Heartland Festival hjælper du med forskellige opgaver på festivalområdet. Det kan blandt andet være at guide gæster, hjælpe ved områder på pladsen eller løse praktiske opgaver sammen med andre frivillige. Du behøver ikke erfaring på forhånd, og du bliver introduceret til opgaverne ved start. Vagten varer ca. 4 timer og foregår i et socialt og energisk miljø.',
-    signedUp: signedUpPeople,
-  },
-  {
-    id: 4,
-    date: '2026-06-20',
-    dayTitle: 'Lørdag 20/6',
-    start: '10.00',
-    end: '14.00',
-    title: 'Heartland Festival',
-    subtitle: 'dag 3',
-    location: 'Egeskov Slot, Egeskov Gade 22 5772 Kværndrup',
-    task: 'Festivalhjælp',
-    description: 'Som frivillig på Heartland Festival hjælper du med forskellige opgaver på festivalområdet. Det kan blandt andet være at guide gæster, hjælpe ved områder på pladsen eller løse praktiske opgaver sammen med andre frivillige. Du behøver ikke erfaring på forhånd, og du bliver introduceret til opgaverne ved start. Vagten varer ca. 4 timer og foregår i et socialt og energisk miljø.',
-    signedUp: signedUpPeople,
-  },
-  {
-    id: 5,
-    date: '2026-08-14',
-    dayTitle: 'Fredag 14/8',
-    start: '18.30',
-    end: '21.00',
-    title: 'Unity (amerikansk fodbold)',
-    location: 'Bolbro Parken, Falen 95 5000 Odense C',
-    task: 'Afvikling af arrangement',
-    description: 'Til Unity-arrangementet hjælper frivillige med afvikling af eventet og praktiske opgaver før og under kampen. Det kan være hjælp til opsætning, gæster, salg eller lettere koordinering omkring området. Du bliver en del af et mindre frivilligteam, hvor samarbejde og fællesskab er i fokus. Vagten varer ca. 2,5 time.',
-    signedUp: signedUpPeople,
-  },
-  {
-    id: 6,
-    date: '2026-09-06',
-    dayTitle: 'Søndag 6/9',
-    start: '11.00',
-    end: '15.00',
-    title: 'Loppemarked',
-    location: 'Bolbro Hallen, Friggasvej 14 5200 Odense V',
-    task: 'Boder og praktiske opgaver',
-    description: 'Til loppemarkedet hjælper du med praktiske opgaver såsom opsætning af boder, vejledning af gæster samt hjælp til afvikling i løbet af dagen. Opgaverne er simple og fordeles mellem de frivillige på dagen. Der vil være tid til pauser og mulighed for at være social med de andre frivillige. Vagten varer ca. 4 timer.',
-    signedUp: signedUpPeople,
-  },
-])
 
 const joinedActivities = computed(() => {
   return activities.value.filter((activity) => {
@@ -158,8 +83,48 @@ const canLoadMore = computed(() => {
 })
 
 onMounted(() => {
+  loadActivities()
   loadBookings()
 })
+
+async function loadActivities() {
+  if (!BASE) {
+    error.value = 'Firebase URL mangler.'
+    return
+  }
+
+  loading.value = true
+  error.value = ''
+
+  try {
+    const res = await fetch(`${BASE}/activities.json`)
+
+    if (!res.ok) {
+      throw new Error(`GET ${res.status} ${res.statusText}`)
+    }
+
+    const raw = await res.json()
+
+    activities.value = raw
+      ? Object.entries(raw)
+          .map(([id, activity]) => ({
+            id,
+            signedUp: signedUpPeople,
+            ...activity,
+          }))
+          .sort((a, b) => {
+            return `${a.date} ${a.start || '00:00'}`.localeCompare(
+              `${b.date} ${b.start || '00:00'}`
+            )
+          })
+      : []
+  } catch (err) {
+    console.error('[Activities][GET activities] failed:', err)
+    error.value = 'Kunne ikke hente aktiviteter.'
+  } finally {
+    loading.value = false
+  }
+}
 
 async function loadBookings() {
   if (!BASE) return
@@ -174,8 +139,8 @@ async function loadBookings() {
     const data = await res.json()
 
     bookings.value = data || {}
-  } catch (error) {
-    console.error('[Activities][GET booking] failed:', error)
+  } catch (err) {
+    console.error('[Activities][GET booking] failed:', err)
   }
 }
 

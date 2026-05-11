@@ -4,7 +4,7 @@ import Insta2 from '../assets/images/instagram/insta2.png'
 import Insta3 from '../assets/images/instagram/insta3.png'
 import Insta4 from '../assets/images/instagram/insta4.png'
 
-const instaUrl = 'https://www.instagram.com/odenseidraetspark/';
+const instaUrl = 'https://www.instagram.com/bolbrohandball/';
 </script>
 
 <template>

@@ -6,13 +6,18 @@ import CalendarLogo from '../assets/images/icons/calendarwhite.webp'
 import Chat from '../assets/images/icons/chatikonwhite.webp'
 import Profile from '../assets/images/icons/usericonwhite.webp'
 
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
 
 const isMenuOpen = ref(false)
 const isScrolled = ref(false)
+const hideLogo = ref(false)
 
 const route = useRoute()
+
+const isAdminPage = computed(() => {
+  return route.path === '/admin'
+})
 
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value
@@ -24,7 +29,7 @@ const closeMenu = () => {
 
 const getScrollLimit = () => {
   if (route.path === '/profil') {
-    return 140
+    return 200
   }
 
   if (route.path === '/calendar') {
@@ -35,7 +40,14 @@ const getScrollLimit = () => {
 }
 
 const handleScroll = () => {
+  if (isAdminPage.value) {
+    isScrolled.value = true
+    hideLogo.value = window.scrollY > 5
+    return
+  }
+
   isScrolled.value = window.scrollY > getScrollLimit()
+  hideLogo.value = false
 }
 
 onMounted(() => {
@@ -49,69 +61,96 @@ onUnmounted(() => {
 </script>
 
 <template>
-    <header :class="{ scrolled: isScrolled }">
-        <div class="header_mobil">
+  <header
+    :class="{
+      scrolled: isScrolled,
+      'header--admin': isAdminPage,
+      'header--hide-logo': hideLogo
+    }"
+  >
+    <div class="header_mobil">
+      <button
+        class="hamburger"
+        @click.stop="toggleMenu"
+        :aria-expanded="isMenuOpen"
+        aria-label="Åbn menu"
+      >
+        <span v-if="!isMenuOpen">
+          <img class="hamburger__img_mobil" :src="Burger" alt="burgermenu">
+        </span>
 
-            <button
-                class="hamburger"
-                @click.stop="toggleMenu"
-                :aria-expanded="isMenuOpen"
-                aria-label="Åbn menu"
-            >
-                <span v-if="!isMenuOpen">
-                    <img class="hamburger__img_mobil" :src="Burger" alt="burgermenu">
-                </span>
+        <span v-else class="hamburger__close">×</span>
+      </button>
 
-                <span v-else class="hamburger__close">×</span>
-            </button>
+      <nav class="mobil_nav" :class="{ open: isMenuOpen }">
+        <ul class="mobil_nav_ul">
+          <li>
+            <RouterLink to="/" @click="closeMenu">
+              <img :src="Home" alt="Home ikon">
+              Hjem
+            </RouterLink>
+          </li>
 
-            <nav class="mobil_nav" :class="{ open: isMenuOpen }">
-                <ul class="mobil_nav_ul">
-                <li>
-                    <RouterLink to="/" @click="closeMenu">
-                    <img :src="Home" alt="Home ikon">
-                    Hjem
-                    </RouterLink>
-                </li>
+          <li>
+            <RouterLink to="/calendar" @click="closeMenu">
+              <img :src="CalendarLogo" alt="Calendar ikon">
+              Kalender
+            </RouterLink>
+          </li>
 
-                <li>
-                    <RouterLink to="/calendar" @click="closeMenu">
-                    <img :src="CalendarLogo" alt="Calendar ikon">
-                    Kalender
-                    </RouterLink>
-                </li>
+          <li>
+            <RouterLink to="/chat" @click="closeMenu">
+              <img :src="Chat" alt="Chat ikon">
+              Chat
+            </RouterLink>
+          </li>
 
-                <li>
-                    <RouterLink to="/chat" @click="closeMenu">
-                    <img :src="Chat" alt="Chat ikon">
-                    Chat
-                    </RouterLink>
-                </li>
+          <li>
+            <RouterLink to="/profil" @click="closeMenu">
+              <img :src="Profile" alt="Profile ikon">
+              Profil
+            </RouterLink>
+          </li>
+        </ul>
+      </nav>
+    </div>
 
-                <li>
-                    <RouterLink to="/profil" @click="closeMenu">
-                    <img :src="Profile" alt="Profile ikon">
-                    Profil
-                    </RouterLink>
-                </li>
-                </ul>
-            </nav>
-        
+    <nav class="header_nav">
+      <ul class="header_nav_ul">
+        <li>
+          <RouterLink to="/">
+            <img class="logo_img" :src="Logo" alt="Bolbro logo">
+          </RouterLink>
+        </li>
 
-        </div>
+        <ul class="nav_box_ul">
+          <li class="nav_box_li">
+            <RouterLink to="/">
+              <img :src="Home" alt="Home ikon">Hjem
+            </RouterLink>
+          </li>
 
-        <nav class="header_nav">
-            <ul class="header_nav_ul">
-                <li><RouterLink to="/"><img class="logo_img" :src="Logo" alt="Bolbro logo" /></RouterLink></li>
-                    <ul class="nav_box_ul">
-                        <li class="nav_box_li"><RouterLink to="/"><img :src="Home" alt="Home ikon">Hjem</RouterLink></li>
-                        <li class="nav_box_li"><RouterLink to="/calendar"><img :src="CalendarLogo" alt="Calendar ikon">Kalender</RouterLink></li>
-                        <li class="nav_box_li"><RouterLink to="/chat"><img :src="Chat" alt="Chat ikon">Chat</RouterLink></li>
-                        <li class="nav_box_li"><RouterLink to="/profil"><img :src="Profile" alt="Profile ikon">Profil</RouterLink></li>
-                    </ul>
-            </ul>
-        </nav>
-    </header>
+          <li class="nav_box_li">
+            <RouterLink to="/calendar">
+              <img :src="CalendarLogo" alt="Calendar ikon">Kalender
+            </RouterLink>
+          </li>
+
+          <li class="nav_box_li">
+            <RouterLink to="/chat">
+              <img :src="Chat" alt="Chat ikon">Chat
+            </RouterLink>
+          </li>
+
+          <li class="nav_box_li">
+            <RouterLink to="/profil">
+              <img :src="Profile" alt="Profile ikon">Profil
+            </RouterLink>
+          </li>
+        </ul>
+      </ul>
+    </nav>
+  </header>
 </template>
 
 <style lang="scss" scoped>
@@ -261,8 +300,8 @@ header.scrolled .nav_box_ul {
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-header.scrolled .logo_img,
-header.scrolled .mobil_logo_img {
+header.header--hide-logo .logo_img,
+header.header--hide-logo .mobil_logo_img {
   opacity: 0;
   transform: translateY(-10px);
   pointer-events: none;

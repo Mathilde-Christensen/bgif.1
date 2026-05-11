@@ -41,7 +41,7 @@ import instagramIcon from '../assets/images/icons/instagram_glyph_white.webp'
             <img src="../assets/images/icons/facebook_logo_secondary.webp" alt="Facebook" class="footer__icon" />
           </a>
 
-          <a href="https://www.instagram.com/explore/locations/116632698406902/bolbro-gif/" target="_blank" rel="noopener">
+          <a href="https://www.instagram.com/bolbrohandball/" target="_blank" rel="noopener">
             <img src="../assets/images/icons/instagram_glyph_white.webp" alt="Instagram" class="footer__icon" />
           </a>
         </div>

@@ -4,6 +4,7 @@ import Calendar from '@/views/Calendar.vue'
 import Profil from '@/views/Profil.vue'
 import Chat from '@/views/Chat.vue'
 import Faellesskab from '@/views/Faellesskab.vue'
+import Admin from '@/views/Admin.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -32,6 +33,11 @@ const router = createRouter({
       path: '/faellesskab',
       name: 'faellesskab',
       component: Faellesskab,
+    },
+    {
+      path: '/admin',
+      name: 'admin',
+      component: Admin,
     },
   ],
 })

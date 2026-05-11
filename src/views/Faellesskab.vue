@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 
 import HeroTamplate from '@/components/HeroTamplate.vue'
-import Faellesskab from '../assets/images/hero/Faelleskab_hero.webp'
+import Faellesskab from '../assets/images/hero/faellesskab-hero.webp'
 import UdOverBanen from '../assets/images/UdOverBanen.webp'
 import Citat from '@/components/Citat.vue'
 import CitatImg from '../assets/images/citat_img.webp'
@@ -29,7 +29,7 @@ function sendTrialForm() {
     <div class="about-hero">
         <div class="hero">
         <HeroTamplate
-            :image="Faelleskab"
+            :image="Faellesskab"
             title="SAMMEN SKABER VI KLUBBEN"
             text="Bolbro GIF er drevet af fællesskab og frivillighed. Her løfter vi i flok – både til træning og til klubbens mange aktiviteter."
             :gradient="true"

@@ -4,7 +4,10 @@ import { ref, onMounted } from 'vue'
 const BASE = import.meta.env.VITE_FIREBASE_DATABASE_URL?.replace(/\/$/, '')
 
 const props = defineProps({
-  id: { type: String, required: true },
+  id: {
+    type: String,
+    required: true,
+  },
 })
 
 const status = ref(0)
@@ -19,11 +22,18 @@ const message = ref('')
 const messageError = ref('')
 const messageSuccess = ref('')
 
-const PATH = `${BASE}/booking/${encodeURIComponent(props.id)}.json`
+const PATH = BASE
+  ? `${BASE}/booking/${encodeURIComponent(props.id)}.json`
+  : ''
 
 onMounted(load)
 
 async function load() {
+  if (!PATH) {
+    error.value = 'Firebase URL mangler.'
+    return
+  }
+
   loading.value = true
   error.value = ''
 
@@ -36,12 +46,9 @@ async function load() {
 
     const data = await res.json()
 
-    status.value = (data === 0 || data === 1)
-      ? data
-      : 0
-
-  } catch (e) {
-    console.error('[BookButton][GET] failed:', e)
+    status.value = data === 1 ? 1 : 0
+  } catch (err) {
+    console.error('[BookBtn][GET] failed:', err)
     error.value = 'Kunne ikke hente status.'
   } finally {
     loading.value = false
@@ -81,6 +88,10 @@ function closeContactForm() {
 }
 
 async function sendMessage() {
+  if (!BASE) {
+    messageError.value = 'Firebase URL mangler.'
+    return
+  }
 
   if (!message.value.trim()) {
     messageError.value = 'Skriv en besked først.'
@@ -92,13 +103,11 @@ async function sendMessage() {
   messageSuccess.value = ''
 
   try {
-
     const messageRes = await fetch(`${BASE}/messages.json`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-
       body: JSON.stringify({
         activityId: props.id,
         message: message.value,
@@ -115,7 +124,6 @@ async function sendMessage() {
       headers: {
         'Content-Type': 'application/json',
       },
-
       body: JSON.stringify(0),
     })
 
@@ -129,9 +137,8 @@ async function sendMessage() {
     setTimeout(() => {
       closeContactForm()
     }, 1200)
-
-  } catch (e) {
-    console.error('[BookButton][MESSAGE] failed:', e)
+  } catch (err) {
+    console.error('[BookBtn][MESSAGE] failed:', err)
     messageError.value = 'Beskeden kunne ikke sendes.'
   } finally {
     loading.value = false
@@ -139,23 +146,22 @@ async function sendMessage() {
 }
 
 async function toggleOnServer() {
+  if (!PATH) {
+    error.value = 'Firebase URL mangler.'
+    return
+  }
 
   loading.value = true
   error.value = ''
 
   try {
-
-    const next = status.value === 1
-      ? 0
-      : 1
+    const next = status.value === 1 ? 0 : 1
 
     const res = await fetch(PATH, {
       method: 'PUT',
-
       headers: {
         'Content-Type': 'application/json',
       },
-
       body: JSON.stringify(next),
     })
 
@@ -164,9 +170,8 @@ async function toggleOnServer() {
     }
 
     status.value = next
-
-  } catch (e) {
-    console.error('[BookButton][PUT] failed:', e)
+  } catch (err) {
+    console.error('[BookBtn][PUT] failed:', err)
     error.value = 'Kunne ikke gemme status.'
   } finally {
     loading.value = false
