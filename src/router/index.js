@@ -5,6 +5,11 @@ import Profil from '@/views/Profil.vue'
 import Chat from '@/views/Chat.vue'
 import Faellesskab from '@/views/Faellesskab.vue'
 import Admin from '@/views/Admin.vue'
+import Koncerter from '@/views/Koncerter.vue'
+import Loppemarkeder from '@/views/Loppemarkeder.vue'
+import Hardland from '@/views/Hardland.vue'
+import Staevner from '@/views/Staevner.vue'
+import AdminGallery from '@/views/AdminGallery.vue'
 import Login from '@/views/Login.vue'
 
 const router = createRouter({
@@ -46,10 +51,35 @@ const router = createRouter({
       component: Admin,
     },
     {
+      path: '/koncerter',
+      name: 'koncerter',
+      component: Koncerter,
+    },
+    {
+      path: '/loppemarkeder',
+      name: 'loppemarkeder',
+      component: Loppemarkeder,
+    },
+    {
+      path: '/hardland',
+      name: 'hardland',
+      component: Hardland,
+    },
+    {
+      path: '/staevner',
+      name: 'staevner',
+      component: Staevner,
+    },
+    {
+      path: '/admingallery',
+      name: 'admingallery',
+      component: AdminGallery,
+    },
+    {
       path: '/login',
       name: 'login',
       component: Login,
-    },
+    }
   ],
 })
 
