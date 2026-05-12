@@ -1,5 +1,14 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
+import { logout } from '@/stores/authState'
+
+const router = useRouter()
+
+function handleLogout() {
+  logout()
+  router.push('/login')
+}
 
 const BASE = import.meta.env.VITE_FIREBASE_DATABASE_URL?.replace(/\/$/, '')
 
@@ -26,7 +35,8 @@ onMounted(loadActivities)
 
 const sortedActivities = computed(() => {
   return [...activities.value].sort((a, b) => {
-    return `${a.date} ${a.start || '00:00'}`.localeCompare(`${b.date} ${b.start || '00:00'}`)
+    return `${a.date} ${a.start || '00:00'}`
+      .localeCompare(`${b.date} ${b.start || '00:00'}`)
   })
 })
 
@@ -179,250 +189,194 @@ async function submitActivity() {
     loading.value = false
   }
 }
-
-function editActivity(activity) {
-  editing.value = activity
-
-  form.value = {
-    title: activity.title || '',
-    subtitle: activity.subtitle || '',
-    date: activity.date || '',
-    start: activity.start || '',
-    end: activity.end || '',
-    location: activity.location || '',
-    task: activity.task || '',
-    description: activity.description || '',
-  }
-}
-
-function openDeleteDialog(activity) {
-  deleteTarget.value = activity
-  showConfirm.value = true
-}
-
-function closeDeleteDialog() {
-  deleteTarget.value = null
-  showConfirm.value = false
-}
-
-async function deleteActivity() {
-  if (!deleteTarget.value) return
-
-  loading.value = true
-  error.value = ''
-
-  try {
-    const activityId = deleteTarget.value.id
-
-    const activityRes = await fetch(`${BASE}/activities/${activityId}.json`, {
-      method: 'DELETE',
-    })
-
-    if (!activityRes.ok) {
-      throw new Error(`DELETE activity ${activityRes.status}`)
-    }
-
-    await fetch(`${BASE}/booking/${activityId}.json`, {
-      method: 'DELETE',
-    })
-
-    activities.value = activities.value.filter((activity) => {
-      return activity.id !== activityId
-    })
-
-    if (editing.value?.id === activityId) {
-      resetForm()
-    }
-
-    closeDeleteDialog()
-  } catch (err) {
-    console.error('[Admin][DELETE activity] failed:', err)
-    error.value = 'Kunne ikke slette aktiviteten.'
-  } finally {
-    loading.value = false
-  }
-}
 </script>
 
 <template>
-  <main class="admin">
-    <section class="admin__panel">
-      <h1 class="admin__title">
-        {{ editing ? 'Redigér aktivitet' : 'Opret aktivitet' }}
-      </h1>
-
-      <form
-        class="admin__form"
-        @submit.prevent="submitActivity"
-      >
-        <label class="admin__field">
-          Titel *
-          <input
-            v-model.trim="form.title"
-            class="admin__input"
-            type="text"
-            placeholder="Fx Koncert"
-          >
-        </label>
-
-        <label class="admin__field">
-          Undertitel
-          <input
-            v-model.trim="form.subtitle"
-            class="admin__input"
-            type="text"
-            placeholder="Fx dag 1"
-          >
-        </label>
-
-        <div class="admin__row">
-          <label class="admin__field">
-            Dato *
-            <input
-              v-model="form.date"
-              class="admin__input"
-              type="date"
-            >
-          </label>
-
-          <label class="admin__field">
-            Starttid *
-            <input
-              v-model="form.start"
-              class="admin__input"
-              type="time"
-            >
-          </label>
-
-          <label class="admin__field">
-            Sluttid
-            <input
-              v-model="form.end"
-              class="admin__input"
-              type="time"
-            >
-          </label>
-        </div>
-
-        <label class="admin__field">
-          Lokation
-          <input
-            v-model.trim="form.location"
-            class="admin__input"
-            type="text"
-            placeholder="Fx Bolbro Hallen, Friggasvej 14"
-          >
-        </label>
-
-        <label class="admin__field">
-          Opgave
-          <input
-            v-model.trim="form.task"
-            class="admin__input"
-            type="text"
-            placeholder="Fx Bar, oprydning eller festivalhjælp"
-          >
-        </label>
-
-        <label class="admin__field">
-          Beskrivelse
-          <textarea
-            v-model.trim="form.description"
-            class="admin__textarea"
-            rows="5"
-            placeholder="Beskriv hvad aktiviteten indebærer..."
-          ></textarea>
-        </label>
-
-        <div class="admin__actions">
-          <button
-            class="admin__button admin__button--primary"
-            type="submit"
-            :disabled="loading"
-          >
-            {{ loading ? 'Gemmer...' : editing ? 'Gem ændringer' : 'Opret aktivitet' }}
-          </button>
-
-          <button
-            v-if="editing"
-            class="admin__button admin__button--secondary"
+    <main class="admin">
+        <button
             type="button"
-            @click="resetForm"
-          >
-            Fortryd
-          </button>
-        </div>
-
-        <p
-          v-if="error"
-          class="admin__error"
+            class="admin__logout"
+            @click="handleLogout"
         >
-          {{ error }}
-        </p>
-      </form>
-    </section>
+            LOG UD
+        </button>
+        <section class="admin__panel">
+            <h1 class="admin__title">
+                {{ editing ? 'Redigér aktivitet' : 'Opret aktivitet' }}
+            </h1>
 
-    <section class="admin__panel">
-      <h2 class="admin__subtitle">
-        Aktivitetsoversigt
-      </h2>
+            <form
+                class="admin__form"
+                @submit.prevent="submitActivity"
+            >
+                <label class="admin__field">
+                Titel *
+                <input
+                    v-model.trim="form.title"
+                    class="admin__input"
+                    type="text"
+                    placeholder="Fx Koncert"
+                >
+                </label>
 
-      <p v-if="loading">
-        Henter...
-      </p>
+                <label class="admin__field">
+                Undertitel
+                <input
+                    v-model.trim="form.subtitle"
+                    class="admin__input"
+                    type="text"
+                    placeholder="Fx dag 1"
+                >
+                </label>
 
-      <p v-else-if="!sortedActivities.length">
-        Der er ikke oprettet aktiviteter endnu.
-      </p>
+                <div class="admin__row">
+                <label class="admin__field">
+                    Dato *
+                    <input
+                    v-model="form.date"
+                    class="admin__input"
+                    type="date"
+                    >
+                </label>
 
-      <ul
-        v-else
-        class="admin__list"
-      >
-        <li
-          v-for="activity in sortedActivities"
-          :key="activity.id"
-          class="admin__item"
-        >
-          <div class="admin__itemContent">
-            <h3 class="admin__itemTitle">
-              {{ activity.title }}
-              <span v-if="activity.subtitle">
-                {{ activity.subtitle }}
-              </span>
-            </h3>
+                <label class="admin__field">
+                    Starttid *
+                    <input
+                    v-model="form.start"
+                    class="admin__input"
+                    type="time"
+                    >
+                </label>
 
-            <p class="admin__itemText">
-              {{ activity.dayTitle }} · kl. {{ activity.start }}-{{ activity.end || '—' }}
+                <label class="admin__field">
+                    Sluttid
+                    <input
+                    v-model="form.end"
+                    class="admin__input"
+                    type="time"
+                    >
+                </label>
+                </div>
+
+                <label class="admin__field">
+                Lokation
+                <input
+                    v-model.trim="form.location"
+                    class="admin__input"
+                    type="text"
+                    placeholder="Fx Bolbro Hallen, Friggasvej 14"
+                >
+                </label>
+
+                <label class="admin__field">
+                Opgave
+                <input
+                    v-model.trim="form.task"
+                    class="admin__input"
+                    type="text"
+                    placeholder="Fx Bar, oprydning eller festivalhjælp"
+                >
+                </label>
+
+                <label class="admin__field">
+                 Beskrivelse
+                    <textarea
+                        v-model.trim="form.description"
+                        class="admin__textarea"
+                        rows="5"
+                        placeholder="Beskriv hvad aktiviteten indebærer..."
+                    ></textarea>
+                </label>
+
+                <div class="admin__actions">
+                    <button
+                        class="admin__button admin__button--primary"
+                        type="submit"
+                        :disabled="loading"
+                    >
+                        {{ loading ? 'Gemmer...' : editing ? 'Gem ændringer' : 'Opret aktivitet' }}
+                    </button>
+
+                    <button
+                        v-if="editing"
+                        class="admin__button admin__button--secondary"
+                        type="button"
+                        @click="resetForm"
+                    >
+                        Fortryd
+                    </button>
+                </div>
+
+                <p
+                    v-if="error"
+                    class="admin__error"
+                    >
+                    {{ error }}
+                </p>
+            </form>
+        </section>
+
+            <section class="admin__panel">
+            <h2 class="admin__subtitle">
+                Aktivitetsoversigt
+            </h2>
+
+            <p v-if="loading">
+                Henter...
             </p>
 
-            <p
-              v-if="activity.location"
-              class="admin__itemText"
-            >
-              {{ activity.location }}
+            <p v-else-if="!sortedActivities.length">
+                Der er ikke oprettet aktiviteter endnu.
             </p>
-          </div>
 
-          <div class="admin__itemActions">
-            <button
-              class="admin__button admin__button--secondary"
-              type="button"
-              @click="editActivity(activity)"
+            <ul
+                v-else
+                class="admin__list"
             >
-              Redigér
-            </button>
+                <li
+                v-for="activity in sortedActivities"
+                :key="activity.id"
+                class="admin__item"
+                >
+                <div class="admin__itemContent">
+                    <h3 class="admin__itemTitle">
+                    {{ activity.title }}
+                    <span v-if="activity.subtitle">
+                        {{ activity.subtitle }}
+                    </span>
+                    </h3>
 
-            <button
-              class="admin__button admin__button--danger"
-              type="button"
-              @click="openDeleteDialog(activity)"
-            >
-              Slet
-            </button>
-          </div>
-        </li>
-      </ul>
+                    <p class="admin__itemText">
+                    {{ activity.dayTitle }} · kl. {{ activity.start }}-{{ activity.end || '—' }}
+                    </p>
+
+                    <p
+                    v-if="activity.location"
+                    class="admin__itemText"
+                    >
+                    {{ activity.location }}
+                    </p>
+                </div>
+
+                <div class="admin__itemActions">
+                    <button
+                    class="admin__button admin__button--secondary"
+                    type="button"
+                    @click="editActivity(activity)"
+                    >
+                    Redigér
+                    </button>
+
+                    <button
+                    class="admin__button admin__button--danger"
+                    type="button"
+                    @click="openDeleteDialog(activity)"
+                    >
+                    Slet
+                    </button>
+                </div>
+            </li>
+        </ul>
     </section>
 
     <Teleport to="body">
@@ -481,6 +435,30 @@ async function deleteActivity() {
   gap: 28px;
   padding: 120px clamp(1.25rem, 6vw, 110px) 80px;
   background-color: c.$color-white;
+}
+
+.admin__logout {
+  position: fixed;
+  top: 42px;
+  right: 42px;
+  z-index: 3000;
+
+  background: transparent;
+  border: none;
+  padding: 0;
+
+  color: c.$color-black;
+  font-weight: 800;
+  text-transform: uppercase;
+  text-decoration: underline;
+
+  cursor: pointer;
+
+  transition: opacity 0.2s ease;
+}
+
+.admin__logout:hover {
+  opacity: 0.7;
 }
 
 .admin__panel {
