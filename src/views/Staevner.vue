@@ -1,6 +1,6 @@
 <script setup>
 import HeroTamplate from '@/components/HeroTamplate.vue';
-import koncerterHero from '../assets/images/hero/hero_koncerter.webp'
+import Staevne_hero from '../assets/images/hero/Staevne_hero.webp'
 
 </script>
 
@@ -8,7 +8,7 @@ import koncerterHero from '../assets/images/hero/hero_koncerter.webp'
     <div class="about-hero">
         <div class="hero">
         <HeroTamplate
-            :image="koncerterHero"
+            :image="Staevne_hero"
             title="KONCERTER I KLUBBEN"
             :gradient="true"
         />
