@@ -18,10 +18,10 @@ import koncerterHero from '../assets/images/hero/hero_koncerter.webp'
     <div class="overflow_box">
         <div class="content">
             <p>
-                Koncerterne i Bolbro GIF er noget, der bliver lavet af klubben selv.
-                Det er frivillige fra klubben, der står for at få det hele til at fungere, og det er en del af det, der også er med til at få penge ind til klubben.
-                Samtidig er det en af de ting, hvor man mødes lidt på tværs og får en anden oplevelse af klubben end bare træning og kampe.
-                Her kan du finde billeder fra koncerterne.
+                Stævnerne i Bolbro GIF er noget, der bliver løftet af klubben selv.
+                Der er mange ting, der skal gå op, og derfor er der også brug for en del frivillige til at få det hele til at fungere – både før, under og efter. Det er med til at skabe nogle gode rammer for dagene, så det hele kører, som det skal.
+                Samtidig er det en af de ting, hvor man er sammen på en anden måde end til træning, og hvor man møder flere fra klubben på tværs.
+                Her kan du se billeder fra nogle af de stævner, vi har været en del af.
             </p>
         </div>
     
@@ -31,9 +31,9 @@ import koncerterHero from '../assets/images/hero/hero_koncerter.webp'
 </template>
 
 <style scoped lang="scss">
-@use '@/assets/_color.scss' as c;
-@use '@/assets/_font.scss' as f;
-@use '@/assets/_button.scss' as btn;
+    @use '@/assets/_color.scss' as c;
+    @use '@/assets/_font.scss' as f;
+    @use '@/assets/_button.scss' as btn;
 
     .about-hero {
         position: sticky;

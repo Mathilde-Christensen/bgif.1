@@ -18,10 +18,10 @@ import koncerterHero from '../assets/images/hero/hero_koncerter.webp'
     <div class="overflow_box">
         <div class="content">
             <p>
-                Koncerterne i Bolbro GIF er noget, der bliver lavet af klubben selv.
-                Det er frivillige fra klubben, der står for at få det hele til at fungere, og det er en del af det, der også er med til at få penge ind til klubben.
-                Samtidig er det en af de ting, hvor man mødes lidt på tværs og får en anden oplevelse af klubben end bare træning og kampe.
-                Her kan du finde billeder fra koncerterne.
+                Loppemarkederne i Bolbro GIF er også noget, der bliver arrangeret af klubben selv.
+                Her er det frivillige fra klubben, der står for det praktiske – alt fra opsætning til afvikling – og det er med til at få det hele til at hænge sammen. Samtidig er det en måde at få samlet penge ind til klubben på.
+                Det er også en af de dage, hvor der sker lidt andet end det sædvanlige, og hvor man møder folk fra klubben på en anden måde end til træning.
+                Her kan du se billeder fra nogle af de loppemarkeder, vi har holdt.
             </p>
         </div>
     
