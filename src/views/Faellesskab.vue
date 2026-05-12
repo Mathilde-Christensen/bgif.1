@@ -9,6 +9,7 @@ import CitatImg from '../assets/images/citat_img.webp'
 import Medlem from '../assets/images/Medlem.webp'
 import ActivitiesOverview from '@/components/ActivitiesOverview.vue'
 import Instagram from '@/components/Instagram.vue'
+import FaellesskabHeader from '@/components/FaellesskabHeader.vue'
 
 const showTrialModal = ref(false)
 
@@ -26,102 +27,104 @@ function sendTrialForm() {
 </script>
 
 <template>
-    <div class="about-hero">
-        <div class="hero">
-        <HeroTamplate
-            :image="Faellesskab"
-            title="SAMMEN SKABER VI KLUBBEN"
-            text="Bolbro GIF er drevet af fællesskab og frivillighed. Her løfter vi i flok – både til træning og til klubbens mange aktiviteter."
-            :gradient="true"
-        />
-        </div>
+  <FaellesskabHeader 
+  />
+  <div class="about-hero">
+      <div class="hero">
+      <HeroTamplate
+          :image="Faellesskab"
+          title="SAMMEN SKABER VI KLUBBEN"
+          text="Bolbro GIF er drevet af fællesskab og frivillighed. Her løfter vi i flok – både til træning og til klubbens mange aktiviteter."
+          :gradient="true"
+      />
+      </div>
+  </div>
+
+  <div class="overflow_box">
+      <div class="tak_content">
+          
+          <div class="UdOverBanen_img_box">
+              <img class="UdOverBanen_img" :src="UdOverBanen" alt="Mennesker i klubben">
+          </div>
+
+          <div class="tak_text">
+              <h2 class="tak_text--title">ET FÆLLESSKAB DER RÆKKER UD OVER BANEN</h2>
+              <p>
+                  I Bolbro GIF handler det om meget mere end selve sporten. Vi støtter hinanden til kampe og skaber et stærkt sammenhold, der rækker ud over banen. Gennem fælles arrangementer som koncerter, loppemarkeder og andre events samler vi ind til klubben og styrker fællesskabet. Til sommer og vinter mødes vi på tværs af hold, lærer hinanden at kende og bliver en del af et fællesskab, hvor alle er velkomne.   
+              </p>
+          </div>
+      </div>
+
+      <ActivitiesOverview />
+
+
+  </div>
+
+  <div class="about-citat">
+      <div class="Citat">
+      <Citat
+          :image="CitatImg"
+          title="“ FOLK ER GODE TIL AT TRÆKKE HINANDEN MED IND I"
+          titlecta="FÆLLESSKABET ”"
+          :gradient="true"
+      />
+      </div>
+  </div>
+
+  <div class="overflow_box">
+      <div class="tak_content">
+          
+          <div class="UdOverBanen_img_box">
+              <img class="UdOverBanen_img" :src="Medlem" alt="Mennesker i klubben">
+          </div>
+
+          <div class="tak_text">
+              <h2 class="tak_text--title">BLIV EN DEL AF BOLBRO GIF</h2>
+              <p>
+                  Her kan du møde nye mennesker og blive en del af en hverdag med aktiviteter, grin og gode oplevelser. Uanset om du er ny, øvet eller bare nysgerrig, er der plads til dig. Kom forbi for at opleve stemningen og mærk, om det er noget for dig
+              </p>
+
+              <button type="button" class="laes_mere_button" @click="openTrialModal">
+                  Book en prøvetræning
+              </button>
+          </div>
+      </div>
+      
+      <Instagram />
+
     </div>
 
-    <div class="overflow_box">
-        <div class="tak_content">
-            
-            <div class="UdOverBanen_img_box">
-                <img class="UdOverBanen_img" :src="UdOverBanen" alt="Mennesker i klubben">
-            </div>
+  <div v-if="showTrialModal" class="trial_modal_backdrop" @click.self="closeTrialModal">
+      <div class="trial_modal">
+          <button class="trial_modal_close" @click="closeTrialModal">X</button>
 
-            <div class="tak_text">
-                <h2 class="tak_text--title">ET FÆLLESSKAB DER RÆKKER UD OVER BANEN</h2>
-                <p>
-                    I Bolbro GIF handler det om meget mere end selve sporten. Vi støtter hinanden til kampe og skaber et stærkt sammenhold, der rækker ud over banen. Gennem fælles arrangementer som koncerter, loppemarkeder og andre events samler vi ind til klubben og styrker fællesskabet. Til sommer og vinter mødes vi på tværs af hold, lærer hinanden at kende og bliver en del af et fællesskab, hvor alle er velkomne.   
-                </p>
-            </div>
-        </div>
+          <input class="trial_input" type="text" placeholder="Navn">
+          <input class="trial_input" type="number" placeholder="Alder">
 
-        <ActivitiesOverview />
+          <select class="trial_input">
+          <option value="">Sport</option>
+          <option>Fodbold</option>
+          <option>Håndbold</option>
+          <option>Badminton</option>
+          <option>Gymnastik</option>
+          </select>
 
+          <select class="trial_input">
+          <option value="">Niveau</option>
+          <option>Begynder</option>
+          <option>Let øvet</option>
+          <option>Øvet</option>
+          </select>
 
-    </div>
+          <input class="trial_input" type="tel" placeholder="Mobilnummer">
 
-    <div class="about-citat">
-        <div class="Citat">
-        <Citat
-            :image="CitatImg"
-            title="“ FOLK ER GODE TIL AT TRÆKKE HINANDEN MED IND I"
-            titlecta="FÆLLESSKABET ”"
-            :gradient="true"
-        />
-        </div>
-    </div>
+          <textarea class="trial_textarea" placeholder="Besked?"></textarea>
 
-    <div class="overflow_box">
-        <div class="tak_content">
-            
-            <div class="UdOverBanen_img_box">
-                <img class="UdOverBanen_img" :src="Medlem" alt="Mennesker i klubben">
-            </div>
-
-            <div class="tak_text">
-                <h2 class="tak_text--title">BLIV EN DEL AF BOLBRO GIF</h2>
-                <p>
-                    Her kan du møde nye mennesker og blive en del af en hverdag med aktiviteter, grin og gode oplevelser. Uanset om du er ny, øvet eller bare nysgerrig, er der plads til dig. Kom forbi for at opleve stemningen og mærk, om det er noget for dig
-                </p>
-
-                <button type="button" class="laes_mere_button" @click="openTrialModal">
-                    Book en prøvetræning
-                </button>
-            </div>
-        </div>
-        
-        <Instagram />
-
-    </div>
-
-    <div v-if="showTrialModal" class="trial_modal_backdrop" @click.self="closeTrialModal">
-        <div class="trial_modal">
-            <button class="trial_modal_close" @click="closeTrialModal">X</button>
-
-            <input class="trial_input" type="text" placeholder="Navn">
-            <input class="trial_input" type="number" placeholder="Alder">
-
-            <select class="trial_input">
-            <option value="">Sport</option>
-            <option>Fodbold</option>
-            <option>Håndbold</option>
-            <option>Badminton</option>
-            <option>Gymnastik</option>
-            </select>
-
-            <select class="trial_input">
-            <option value="">Niveau</option>
-            <option>Begynder</option>
-            <option>Let øvet</option>
-            <option>Øvet</option>
-            </select>
-
-            <input class="trial_input" type="tel" placeholder="Mobilnummer">
-
-            <textarea class="trial_textarea" placeholder="Besked?"></textarea>
-
-            <button class="trial_send" @click="sendTrialForm">
-                Send
-            </button>
-        </div>
-    </div>
+          <button class="trial_send" @click="sendTrialForm">
+              Send
+          </button>
+      </div>
+  </div>
 
 
 </template>

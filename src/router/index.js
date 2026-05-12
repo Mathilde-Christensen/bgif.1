@@ -10,12 +10,18 @@ import Loppemarkeder from '@/views/Loppemarkeder.vue'
 import Hardland from '@/views/Hardland.vue'
 import Staevner from '@/views/Staevner.vue'
 import AdminGallery from '@/views/AdminGallery.vue'
+import Login from '@/views/Login.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
+      name: 'home',
+      component: Frivilligside,
+    },
+    {
+      path: '/frivilligside',
       name: 'frivilligside',
       component: Frivilligside,
     },
@@ -69,6 +75,11 @@ const router = createRouter({
       name: 'admingallery',
       component: AdminGallery,
     },
+    {
+      path: '/login',
+      name: 'login',
+      component: Login,
+    }
   ],
 })
 
