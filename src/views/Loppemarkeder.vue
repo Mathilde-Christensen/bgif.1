@@ -54,4 +54,8 @@ import loppemarkederHero from '../assets/images/hero/Loppemarked_hero.webp'
         padding: 70px 0px 60px;
         z-index: 2;
     }
+
+    .content {
+        padding: 10px clamp(1.5rem, 8vw, 110px);
+    }
 </style>

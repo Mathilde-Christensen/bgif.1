@@ -4,10 +4,10 @@ import { ref } from 'vue'
 const currentIndex = ref(0)
 
 const activities = [
-  { title: 'Koncerter', link: '/' },
-  { title: 'Loppemarked', link: '/' },
-  { title: 'Heartland Festival', link: '/' },
-  { title: 'Stævner', link: '/' }
+  { title: 'Koncerter', link: '/koncerter' },
+  { title: 'Loppemarked', link: '/loppemarkeder' },
+  { title: 'Heartland Festival', link: '/hardland' },
+  { title: 'Stævner', link: '/staevner' }
 ]
 
 function nextSlide() {
