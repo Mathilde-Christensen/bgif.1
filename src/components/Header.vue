@@ -7,13 +7,24 @@ import Chat from '../assets/images/icons/chatikonwhite.webp'
 import Profile from '../assets/images/icons/usericonwhite.webp'
 
 import { ref, computed, onMounted, onUnmounted } from 'vue'
-import { RouterLink, useRoute } from 'vue-router'
+import { RouterLink, useRoute, useRouter } from 'vue-router'
+import { role, logout } from '@/stores/authState'
 
 const isMenuOpen = ref(false)
 const isScrolled = ref(false)
 const hideLogo = ref(false)
 
 const route = useRoute()
+const router = useRouter()
+
+const isLoggedIn = computed(() => {
+  return role.value !== null
+})
+
+function handleLogout() {
+  logout()
+  router.push('/login')
+}
 
 const isAdminPage = computed(() => {
   return route.path === '/admin'
@@ -148,6 +159,17 @@ onUnmounted(() => {
             </RouterLink>
           </li>
         </ul>
+
+        <li class="header_logout_li">
+          <button
+            v-if="isLoggedIn"
+            type="button"
+            class="header_logout"
+            @click="handleLogout"
+          >
+            LOG UD
+          </button>
+        </li>
       </ul>
     </nav>
   </header>
@@ -164,7 +186,6 @@ header {
   width: 100%;
   z-index: 1000;
 }
-
 
 .header_mobil {
   position: relative;
@@ -283,7 +304,6 @@ header {
   object-fit: contain;
 }
 
-
 .header_nav {
   display: none;
 }
@@ -331,15 +351,15 @@ header.header--hide-logo .mobil_logo_img {
     width: 55px;
   }
 
-    .nav_box_li {
+  .nav_box_li {
     width: 55px;
     height: 45px;
     display: flex;
     justify-content: center;
     align-items: center;
-    }
+  }
 
-    .nav_box_li a {
+  .nav_box_li a {
     width: 55px;
     height: 45px;
     display: flex;
@@ -347,23 +367,23 @@ header.header--hide-logo .mobil_logo_img {
     align-items: center;
     justify-content: center;
     transition: opacity 0.2s ease;
-    }
+  }
 
-    .nav_box_li img {
+  .nav_box_li img {
     width: 22px;
     height: 22px;
     object-fit: contain;
     transition: transform 0.2s ease;
     transform-origin: center;
-    }
+  }
 
-    .nav_box_li:hover img {
+  .nav_box_li:hover img {
     transform: scale(1.3);
-    }
+  }
 
-    .nav_box_li:hover a {
+  .nav_box_li:hover a {
     opacity: 0.9;
-    }
+  }
 
   .nav_box_ul {
     list-style: none;
@@ -403,6 +423,24 @@ header.header--hide-logo .mobil_logo_img {
       height: 22px;
       object-fit: contain;
     }
+  }
+
+  .header_logout_li {
+    list-style: none;
+    min-width: 70px;
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 12px;
+  }
+
+  .header_logout {
+    background: transparent;
+    border: none;
+    padding: 0;
+    color: c.$color-white;
+    font-weight: 800;
+    text-decoration: underline;
+    cursor: pointer;
   }
 }
 </style>

@@ -1,12 +1,19 @@
 <script setup>
-import { RouterView } from 'vue-router'
+import { RouterView, useRoute } from 'vue-router'
 import Footer from './components/Footer.vue'
 import Header from './components/Header.vue'
+
+const route = useRoute()
 </script>
 
 <template>
   <div class="app">
-    <Header />
+    <Header
+      v-if="
+        route.path !== '/faellesskab' &&
+        route.path !== '/login'
+      "
+    />
 
     <main class="app__main">
       <RouterView />
