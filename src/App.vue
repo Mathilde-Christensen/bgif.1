@@ -4,16 +4,20 @@ import Footer from './components/Footer.vue'
 import Header from './components/Header.vue'
 
 const route = useRoute()
+
+const hideDefaultHeaderRoutes = [
+  '/faellesskab',
+  '/login',
+  '/hardland',
+  '/loppemarkeder',
+  '/koncerter',
+  '/staevner',
+]
 </script>
 
 <template>
   <div class="app">
-    <Header
-      v-if="
-        route.path !== '/faellesskab' &&
-        route.path !== '/login'
-      "
-    />
+    <Header v-if="!hideDefaultHeaderRoutes.includes(route.path)" />
 
     <main class="app__main">
       <RouterView />

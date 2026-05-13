@@ -18,9 +18,11 @@ import s15 from '@/assets/images/staevne/s15.webp'
 import s16 from '@/assets/images/staevne/s16.webp'
 import s17 from '@/assets/images/staevne/s17.webp'
 import s18 from '@/assets/images/staevne/s18.webp'
+import FaellesskabHeader from '@/components/FaellesskabHeader.vue'
 </script>
 
 <template>
+    <FaellesskabHeader />
     <div class="about-hero">
         <div class="hero">
         <HeroTamplate

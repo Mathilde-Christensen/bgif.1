@@ -14,9 +14,11 @@ import l10 from '@/assets/images/loppemarked/l10.webp'
 import l11 from '@/assets/images/loppemarked/l11.webp'
 import l12 from '@/assets/images/loppemarked/l12.webp'
 import l13 from '@/assets/images/loppemarked/l13.webp'
+import FaellesskabHeader from '@/components/FaellesskabHeader.vue'
 </script>
 
 <template>
+    <FaellesskabHeader />
     <div class="about-hero">
         <div class="hero">
         <HeroTamplate
