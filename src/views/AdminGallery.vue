@@ -1,14 +1,15 @@
 <script setup>
 import { ref, watch } from "vue"
+import { storage, database } from "@/firebase"
+
 import {
-  getStorage,
   ref as storageRef,
   uploadBytes,
   getDownloadURL,
   deleteObject
 } from "firebase/storage"
+
 import {
-  getDatabase,
   ref as dbRef,
   push,
   set,
@@ -31,7 +32,6 @@ function handleFile(event) {
 watch(selectedCategory, () => {
   if (!selectedCategory.value) return
 
-  const database = getDatabase()
   const galleryRef = dbRef(database, `gallery/${selectedCategory.value}`)
 
   onValue(galleryRef, (snapshot) => {
@@ -58,9 +58,6 @@ async function uploadImage() {
   message.value = ""
 
   try {
-    const storage = getStorage()
-    const database = getDatabase()
-
     const fileName = `${Date.now()}-${file.value.name}`
 
     const imageRef = storageRef(
@@ -97,9 +94,6 @@ async function uploadImage() {
 }
 
 async function deleteImage(image) {
-  const storage = getStorage()
-  const database = getDatabase()
-
   try {
     const imageStorageRef = storageRef(
       storage,
@@ -124,24 +118,27 @@ async function moveImage(index, direction) {
 
   if (newIndex < 0 || newIndex >= images.value.length) return
 
-  const database = getDatabase()
-
   const currentImage = images.value[index]
   const otherImage = images.value[newIndex]
 
-  await update(
-    dbRef(database, `gallery/${selectedCategory.value}/${currentImage.id}`),
-    {
-      order: otherImage.order
-    }
-  )
+  try {
+    await update(
+      dbRef(database, `gallery/${selectedCategory.value}/${currentImage.id}`),
+      {
+        order: otherImage.order
+      }
+    )
 
-  await update(
-    dbRef(database, `gallery/${selectedCategory.value}/${otherImage.id}`),
-    {
-      order: currentImage.order
-    }
-  )
+    await update(
+      dbRef(database, `gallery/${selectedCategory.value}/${otherImage.id}`),
+      {
+        order: currentImage.order
+      }
+    )
+  } catch (error) {
+    console.error(error)
+    message.value = "Rækkefølgen kunne ikke ændres"
+  }
 }
 </script>
 
@@ -150,7 +147,11 @@ async function moveImage(index, direction) {
     <h1>Admin galleri</h1>
 
     <form @submit.prevent="uploadImage" class="form">
-      <input v-model="title" type="text" placeholder="Billedtitel" />
+      <input
+        v-model="title"
+        type="text"
+        placeholder="Billedtitel"
+      />
 
       <select v-model="selectedCategory" required>
         <option disabled value="">Vælg kategori</option>
@@ -160,7 +161,11 @@ async function moveImage(index, direction) {
         <option value="staevner">Stævner</option>
       </select>
 
-      <input type="file" accept="image/*" @change="handleFile" />
+      <input
+        type="file"
+        accept="image/*"
+        @change="handleFile"
+      />
 
       <button type="submit" :disabled="isUploading">
         {{ isUploading ? "Uploader..." : "Upload billede" }}
@@ -180,11 +185,59 @@ async function moveImage(index, direction) {
         <p>{{ image.title }}</p>
 
         <div class="buttons">
-          <button @click="moveImage(index, -1)">Op</button>
-          <button @click="moveImage(index, 1)">Ned</button>
-          <button @click="deleteImage(image)">Slet</button>
+          <button type="button" @click="moveImage(index, -1)">
+            Op
+          </button>
+
+          <button type="button" @click="moveImage(index, 1)">
+            Ned
+          </button>
+
+          <button type="button" @click="deleteImage(image)">
+            Slet
+          </button>
         </div>
       </div>
     </div>
   </section>
 </template>
+
+<style scoped lang="scss">
+.admin {
+  padding: 40px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 500px;
+}
+
+input,
+select,
+button {
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+}
+
+.admin_gallery {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-top: 40px;
+}
+
+.admin_image_card img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 20px;
+}
+
+.buttons {
+  display: flex;
+  gap: 8px;
+}
+</style>
