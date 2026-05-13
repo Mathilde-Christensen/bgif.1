@@ -128,21 +128,23 @@ function goToLogin() {
   font-weight: 800;
   text-transform: uppercase;
   cursor: pointer;
+
+  transition: color 0.2s ease;
 }
 
-.community-header__login span {
-  transition: color 0.2s ease, transform 0.2s ease;
-}
-
-.community-header__login:hover span {
-  color: c.$color-lblue;
-  transform: translateY(-2px);
+.community-header__login:hover {
+  color: c.$cta;
 }
 
 .community-header__loginIcon {
   width: 22px;
   height: 22px;
   object-fit: contain;
+  transition: filter 0.2s ease;
+}
+
+.community-header__login:hover .community-header__loginIcon {
+  filter: brightness(0) saturate(100%) invert(87%) sepia(42%) saturate(538%) hue-rotate(24deg) brightness(95%) contrast(87%);
 }
 
 @media (min-width: 900px) {
