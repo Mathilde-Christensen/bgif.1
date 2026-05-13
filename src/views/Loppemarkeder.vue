@@ -1,6 +1,8 @@
 <script setup>
 import HeroTamplate from '@/components/HeroTamplate.vue';
 import loppemarkederHero from '../assets/images/hero/Loppemarked_hero.webp'
+import GalleryGrid from '@/components/GalleryGrid.vue'
+
 
 </script>
 
