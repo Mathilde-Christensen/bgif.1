@@ -9,7 +9,6 @@ import Koncerter from '@/views/Koncerter.vue'
 import Loppemarkeder from '@/views/Loppemarkeder.vue'
 import Hardland from '@/views/Hardland.vue'
 import Staevner from '@/views/Staevner.vue'
-import AdminGallery from '@/views/AdminGallery.vue'
 import Login from '@/views/Login.vue'
 
 const router = createRouter({
@@ -69,11 +68,6 @@ const router = createRouter({
       path: '/staevner',
       name: 'staevner',
       component: Staevner,
-    },
-    {
-      path: '/admingallery',
-      name: 'admingallery',
-      component: AdminGallery,
     },
     {
       path: '/login',

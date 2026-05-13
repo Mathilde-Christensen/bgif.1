@@ -1,9 +1,19 @@
 <script setup>
-import HeroTamplate from '@/components/HeroTamplate.vue';
-import loppemarkederHero from '../assets/images/hero/Loppemarked_hero.webp'
-import GalleryGrid from '@/components/GalleryGrid.vue'
+import HeroTamplate from '@/components/HeroTamplate.vue'
+import loppemarkederHero from '@/assets/images/hero/Loppemarked_hero.webp'
 
-
+import l1 from '@/assets/images/loppemarked/l1.webp'
+import l2 from '@/assets/images/loppemarked/l2.webp'
+import l3 from '@/assets/images/loppemarked/l3.webp'
+import l4 from '@/assets/images/loppemarked/l4.webp'
+import l5 from '@/assets/images/loppemarked/l5.webp'
+import l6 from '@/assets/images/loppemarked/l6.webp'
+import l7 from '@/assets/images/loppemarked/l7.webp'
+import l9 from '@/assets/images/loppemarked/l9.webp'
+import l10 from '@/assets/images/loppemarked/l10.webp'
+import l11 from '@/assets/images/loppemarked/l11.webp'
+import l12 from '@/assets/images/loppemarked/l12.webp'
+import l13 from '@/assets/images/loppemarked/l13.webp'
 </script>
 
 <template>
@@ -11,7 +21,7 @@ import GalleryGrid from '@/components/GalleryGrid.vue'
         <div class="hero">
         <HeroTamplate
             :image="loppemarkederHero"
-            title="KONCERTER I KLUBBEN"
+            title="LOPPEMARKEDER I KLUBBEN"
             :gradient="true"
         />
         </div>
@@ -26,6 +36,21 @@ import GalleryGrid from '@/components/GalleryGrid.vue'
                 Her kan du se billeder fra nogle af de loppemarkeder, vi har holdt.
             </p>
         </div>
+
+        <section class="gallery">
+            <img :src="l1" alt="Loppemarked i klubben">
+            <img :src="l2" alt="Loppemarked i klubben">
+            <img :src="l3" alt="Loppemarked i klubben">
+            <img :src="l4" alt="Loppemarked i klubben">
+            <img :src="l5" alt="Loppemarked i klubben">
+            <img :src="l6" alt="Loppemarked i klubben">
+            <img :src="l7" alt="Loppemarked i klubben">
+            <img :src="l9" alt="Loppemarked i klubben">
+            <img :src="l10" alt="Loppemarked i klubben">
+            <img :src="l11" alt="Loppemarked i klubben">
+            <img :src="l12" alt="Loppemarked i klubben">
+            <img :src="l13" alt="Loppemarked i klubben">
+        </section>
     
 
     </div>
@@ -59,5 +84,19 @@ import GalleryGrid from '@/components/GalleryGrid.vue'
 
     .content {
         padding: 10px clamp(1.5rem, 8vw, 110px);
+    }
+
+    .gallery {
+    padding: 10px clamp(1.5rem, 8vw, 110px);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    }
+
+    .gallery img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 28px;
     }
 </style>
