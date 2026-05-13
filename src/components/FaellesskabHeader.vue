@@ -1,18 +1,10 @@
 <script setup>
-import { computed } from 'vue'
 import { useRouter } from 'vue-router'
-import { role } from '@/stores/authState'
 
 import bolbroLogo from '@/assets/images/icons/bolbrologo.webp'
 import userIcon from '@/assets/images/icons/usericonblack.webp'
 
 const router = useRouter()
-
-const loginText = computed(() => {
-  if (role.value === 'admin') return 'Administrator'
-  if (role.value === 'user') return 'Min side'
-  return 'Log ind'
-})
 
 function goToLogin() {
   router.push('/login')
@@ -58,7 +50,7 @@ function goToLogin() {
           :src="userIcon"
           alt=""
         >
-        <span>{{ loginText }}</span>
+        <span>Log ind</span>
       </button>
     </div>
   </header>
