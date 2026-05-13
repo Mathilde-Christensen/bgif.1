@@ -27,7 +27,7 @@ import FaellesskabHeader from '@/components/FaellesskabHeader.vue'
         <div class="hero">
         <HeroTamplate
             :image="Staevne_hero"
-            title="KONCERTER I KLUBBEN"
+            title="STÆVNER"
             :gradient="true"
         />
         </div>
