@@ -21,7 +21,7 @@ import k13 from '@/assets/images/koncerter/k13.webp'
     <div class="hero">
       <HeroTamplate
         :image="koncerterHero"
-        title="KONCERTER I KLUBBEN"
+        title="HEARTLAND FESTIVAL"
         :gradient="true"
       />
     </div>
@@ -30,12 +30,10 @@ import k13 from '@/assets/images/koncerter/k13.webp'
   <div class="overflow_box">
     <div class="content">
       <p>
-        Koncerterne i Bolbro GIF er noget, der bliver lavet af klubben selv.
-        Det er frivillige fra klubben, der står for at få det hele til at fungere,
-        og det er en del af det, der også er med til at få penge ind til klubben.
-        Samtidig er det en af de ting, hvor man mødes lidt på tværs og får en anden
-        oplevelse af klubben end bare træning og kampe.
-        Her kan du finde billeder fra koncerterne.
+            Bolbro GIF er en del af Heartland Festival.
+            Her er det frivillige fra klubben, der tager afsted og hjælper til med forskellige opgaver under festivalen. Det er nogle lidt anderledes dage, hvor man er sammen på en anden måde end i klubben, og hvor man oplever noget helt andet end den normale hverdag.
+            Det er også en af de ting, hvor man lærer hinanden bedre at kende på tværs, fordi man arbejder sammen over flere dage.
+            Her kan du se billeder fra, når vi har været afsted.
       </p>
     </div>
 

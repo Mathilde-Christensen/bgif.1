@@ -25,7 +25,7 @@ import s18 from '@/assets/images/staevne/s18.webp'
         <div class="hero">
         <HeroTamplate
             :image="Staevne_hero"
-            title="KONCERTER I KLUBBEN"
+            title="STÆVNER"
             :gradient="true"
         />
         </div>
