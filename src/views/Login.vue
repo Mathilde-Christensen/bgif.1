@@ -8,7 +8,7 @@ const router = useRouter()
 
 function handleUserLogin() {
   loginAsUser()
-  router.push('/')
+  router.push('home')
 }
 
 function handleAdminLogin() {
