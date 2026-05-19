@@ -101,7 +101,7 @@ import ProfileHero from "@/assets/images/hero/profilehero.webp";
   grid-area: title;
 
   margin: 0;
-  color: c.$cta;
+  color: c.$color-green;
   font-family: f.$font-anton;
   font-size: clamp(2.8rem, 9vw, 4rem);
   text-transform: uppercase;

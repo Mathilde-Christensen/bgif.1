@@ -203,7 +203,7 @@ function sendTrialForm() {
 }
 
 .trial_modal_close:hover {
-  color: c.$cta;
+  color: c.$color-green;
 }
 
 .trial_modal_backdrop {
@@ -249,7 +249,7 @@ function sendTrialForm() {
 .trial_input:focus,
 .trial_textarea:focus {
   outline: none;
-  border: 4px solid c.$cta;
+  border: 4px solid c.$color-green;
 }
 
 .trial_textarea {

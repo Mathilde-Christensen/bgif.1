@@ -142,7 +142,7 @@ const instaUrl = 'https://www.instagram.com/bolbrohandball/';
 }
 
 .about-follow__handle-link:hover {
-  color: c.$cta;
+  color: c.$color-green;
 }
 
 .about-follow__btn {

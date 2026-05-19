@@ -114,7 +114,7 @@ function prevSlide() {
 }
 
 .activities_overview_box:hover {
-  background-color: c.$cta;
+  background-color: c.$color-green;
 }
 
 .activities_overview_box a {
@@ -152,7 +152,7 @@ function prevSlide() {
 
 .dot.active {
   opacity: 1;
-  background: c.$cta;
+  background: c.$color-green;
 }
 
 @media (min-width: 768px) {

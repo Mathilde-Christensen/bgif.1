@@ -102,13 +102,13 @@ const props = defineProps({
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: c.$cta;
+  color: c.$color-green;
   text-align: center;
   padding: 0 3rem;
 }
 
 .hero-tamplate__title {
-  color: c.$cta;
+  color: c.$color-green;
   text-transform: uppercase;
 }
 

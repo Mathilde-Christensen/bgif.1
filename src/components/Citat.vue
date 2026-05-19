@@ -48,7 +48,7 @@ const props = defineProps({
 }
 
 .content_h2_cta {
-    color: c.$cta;
+    color: c.$color-green;
 }
 
 .content_p {
@@ -101,7 +101,7 @@ const props = defineProps({
   justify-content: center;
   align-items: center;
   text-align: center;
-  color: c.$cta;
+  color: c.$color-green;
   padding: 0 3rem;
   z-index: 2;
 }

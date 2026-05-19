@@ -119,7 +119,7 @@ const faqs = [
 }
 
 .faq_item:hover .faq_icon {
-  color: c.$cta;
+  color: c.$color-green;
   transform: scale(1.15);
 }
 

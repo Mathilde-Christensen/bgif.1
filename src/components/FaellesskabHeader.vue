@@ -123,7 +123,7 @@ function closeMenu() {
 
 .community-header__top {
   display: none;
-  background-color: c.$cta;
+  background-color: c.$color-green;
   padding: 10px clamp(1.5rem, 5vw, 70px);
 }
 
@@ -224,7 +224,7 @@ function closeMenu() {
 }
 
 .community-header__login:hover {
-  color: c.$cta;
+  color: c.$color-green;
 }
 
 .community-header__loginIcon {
@@ -308,4 +308,4 @@ function closeMenu() {
     font-size: 1rem;
   }
 }
-</style>
+</style>S
