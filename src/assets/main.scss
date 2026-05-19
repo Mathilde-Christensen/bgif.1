@@ -54,6 +54,10 @@ body {
     line-height: 200%; 
   }
 
+  *:focus-visible {
+      outline: 3px solid #FF4800;
+      outline-offset: 2px;
+  }
 
   @media (min-width: 600px) {
 
