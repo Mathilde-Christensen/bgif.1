@@ -426,7 +426,7 @@ button:disabled {
 
 .modal__textarea:focus {
   outline: none;
-  border-color: c.$cta;
+  border-color: c.$color-green;
 }
 
 .modal__actions {
@@ -454,9 +454,9 @@ button:disabled {
 }
 
 .btn--outline:hover {
-  color: c.$cta;
+  color: c.$color-green;
 
-  border-color: c.$cta;
+  border-color: c.$color-green;
 
   background-color: transparent;
 }
