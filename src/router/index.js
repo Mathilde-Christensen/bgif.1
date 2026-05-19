@@ -20,11 +20,6 @@ const router = createRouter({
       component: Frivilligside,
     },
     {
-      path: '/frivilligside',
-      name: 'frivilligside',
-      component: Frivilligside,
-    },
-    {
       path: '/calendar',
       name: 'calendar',
       component: Calendar,

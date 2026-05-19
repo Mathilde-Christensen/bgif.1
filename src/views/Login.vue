@@ -8,7 +8,7 @@ const router = useRouter()
 
 function handleUserLogin() {
   loginAsUser()
-  router.push('/frivilligside')
+  router.push('/')
 }
 
 function handleAdminLogin() {

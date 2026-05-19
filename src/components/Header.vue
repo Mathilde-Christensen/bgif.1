@@ -58,7 +58,7 @@ const handleScroll = () => {
   }
 
   isScrolled.value = window.scrollY > getScrollLimit()
-  hideLogo.value = false
+  hideLogo.value = window.scrollY > getScrollLimit()
 }
 
 onMounted(() => {
