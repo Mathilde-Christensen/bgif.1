@@ -13,10 +13,12 @@ import k10 from '@/assets/images/koncerter/k10.webp'
 import k11 from '@/assets/images/koncerter/k11.webp'
 import k12 from '@/assets/images/koncerter/k12.webp'
 import k13 from '@/assets/images/koncerter/k13.webp'
+import FaellesskabHeader from '@/components/FaellesskabHeader.vue'
 
 </script>
 
 <template>
+  <FaellesskabHeader />
   <div class="about-hero">
     <div class="hero">
       <HeroTamplate
