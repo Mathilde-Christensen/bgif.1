@@ -1,5 +1,5 @@
 <script setup>
-const props = defineProps({
+defineProps({
   title: {
     type: String,
     default: "",
@@ -10,7 +10,11 @@ const props = defineProps({
   },
   image: {
     type: String,
-    required: true,
+    default: "",
+  },
+  video: {
+    type: String,
+    default: "",
   },
   gradient: {
     type: Boolean,
@@ -33,8 +37,19 @@ const props = defineProps({
     :class="{ 'hero-tamplate--gradient': gradient }"
     :style="{ height: height }"
   >
+    <video
+      v-if="video"
+      class="hero-tamplate__media"
+      :src="video"
+      autoplay
+      muted
+      loop
+      playsinline
+    ></video>
+
     <img
-      class="hero-tamplate__image"
+      v-else-if="image"
+      class="hero-tamplate__media"
       :src="image"
       :style="{ objectPosition: imagePosition }"
       alt=""
@@ -84,7 +99,7 @@ const props = defineProps({
   );
 }
 
-.hero-tamplate__image {
+.hero-tamplate__media {
   position: absolute;
   inset: 0;
   width: 100%;

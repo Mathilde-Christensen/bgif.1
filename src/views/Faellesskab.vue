@@ -2,8 +2,8 @@
 import { ref } from 'vue'
 
 import HeroTamplate from '@/components/HeroTamplate.vue'
-import Faellesskab from '../assets/images/hero/faellesskab-hero.webp'
-import UdOverBanen from '../assets/images/UdOverBanen.webp'
+import Faellesskab from '../assets/videos/faellesskab-hero.mp4'
+import UdOverBanen from '../assets/images/faellesskab/community.webp'
 import Citat from '@/components/Citat.vue'
 import CitatImg from '../assets/images/citat_img.webp'
 import Medlem from '../assets/images/Medlem.webp'
@@ -31,11 +31,9 @@ function sendTrialForm() {
   />
   <div class="about-hero">
       <div class="hero">
-      <HeroTamplate
-          :image="Faellesskab"
-          title="SAMMEN SKABER VI KLUBBEN"
-          text="Bolbro GIF er drevet af fællesskab og frivillighed. Her løfter vi i flok – både til træning og til klubbens mange aktiviteter."
-          :gradient="true"
+        <HeroTamplate
+        :video="Faellesskab"
+        :gradient="true"
       />
       </div>
   </div>
@@ -166,20 +164,20 @@ function sendTrialForm() {
 
 
 .UdOverBanen_img {
-    width: 100%;
-    border-radius: 40px;
+  width: 100%;
+  border-radius: 40px;
 }
 
 .tak_content {
-    padding: 10px clamp(1.5rem, 8vw, 110px);
+  padding: 10px clamp(1.5rem, 8vw, 110px);
 }
 
 .tak_text--bold {
-    padding: 10px 0px 40px 0px;
+  padding: 10px 0px 40px 0px;
 }
 
 .tak_text--title {
-    padding: 0px 0px 20px 0px;
+  padding: 0px 0px 20px 0px;
 }
 
 .laes_mere_button {
@@ -285,25 +283,34 @@ select.trial_input {
 }
 
 @media (min-width: 1200px) {
-    .overflow_box {
+  .overflow_box {
     border-radius: 80px;
   }
 
-      .tak_content {
-        display: flex;
-    }
+  .tak_content {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+  }
 
-    .tak_video_box {
-        width: 35%;
-    }
+  .UdOverBanen_img_box {
+    width: 50%;
+  }
 
-    .tak_text {
-        width: 65%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        padding-left: 60px;
-    }
+  .tak_text {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 0;
+  }
+
+  .UdOverBanen_img {
+    width: 100%;
+    height: clamp(420px, 38vw, 650px);
+    object-fit: cover;
+    border-radius: 40px;
+  }
 }
 
 </style>
