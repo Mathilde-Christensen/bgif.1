@@ -1,7 +1,7 @@
 <script setup>
 import HeroTamplate from "@/components/HeroTamplate.vue";
 import Activities from "@/components/Activities.vue";
-import CalendarHero from "@/assets/images/hero/profilehero.webp";
+import CalendarHero from "@/assets/images/hero/feather.webp";
 </script>
 
 <template>
