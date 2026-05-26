@@ -189,6 +189,74 @@ async function submitActivity() {
     loading.value = false
   }
 }
+
+function editActivity(activity) {
+  editing.value = activity
+
+  form.value = {
+    title: activity.title || '',
+    subtitle: activity.subtitle || '',
+    date: activity.date || '',
+    start: activity.start || '',
+    end: activity.end || '',
+    location: activity.location || '',
+    task: activity.task || '',
+    description: activity.description || '',
+  }
+
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth',
+  })
+}
+
+function openDeleteDialog(activity) {
+  deleteTarget.value = activity
+  showConfirm.value = true
+}
+
+function closeDeleteDialog() {
+  deleteTarget.value = null
+  showConfirm.value = false
+}
+
+async function deleteActivity() {
+  if (!deleteTarget.value) return
+
+  loading.value = true
+  error.value = ''
+
+  try {
+    const activityId = deleteTarget.value.id
+
+    const res = await fetch(`${BASE}/activities/${activityId}.json`, {
+      method: 'DELETE',
+    })
+
+    if (!res.ok) {
+      throw new Error(`DELETE ${res.status} ${res.statusText}`)
+    }
+
+    await fetch(`${BASE}/booking/${activityId}.json`, {
+      method: 'DELETE',
+    })
+
+    activities.value = activities.value.filter((activity) => {
+      return activity.id !== activityId
+    })
+
+    closeDeleteDialog()
+
+    if (editing.value?.id === activityId) {
+      resetForm()
+    }
+  } catch (err) {
+    console.error('[Admin][DELETE activity] failed:', err)
+    error.value = 'Kunne ikke slette aktiviteten.'
+  } finally {
+    loading.value = false
+  }
+}
 </script>
 
 <template>
@@ -524,37 +592,44 @@ async function submitActivity() {
 }
 
 .admin__button {
-  border: none;
-  cursor: pointer;
-  font-family: f.$font-anton;
-  text-transform: uppercase;
+  @include btn.smallButton;
 }
 
 .admin__button--primary {
-  @include btn.bigButton;
+  background-color: c.$color-lblue;
+  color: c.$color-white;
 }
 
-.admin__button--secondary,
-.admin__button--danger {
-  @include btn.button(btn.$button-small);
+.admin__button--primary:hover {
+  background-color: c.$color-green;
 }
 
 .admin__button--secondary {
-  background-color: c.$color-white;
-  color: c.$color-blue;
-  border: 2px solid c.$color-blue;
+  background-color: transparent;
+  color: c.$color-lblue;
+  border: 3px solid c.$color-lblue;
+}
+
+.admin__button--secondary:hover {
+  background-color: transparent;
+  color: c.$color-green;
+  border-color: c.$color-green;
 }
 
 .admin__button--danger {
-  background-color: c.$color-blue;
+  background-color: c.$color-lblue;
   color: c.$color-white;
+}
+
+.admin__button--danger:hover {
+  background-color: c.$color-green;
 }
 
 .admin__button:disabled {
   opacity: 0.6;
   cursor: default;
+  transform: none;
 }
-
 .admin__error {
   margin: 0;
   color: c.$color-blue;
