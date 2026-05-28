@@ -1,10 +1,10 @@
 <!-- Mathilde -->
 
 <script setup>
-import Insta1 from '../assets/images/instagram/insta1.png'
-import Insta2 from '../assets/images/instagram/insta2.png'
-import Insta3 from '../assets/images/instagram/insta3.png'
-import Insta4 from '../assets/images/instagram/insta4.png'
+import Insta1 from '../assets/images/instagram/insta1.webp'
+import Insta2 from '../assets/images/instagram/insta2.webp'
+import Insta3 from '../assets/images/instagram/insta3.webp'
+import Insta4 from '../assets/images/instagram/insta4.webp'
 
 const instaUrl = 'https://www.instagram.com/bolbrohandball/';
 </script>

@@ -35,6 +35,8 @@ function sendTrialForm() {
       <div class="hero">
         <HeroTamplate
         :video="Faellesskab"
+        title="SAMMEN SKABER VI KLUBBEN"
+        text="Bolbro GIF er drevet af fællesskab og frivillighed. Her løfter vi i flok – både til træning og til klubbens mange aktiviteter."
         :gradient="true"
       />
       </div>
@@ -165,22 +167,30 @@ function sendTrialForm() {
 }
 
 
+.UdOverBanen {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
 .UdOverBanen_img {
   width: 100%;
+  height: clamp(300px, 45vw, 650px);
+  object-fit: cover;
   border-radius: 40px;
 }
 
 .tak_content {
-  padding: 10px clamp(1.5rem, 8vw, 110px);
+    padding: 10px clamp(1.5rem, 8vw, 110px);
 }
 
 .tak_text--bold {
-  padding: 10px 0px 40px 0px;
+    padding: 10px 0px 40px 0px;
 }
 
 .tak_text--title {
-  padding: 0px 0px 20px 0px;
-}
+    padding: 0px 0px 20px 0px;
+  }
 
 .laes_mere_button {
   @include btn.bigButton;
