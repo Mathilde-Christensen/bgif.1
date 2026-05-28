@@ -1,3 +1,5 @@
+<!-- Kirja & Mathilde -->
+
 <script setup>
 import { RouterView, useRoute } from 'vue-router'
 import Footer from './components/Footer.vue'

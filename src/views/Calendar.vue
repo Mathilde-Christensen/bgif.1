@@ -1,3 +1,5 @@
+<!-- Kirja -->
+
 <script setup>
 import HeroTamplate from "@/components/HeroTamplate.vue";
 import Activities from "@/components/Activities.vue";

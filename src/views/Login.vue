@@ -1,3 +1,5 @@
+<!-- Kirja -->
+
 <script setup>
 import { useRouter } from 'vue-router'
 import { loginAsUser, loginAsAdmin } from '@/stores/authState'

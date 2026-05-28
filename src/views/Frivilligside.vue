@@ -1,3 +1,5 @@
+<!-- Kirja & Mathilde -->
+
 <script setup>
 import frivilligHero from '../assets/images/hero/homehero.webp'
 import HeroTamplate from '../components/HeroTamplate.vue'
